@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
+@layer components {
+
+    .box-content {
+        display: flex;
+        padding: 20px;
+        flex-direction: column;
+        box-shadow: theme('shadow-md');
+        border-radius: theme('borderRadius.md');
+        box-shadow: theme('boxShadow.md');
+        border: 1px solid theme('colors.border');
+    }
+
+
+
+}::-webkit-scrollbar {
     background-color: transparent;
     height: 10px;
     width: 5px;

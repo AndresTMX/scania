@@ -1,14 +1,17 @@
-import { useId } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
-import { Checkbox, CheckboxGroup, Input, Select, SelectItem, Textarea, Button, Tooltip } from "@nextui-org/react";
+import { Checkbox, Input, Select, SelectItem, Textarea, Tooltip } from "@nextui-org/react";
 
 function ItemQuestionsDinamic({ item, index, state, updateState }) {
 
     const typeItem = (item) => {
         const typeArray = Array.isArray(item?.options);
 
-        if (!typeArray) {
+        if (!typeArray && item.question != 'observaciones') {
             return 'input'
+        }
+
+        if (!typeArray && item.question === 'observaciones') {
+            return 'textarea'
         }
 
         if (typeArray && item.options.length >= 3) {
@@ -17,10 +20,6 @@ function ItemQuestionsDinamic({ item, index, state, updateState }) {
 
         if (typeArray && item.options.length === 2) {
             return 'checkbox'
-        }
-
-        if (!typeArray && !item.options) {
-            return 'textarea'
         }
 
         return 'empty'
@@ -51,7 +50,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState }) {
 
     return (
         <div className="flex flex-col gap-1"
-        id={`id_${question.trim()}`}
+            id={`id_${question.trim()}`}
 
         >
 
@@ -61,7 +60,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState }) {
                 key={options[0]}
                 onValueChange={() => OnChangeDinamic(options[0], 'value', indexQuestion, state, updateState)}
                 color="primary"
-                value={value === options[0]? true:false}
+                value={value === options[0] ? true : false}
             >
                 {options[0]}
             </Checkbox>
@@ -71,7 +70,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState }) {
                 key={options[1]}
                 onValueChange={() => OnChangeDinamic(options[1], 'value', indexQuestion, state, updateState)}
                 color="primary"
-                value={value === options[1]? true:false}
+                value={value === options[1] ? true : false}
             >
                 {options[1]}
             </Checkbox>
@@ -79,7 +78,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState }) {
             <div className="flex flex-row items-center justify-end p-1">
                 <label label htmlFor={`image_${question}`}>
                     <input id={`image_${question}`} className="hidden" type='file' accept='image/*' name={`image_${question}`} />
-                    <Tooltip content="agrega imagenes" className="bg-danger text-white">
+                    <Tooltip content="agrega imagenes" className="text-white bg-danger">
                         <span className="text-lg cursor-pointer text-danger active:opacity-50">
                             <TbPhotoPlus />
                         </span>
@@ -98,7 +97,7 @@ function DinamicInput({ item, index: indexQuestion, state, updateState }) {
     return (
         <Input
             required
-            className="shadow-md rounded-md"
+            className="rounded-md shadow-md"
             id={`id_${question.trim()}`}
             name={question}
             label={question}
@@ -115,10 +114,11 @@ function DinamicSelect({ item }) {
     return (
 
         <Select
+            id={`id_${question.trim()}`}
             className="max-w-md"
             name={question}
             label={question}
-            required
+            onChange={(e) => OnChangeDinamic(e.target.value, 'value', indexQuestion, state, updateState)}
         >
             {options.map((element, index) => (
                 <SelectItem
@@ -132,14 +132,17 @@ function DinamicSelect({ item }) {
     )
 }
 
-function DinamicTextArea({ item }) {
+function DinamicTextArea({ item, index: indexQuestion, state, updateState }) {
 
     const { value, question } = item;
 
     return (
         <>
             <Textarea
-                // className="shadow-md rounded-md max-w-xs"
+                id={`id_${question.trim()}`}
+                onChange={(e) => OnChangeDinamic(e.target.value, 'value', indexQuestion, state, updateState)}
+                className="max-w-xs rounded-md shadow-md"
+                value={value}
                 label={question}
                 placeholder={'Escribe tus comentarios'}
             />
@@ -171,8 +174,8 @@ export const OnCheckDinamic = (newValue, key, key2, index, state, updateState) =
 
         copyState[index] = {
             ...copyState[index],
-            [key]: newValue ,
-            [key2]: newValue 
+            [key]: newValue,
+            [key2]: newValue
         };
 
         updateState(copyState)

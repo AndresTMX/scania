@@ -4,16 +4,18 @@ export const plantillaChecklist = {
         {
             question: 'Chasis',
             value: '',
-            correct: '',
+            correct: 'si',
             preview: '',
             image: '',
+            required: true,
         },
         {
             question: 'Modelo',
             value: '',
-            correct: '',
+            correct: 'si',
             preview: '',
             image: '',
+            required: true,
         },
         {
             question: 'Tipo de vehiculo',
@@ -22,6 +24,7 @@ export const plantillaChecklist = {
             options: ['tipo 1', 'tipo 2', 'tipo 3'],
             preview: '',
             image: '',
+            required: true,
         },
         {
             question: 'OT',
@@ -29,6 +32,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true,
         },
         {
             question: 'Origen',
@@ -36,6 +40,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true,
         },
         {
             question: 'Destino',
@@ -43,6 +48,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true,
         },
     ],
     revisionGeneral: [
@@ -52,7 +58,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Daños en la carrocería y en el funcionamiento de la unidad',
@@ -60,7 +67,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Detalles fisicos',
@@ -68,7 +76,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
     ],
     juegosLlaves: [
@@ -78,7 +87,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -87,7 +97,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -96,7 +107,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -105,11 +117,12 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -122,7 +135,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -131,7 +145,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -140,7 +155,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -149,7 +165,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -158,7 +175,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -167,7 +185,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -176,7 +195,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -185,7 +205,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -194,7 +215,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -203,7 +225,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -212,7 +235,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -221,7 +245,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -230,7 +255,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -239,7 +265,8 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
 
@@ -251,6 +278,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true
         },
         {
             question: 'Combustible',
@@ -258,6 +286,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true
         },
         {
             question: 'Motor',
@@ -265,6 +294,7 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true
         },
         {
             question: 'Anticongelante',
@@ -272,9 +302,10 @@ export const plantillaChecklist = {
             correct: '',
             preview: '',
             image: '',
+            required: true
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -287,7 +318,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -296,7 +328,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -305,7 +338,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -314,7 +348,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -323,7 +358,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -332,7 +368,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -341,7 +378,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
     ],
@@ -352,7 +390,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -361,7 +400,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -370,7 +410,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -379,7 +420,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -388,7 +430,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -397,7 +440,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -406,7 +450,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -415,7 +460,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -424,7 +470,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -433,7 +480,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -442,7 +490,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
@@ -451,11 +500,12 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
 
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -469,7 +519,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -478,7 +529,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -487,7 +539,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -496,7 +549,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -505,7 +559,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -514,7 +569,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -523,7 +579,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -532,11 +589,12 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -549,7 +607,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -558,7 +617,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -567,7 +627,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -576,7 +637,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -585,7 +647,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -594,7 +657,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -603,7 +667,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -612,7 +677,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -621,7 +687,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -630,7 +697,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -639,7 +707,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -648,7 +717,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -657,7 +727,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -666,7 +737,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -675,7 +747,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -684,7 +757,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -693,7 +767,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -702,7 +777,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -711,7 +787,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -720,7 +797,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -729,7 +807,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -738,11 +817,12 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -755,7 +835,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Botiquín',
@@ -763,7 +844,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Lámpara',
@@ -771,7 +853,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Chaleco de seguridad',
@@ -779,7 +862,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: '2 Mangueras de aire',
@@ -787,7 +871,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Llave española',
@@ -795,7 +880,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: '2 Cables de 7 hilos',
@@ -803,7 +889,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Cubierta de cofre',
@@ -811,7 +898,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Reflejante',
@@ -819,7 +907,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Charola',
@@ -827,7 +916,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Gato hidráulico',
@@ -835,7 +925,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
             question: 'Triángulos de seguridad',
@@ -843,10 +934,11 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
@@ -859,7 +951,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Comprobar actualizaciones',
@@ -867,7 +960,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Revisar la información de mantenimiento planificado, modificar parametros en caso de requerirlo',
@@ -875,7 +969,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Eliminar códigos de avería',
@@ -883,7 +978,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Enviar datos de funcionamiento',
@@ -891,7 +987,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
         {
             question: 'Guardar atchivos SOPS',
@@ -899,7 +996,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true,
         },
     ],
     revisionBaterias: [
@@ -909,7 +1007,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -918,7 +1017,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -927,7 +1027,8 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
@@ -936,17 +1037,26 @@ export const plantillaChecklist = {
             correct: 'si',
             preview: '',
             image: '',
-            options: ['si', 'no']
+            options: ['si', 'no'],
+            required: true
 
         },
         {
-            question: 'Observaciones',
+            question: 'observaciones',
             value: '',
             preview: '',
             image: '',
         },
     ],
-    entrega: '',
-    recibe: '',
-    Observaciones: ''
+    finales: [
+        {
+            question: 'Entrega',
+            value: '',
+            required: true,
+        },
+        {
+            question: 'observaciones',
+            value: '',
+        }
+    ]
 };

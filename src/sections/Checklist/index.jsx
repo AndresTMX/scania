@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { plantillaChecklist } from "../../helpers/checklist";
 import { ItemQuestionsDinamic } from "../../components/ItemQuestionDinamic";
 import { Button } from "@nextui-org/react";
@@ -12,7 +12,6 @@ function Checklist() {
     const [step, setStep] = useState(1)
 
     const [revisionGeneral, setRevisionGeneral] = useState(plantillaChecklist.revisionGeneral)
-    console.log("🚀 ~ Checklist ~ revisionGeneral:", revisionGeneral)
 
     const [juegoLlaves, setJuegoLlaves] = useState(plantillaChecklist.juegosLlaves)
 
@@ -34,33 +33,54 @@ function Checklist() {
 
     const [revisionBaterias, setRevisionBaterias] = useState(plantillaChecklist.revisionBaterias)
 
+    const [finales, setFinales] = useState(plantillaChecklist.finales)
+
     const updateRevision = (e, state, callback) => {
+
         e.preventDefault()
 
-        const empytValues = state.filter((question) => question.value === '');
+        const empytValues = state.filter((question) => question.value === '' && question.required === true);
         console.log("🚀 ~ updateRevision ~ empytValues:", empytValues)
 
         if (empytValues.length > 0) {
             toast.error('Responde todas las preguntas para continuar')
         } else {
-            callback
+            callback()
         }
 
+    }
+
+    const reduceRevision = () => {
+        const checklistEntrada = [
+            revisionAccesorios,
+            revisionGeneral,
+            juegoLlaves,
+            revisionFrontal,
+            nivelFluidos,
+            revisionDerecho,
+            revisionTrasera,
+            revisionIzquierda,
+            revisionCabina,
+            revisionAccesorios,
+            reguardoDatos,
+            revisionBaterias,
+            finales,
+        ]
+        console.log(checklistEntrada)
     }
 
     return (
         <>
 
-            <div className="flex flex-col gap-4 items-center py-5 w-full h-screen bg-body">
-                <section className="flex flex-col gap-4 py-5 w-full h-full overflow-y-auto max-w-[500px] ">
+            <section className="flex flex-col w-full gap-4 py-5 align-middle">
 
-                    <strong className="text-secondary text-lg text-center ">Checklist de entrada de chasis {chasis}</strong>
-                    <span className="text-sm text-gray-400 text-center">ID register: {id}</span>
+                <strong className="text-lg text-center text-secondary ">Checklist de entrada de chasis {chasis}</strong>
 
-                    <div onSubmit={updateRevision} className="flex flex-col overflow-y-auto gap-5 xl:p-5 md:p-2 sm:p-1">
+                <div className="flex flex-col gap-5 overflow-y-auto xl:p-5 md:p-2 sm:p-1">
 
-                        {/* Revision general */}
-                        {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => console.log('callback'))} className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    {/* Revision general */}
+                    {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => setStep(2))} 
+                    className="flex flex-col gap-5 w-full shadow-md lg:min-w-[400px] bg-white p-5">
 
                             <strong>Revision general</strong>
 
@@ -84,156 +104,281 @@ function Checklist() {
 
                         </form>}
 
-                        {/* Revision de llaves */}
-                        {step === 2 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    {/* Revision de llaves */}
+                    {step === 2 && <form onSubmit={(e) => updateRevision(e, juegoLlaves, () => setStep(3))} 
+                    className="flex flex-col gap-5  w-full lg:min-w-[400px] bg-white p-5  shadow-md">
 
                             <strong>Revision de juego de llaves</strong>
 
-                            {juegoLlaves.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={juegoLlaves}
-                                />
-                            ))}
+                        {juegoLlaves.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={juegoLlaves}
+                                updateState={setJuegoLlaves}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision de frontal */}
-                        {step === 3 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision de frontal */}
+                    {step === 3 && <form onSubmit={(e) => updateRevision(e, revisionFrontal, () => setStep(4))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision frontal</strong>
 
-                            {revisionFrontal.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionFrontal}
-                                />
-                            ))}
+                        {revisionFrontal.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionFrontal}
+                                updateState={setRevisionFrontal}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision de fluidos */}
-                        {step === 4 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision de fluidos */}
+                    {step === 4 && <form onSubmit={(e) => updateRevision(e, nivelFluidos, () => setStep(5))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision de fluidos</strong>
 
-                            {nivelFluidos.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={nivelFluidos}
-                                />
-                            ))}
+                        {nivelFluidos.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={nivelFluidos}
+                                updateState={setNivelFluidos}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision de derecho */}
-                        {step === 5 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision de derecho */}
+                    {step === 5 && <form onSubmit={(e) => updateRevision(e, revisionDerecho, () => setStep(6))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision del costado derecho</strong>
 
-                            {revisionDerecho.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionDerecho}
-                                />
-                            ))}
+                        {revisionDerecho.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionDerecho}
+                                updateState={setRevisionDerecho}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision  trasera */}
-                        {step === 6 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision  trasera */}
+                    {step === 6 && <form onSubmit={(e) => updateRevision(e, revisionTrasera, () => setStep(7))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision de parte trasera</strong>
 
-                            {revisionTrasera.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionTrasera}
-                                />
-                            ))}
+                        {revisionTrasera.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionTrasera}
+                                updateState={setRevisionTrasera}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision  izquierda */}
-                        {step === 7 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision  izquierda */}
+                    {step === 7 && <form onSubmit={(e) => updateRevision(e, revisionIzquierda, () => setStep(8))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md ">
 
                             <strong>Revision de parte izquierda</strong>
 
-                            {revisionIzquierda.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionIzquierda}
-                                />
-                            ))}
+                        {revisionIzquierda.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionIzquierda}
+                                updateState={setRevisionIzquierda}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision  cabina */}
-                        {step === 8 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+                    {/* Revision  cabina */}
+                    {step === 8 && <form onSubmit={(e) => updateRevision(e, revisionCabina, () => setStep(9))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision de cabina</strong>
 
-                            {revisionCabina.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionCabina}
-                                />
-                            ))}
+                        {revisionCabina.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionCabina}
+                                updateState={setRevisionCabina}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision  accesorios */}
-                        {step === 9 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
 
-                            <strong>Revision de accesorios</strong>
-
-                            {revisionAccesorios.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionAccesorios}
-                                />
-                            ))}
-
-                        </div>}
-
-
-                        {/* Revision  accesorios */}
-                        {step === 10 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    {/* Revision  accesorios */}
+                    {step === 9 && <form onSubmit={(e) => updateRevision(e, revisionAccesorios, () => setStep(10))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision de accesorios</strong>
 
-                            {reguardoDatos.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={reguardoDatos}
-                                />
-                            ))}
+                        {revisionAccesorios.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionAccesorios}
+                                updateState={setRevisionesAccesorios}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
 
-                        {/* Revision  baterias */}
-                        {step === 11 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                    </form>}
+
+
+                    {/* Revision  accesorios */}
+                    {step === 10 && <form onSubmit={(e) => updateRevision(e, reguardoDatos, () => setStep(11))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
+
+                            <strong>Revision de accesorios</strong>
+
+                        {reguardoDatos.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={reguardoDatos}
+                                updateState={setReguardoDatos}
+                            />
+                        ))}
+
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
+
+                    </form>}
+
+                    {/* Revision  baterias */}
+                    {step === 11 && <form onSubmit={(e) => updateRevision(e, revisionBaterias, () => setStep(12))} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
 
                             <strong>Revision de baterias</strong>
 
-                            {revisionBaterias.map((element, index) => (
-                                <ItemQuestionsDinamic
-                                    item={element}
-                                    index={index}
-                                    state={revisionBaterias}
-                                />
-                            ))}
+                        {revisionBaterias.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={revisionBaterias}
+                                updateState={setRevisionBaterias}
+                            />
+                        ))}
 
-                        </div>}
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
+
+                    </form>}
+
+                    {/* Detalles finales */}
+                    {step === 12 && <form onSubmit={(e) => updateRevision(e, finales, () => reduceRevision())} 
+                    className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5 shadow-md">
+
+                        <strong>Detalles finales</strong>
+
+                        {finales.map((element, index) => (
+                            <ItemQuestionsDinamic
+                                item={element}
+                                index={index}
+                                state={finales}
+                                updateState={setFinales}
+                            />
+                        ))}
+
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            type="submit"
+                        >
+                            Siguiente
+                        </Button>
+
+                    </form>}
 
                     </div>
 
