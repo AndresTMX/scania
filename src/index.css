@@ -2,3 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+    background-color: transparent;
+    height: 10px;
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-button{
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb{
+    background-color:rgb(215, 215, 215);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  @layer components {
+  
+    .input-light-base {
+      border-radius: theme('borderRadius.lg');
+      box-shadow: theme('boxShadow.sm');
+      border: 1px solid theme('colors.border');
+    }
+  
+  
+  
+  }

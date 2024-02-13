@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 function Checklist() {
 
-    const { chasis } = useParams()
+    const { id , chasis} = useParams()
 
     const [step, setStep] = useState(1)
 
@@ -51,191 +51,194 @@ function Checklist() {
     return (
         <>
 
-            <section className="flex flex-col gap-4 align-middle py-5 w-full">
+            <div className="flex flex-col gap-4 items-center py-5 w-full h-screen bg-body">
+                <section className="flex flex-col gap-4 py-5 w-full h-full overflow-y-auto max-w-[500px] ">
 
-                <strong className="text-secondary text-lg text-center ">Checklist de entrada de chasis {chasis}</strong>
+                    <strong className="text-secondary text-lg text-center ">Checklist de entrada de chasis {chasis}</strong>
+                    <span className="text-sm text-gray-400 text-center">ID register: {id}</span>
 
-                <div onSubmit={updateRevision} className="flex flex-col overflow-y-auto gap-5 xl:p-5 md:p-2 sm:p-1">
+                    <div onSubmit={updateRevision} className="flex flex-col overflow-y-auto gap-5 xl:p-5 md:p-2 sm:p-1">
 
-                    {/* Revision general */}
-                    {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => console.log('callback'))} className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                        {/* Revision general */}
+                        {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => console.log('callback'))} className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
 
-                        <strong>Revision general</strong>
+                            <strong>Revision general</strong>
 
-                        {revisionGeneral.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                updateState={setRevisionGeneral}
-                                state={revisionGeneral}
-                            />
-                        ))}
+                            {revisionGeneral.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    updateState={setRevisionGeneral}
+                                    state={revisionGeneral}
+                                />
+                            ))}
 
-                        <Button
-                            className="text-white"
-                            color="primary"
-                            type="submit"
-                        >
-                            Siguiente
-                        </Button>
-
-
-                    </form>}
-
-                    {/* Revision de llaves */}
-                    {step === 2 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de juego de llaves</strong>
-
-                        {juegoLlaves.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={juegoLlaves}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision de frontal */}
-                    {step === 3 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision frontal</strong>
-
-                        {revisionFrontal.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionFrontal}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision de fluidos */}
-                    {step === 4 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de fluidos</strong>
-
-                        {nivelFluidos.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={nivelFluidos}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision de derecho */}
-                    {step === 5 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision del costado derecho</strong>
-
-                        {revisionDerecho.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionDerecho}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision  trasera */}
-                    {step === 6 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de parte trasera</strong>
-
-                        {revisionTrasera.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionTrasera}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision  izquierda */}
-                    {step === 7 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de parte izquierda</strong>
-
-                        {revisionIzquierda.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionIzquierda}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision  cabina */}
-                    {step === 8 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de cabina</strong>
-
-                        {revisionCabina.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionCabina}
-                            />
-                        ))}
-
-                    </div>}
-
-                    {/* Revision  accesorios */}
-                    {step === 9 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
-
-                        <strong>Revision de accesorios</strong>
-
-                        {revisionAccesorios.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionAccesorios}
-                            />
-                        ))}
-
-                    </div>}
+                            <Button
+                                className="text-white"
+                                color="primary"
+                                type="submit"
+                            >
+                                Siguiente
+                            </Button>
 
 
-                    {/* Revision  accesorios */}
-                    {step === 10 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                        </form>}
 
-                        <strong>Revision de accesorios</strong>
+                        {/* Revision de llaves */}
+                        {step === 2 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
 
-                        {reguardoDatos.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={reguardoDatos}
-                            />
-                        ))}
+                            <strong>Revision de juego de llaves</strong>
 
-                    </div>}
+                            {juegoLlaves.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={juegoLlaves}
+                                />
+                            ))}
 
-                    {/* Revision  baterias */}
-                    {step === 11 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+                        </div>}
 
-                        <strong>Revision de baterias</strong>
+                        {/* Revision de frontal */}
+                        {step === 3 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
 
-                        {revisionBaterias.map((element, index) => (
-                            <ItemQuestionsDinamic
-                                item={element}
-                                index={index}
-                                state={revisionBaterias}
-                            />
-                        ))}
+                            <strong>Revision frontal</strong>
 
-                    </div>}
+                            {revisionFrontal.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionFrontal}
+                                />
+                            ))}
 
-                </div>
+                        </div>}
 
-            </section>
+                        {/* Revision de fluidos */}
+                        {step === 4 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de fluidos</strong>
+
+                            {nivelFluidos.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={nivelFluidos}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision de derecho */}
+                        {step === 5 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision del costado derecho</strong>
+
+                            {revisionDerecho.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionDerecho}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision  trasera */}
+                        {step === 6 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de parte trasera</strong>
+
+                            {revisionTrasera.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionTrasera}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision  izquierda */}
+                        {step === 7 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de parte izquierda</strong>
+
+                            {revisionIzquierda.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionIzquierda}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision  cabina */}
+                        {step === 8 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de cabina</strong>
+
+                            {revisionCabina.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionCabina}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision  accesorios */}
+                        {step === 9 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de accesorios</strong>
+
+                            {revisionAccesorios.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionAccesorios}
+                                />
+                            ))}
+
+                        </div>}
+
+
+                        {/* Revision  accesorios */}
+                        {step === 10 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de accesorios</strong>
+
+                            {reguardoDatos.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={reguardoDatos}
+                                />
+                            ))}
+
+                        </div>}
+
+                        {/* Revision  baterias */}
+                        {step === 11 && <div className="flex flex-col gap-5 w-full lg:min-w-[400px] bg-white p-5">
+
+                            <strong>Revision de baterias</strong>
+
+                            {revisionBaterias.map((element, index) => (
+                                <ItemQuestionsDinamic
+                                    item={element}
+                                    index={index}
+                                    state={revisionBaterias}
+                                />
+                            ))}
+
+                        </div>}
+
+                    </div>
+
+                </section>
+            </div>
 
         </>
     );

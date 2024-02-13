@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
 import { FaInfoCircle } from "react-icons/fa";
+import { GrConfigure } from "react-icons/gr";
 import { dataFormat } from "../../helpers/datetime";
 import { useRegister } from "../../Hooks/Registers";
 import { useState, useMemo, useEffect, useCallback } from "react";
@@ -171,9 +172,12 @@ export function TableInputs({ onOpen, }) {
 
   const navigate = useNavigate();
 
-  const LinkToCheck = (chasis) => {
-    console.log('navega')
-    navigate(`${chasis}`)
+  const LinkToCheck = (id, chasis) => {
+    navigate(`checklist/${id}/${chasis}`)
+  }
+
+  const LinkToWorkshop = (id, chasis) => {
+    navigate(`taller/${id}/${chasis}`)
   }
 
   const routerColor = (color) => {
@@ -288,15 +292,15 @@ export function TableInputs({ onOpen, }) {
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
-              <Tooltip content="detalles">
-                <span
+              <Tooltip content="enviar a taller">
+                <span onClick={() => LinkToWorkshop(register.id, register.chasis)}
                   className="text-lg cursor-pointer text-default-400 active:opacity-50"
                 >
-                  <FaInfoCircle />
+                  <GrConfigure/>
                 </span>
               </Tooltip>
-              <Tooltip color='default' content="checklist">
-                <span onClick={() => LinkToCheck(register.chasis)}
+              <Tooltip color='default' content="realizar checklist">
+                <span onClick={() => LinkToCheck(register.id, register.chasis)}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
                 >
                   <GoChecklist className={`text-${register.status === 'pendiente'? 'warning': 'primary'}`} />
