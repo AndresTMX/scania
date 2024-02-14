@@ -1,11 +1,9 @@
 import { Toaster, toast } from "sonner";
 import { Outlet, useLocation } from "react-router-dom";
 import { FaArrowCircleDown, FaArrowCircleUp } from "react-icons/fa";
-import { GoChecklist } from "react-icons/go";
 import { TableInputs } from "../../components/TableInputs";
 import { TableOutputs } from "../../components/TableOutputs";
 import { useRegister } from "../../Hooks/Registers";
-import { Checklist } from "../../sections/Checklist";
 import { Input, Select, SelectItem, useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Tabs, Tab } from "@nextui-org/react";
 
 
@@ -53,18 +51,6 @@ function Ingreso() {
 
                             </Tab>
 
-
-                            <Tab
-                                key="videos"
-                                title={
-                                    <div className="flex items-center space-x-2">
-                                        <GoChecklist />
-                                        <span>Checklist</span>
-                                    </div>
-                                }
-                            >
-                                <Checklist />
-                            </Tab>
                         </Tabs>
 
                     </div>

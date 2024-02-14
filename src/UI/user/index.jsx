@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Navbar, NavbarBrand, NavbarContent, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, NavbarItem, Link, Button } from "@nextui-org/react";
 import "../../index.css";
 
@@ -9,9 +10,25 @@ function UserUI({ children }) {
     const menuItems = [
         "Ingreso",
         "Patio",
-        "Taller",
+        "Croquis",
         "Cerrar sesión",
     ];
+
+    const routes = [
+        {
+            title: 'Ingreso',
+            route: '/',
+        },
+        {
+            title: 'Taller',
+            route: '/taller',
+        },
+        {
+            title: 'Croquis',
+            route: '/croquis',
+        },
+
+    ]
 
     return (
         <>
@@ -28,21 +45,22 @@ function UserUI({ children }) {
                     </NavbarBrand>
 
                     <NavbarContent className="hidden gap-4 sm:flex" justify="start">
-                        <NavbarItem isActive>
-                            <Link className="text-#338EF7" href="#">
-                                Ingreso
-                            </Link>
-                        </NavbarItem>
-                        <NavbarItem >
-                            <Link className="text-white" href="/patio">
-                                Patio
-                            </Link>
-                        </NavbarItem>
-                        <NavbarItem>
-                            <Link className="text-white" href="#">
-                                Taller
-                            </Link>
-                        </NavbarItem>
+                        {routes.map((route) => (
+                            <NavbarItem key={route.title}>
+                                <NavLink
+                                    to={route.route}
+                                    className={({ isActive, isPending, isTransitioning }) =>
+                                        [
+                                            isPending ? "pending" : "",
+                                            isActive ? "text-white font-semibold" : "text-link font-normal text-sm",
+                                            isTransitioning ? "transitioning" : "",
+                                        ].join(" ")
+                                    }
+                                >
+                                    {route.title}
+                                </NavLink>
+                            </NavbarItem>
+                        ))}
                     </NavbarContent>
 
                     <NavbarContent justify="end">

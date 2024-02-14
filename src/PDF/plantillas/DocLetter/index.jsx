@@ -16,6 +16,15 @@ const styles = StyleSheet.create({
         gap: "5px",
         width: "96%",
         height: "96%",
+        border: 1
+    },
+
+    ContainerNotGap: {
+        display: "flex",
+        flexDirection: "column",
+        width: "96%",
+        height: "96%",
+        border: 1
     },
 
     boxNumPage: {
@@ -29,7 +38,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function DocLetter({ children }) {
+export function DocLetter({ children }) {
 
     return (
         <Document>
@@ -43,15 +52,14 @@ function DocLetter({ children }) {
     );
 }
 
-export { DocLetter };
-
-export function SimplePageLetter({children, page, numPages}) {
+export function SimplePageLetter({ children, page, numPages }) {
 
     return (
         <Page style={styles.Page} size={"LETTER"}>
-            <View style={styles.Container}>
+            <View style={styles.ContainerNotGap}>
                 {children}
-                <View style={styles.boxNumPage}><Text>Pag {page}/{numPages}</Text></View>
+                {numPages && page &&
+                    <View style={styles.boxNumPage}><Text>Pag {page}/{numPages}</Text></View>}
             </View>
         </Page>
     )

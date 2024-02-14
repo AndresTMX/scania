@@ -43,7 +43,7 @@ function ResponsivaTaller() {
                             width: '80%'
                         }}>
                         {llaves.map((llave) => (
-                            <Text style={{ fontSize: '11px', borderBottom: '1' }} >{llave}</Text>
+                            <Text key={llave} style={{ fontSize: '11px', borderBottom: '1' }} >{llave}</Text>
                         ))}
                     </View>
 

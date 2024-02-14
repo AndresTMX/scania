@@ -20,6 +20,7 @@ module.exports = {
           border:'#E4E4E7',
           body: '#ECEDEE',
           border:'#E4E4E7',
+          link: '#D4D4D8'
 
         },
         

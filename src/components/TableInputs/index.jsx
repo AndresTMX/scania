@@ -1,9 +1,10 @@
+import { toast, Toaster } from "sonner";
 import { supabase } from "../../supabase";
-import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
-import { FaInfoCircle } from "react-icons/fa";
 import { GrConfigure } from "react-icons/gr";
+import { GrDocumentPdf } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import { dataFormat } from "../../helpers/datetime";
 import { useRegister } from "../../Hooks/Registers";
 import { useState, useMemo, useEffect, useCallback } from "react";
@@ -172,12 +173,28 @@ export function TableInputs({ onOpen, }) {
 
   const navigate = useNavigate();
 
-  const LinkToCheck = (id, chasis) => {
-    navigate(`checklist/${id}/${chasis}`)
+  const LinkToCheck = (id, chasis, status) => {
+    if (status != 'pendiente') {
+      toast.warning('Ya se ha realizado la revisión')
+    } else {
+      navigate(`checklist/${id}/${chasis}`)
+    }
   }
 
-  const LinkToWorkshop = (id, chasis) => {
-    navigate(`taller/${id}/${chasis}`)
+  const LinkToWorkshop = (id, chasis, status) => {
+    if (status === 'pendiente') {
+      toast.warning('Realiza el checklist de revision primero')
+    } else {
+      navigate(`taller/${id}/${chasis}`)
+    }
+  }
+
+  const LinkToDocument = async (id, status) => {
+    if (status === 'pendiente') {
+      toast.warning('Realiza el checklist primero')
+    } else {
+      navigate(`document-checklist/${id}`)
+    }
   }
 
   const routerColor = (color) => {
@@ -293,17 +310,24 @@ export function TableInputs({ onOpen, }) {
           return (
             <div className="relative flex items-center gap-2">
               <Tooltip content="enviar a taller">
-                <span onClick={() => LinkToWorkshop(register.id, register.chasis)}
+                <span onClick={() => LinkToWorkshop(register.id, register.chasis, register.status)}
                   className="text-lg cursor-pointer text-default-400 active:opacity-50"
                 >
-                  <GrConfigure/>
+                  <GrConfigure />
                 </span>
               </Tooltip>
               <Tooltip color='default' content="realizar checklist">
-                <span onClick={() => LinkToCheck(register.id, register.chasis)}
+                <span onClick={() => LinkToCheck(register.id, register.chasis, register.status)}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
                 >
-                  <GoChecklist className={`text-${register.status === 'pendiente'? 'warning': 'primary'}`} />
+                  <GoChecklist className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
+                </span>
+              </Tooltip>
+              <Tooltip color='default' content="realizar checklist">
+                <span onClick={() => LinkToDocument(register.id, register.status)}
+                  className="text-lg cursor-pointer text-primary active:opacity-50"
+                >
+                  <GrDocumentPdf className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
             </div>
@@ -326,65 +350,71 @@ export function TableInputs({ onOpen, }) {
   }, [page, data]);
 
   return (
-    <Table
-      aria-label="Example table with client side pagination"
-      topContent={
-        <div className="flex flex-row items-center w-full justify-start gap-4 ">
+    <>
 
-          <Input
-            className="w-52"
-            size="sm"
-            type="text"
-            placeholder="Buscar registros"
-            endContent={<FaSearch />}
-          />
+      <Toaster richColors position="top-center" />
 
-          <Button
-            size="sm"
-            className="bg-primary text-white font-semibold"
-            onPress={onOpen}>
-            Nuevo registro
-          </Button>
+      <Table
+        aria-label="Example table with client side pagination"
+        topContent={
+          <div className="flex flex-row items-center w-full justify-start gap-4 ">
+
+            <Input
+              className="w-52"
+              size="sm"
+              type="text"
+              placeholder="Buscar registros"
+              endContent={<FaSearch />}
+            />
+
+            <Button
+              size="sm"
+              className="bg-primary text-white font-semibold"
+              onPress={onOpen}>
+              Nuevo registro
+            </Button>
 
 
 
-        </div>
-      }
-      bottomContent={
-        <div className="flex w-full justify-center text-white">
-          <Pagination
-            isCompact
-            showControls
-            showShadow
-            page={page}
-            total={pages}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
-      }
-      classNames={{
-        wrapper: "min-h-[222px]",
-      }}
-    >
-      <TableHeader>
-        <TableColumn key="chasis">CHASIS</TableColumn>
-        <TableColumn key="tipo">TIPO</TableColumn>
-        <TableColumn key="modelo">MODELO</TableColumn>
-        <TableColumn key="ot">OT</TableColumn>
-        <TableColumn key="origen">ORIGEN</TableColumn>
-        <TableColumn key="status">STATUS</TableColumn>
-        <TableColumn key="created_at">ENTRADA</TableColumn>
-        <TableColumn key="actions">ACTIONS</TableColumn>
-      </TableHeader>
-      <TableBody
-        emptyContent={"Sin salidas registradas"}
-        items={items}>
-        {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          </div>
+        }
+        bottomContent={
+          <div className="flex w-full justify-center text-white">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          </div>
+        }
+        classNames={{
+          wrapper: "min-h-[222px]",
+        }}
+      >
+        <TableHeader>
+          <TableColumn key="chasis">CHASIS</TableColumn>
+          <TableColumn key="tipo">TIPO</TableColumn>
+          <TableColumn key="modelo">MODELO</TableColumn>
+          <TableColumn key="ot">OT</TableColumn>
+          <TableColumn key="origen">ORIGEN</TableColumn>
+          <TableColumn key="status">STATUS</TableColumn>
+          <TableColumn key="created_at">ENTRADA</TableColumn>
+          <TableColumn key="actions">ACTIONS</TableColumn>
+        </TableHeader>
+        <TableBody
+          emptyContent={"Sin salidas registradas"}
+          items={items}>
+          {(item) => (
+            <TableRow key={item.name}>
+              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+
+    </>
   );
 }

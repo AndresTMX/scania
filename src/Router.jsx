@@ -5,6 +5,11 @@ import { Login } from "./pages/Login";
 import { UserUI } from "./UI/user";
 import { Checklist } from "./sections/Checklist";
 import { Responsiva } from "./sections/Responsiva";
+import { ErrorPage } from "./pages/Error";
+import { Taller } from "./pages/Taller";
+import { Croquis } from "./pages/Croquis";
+//outlets
+import { ChecklistPDF } from "./outlets/ChecklistPDF";
 
 function Router() {
 
@@ -21,13 +26,27 @@ function Router() {
                 </UserUI>
               } >
 
+              <Route path="document-checklist/:id" element={<ChecklistPDF />} />
+
             </Route>
 
             <Route path="checklist/:id/:chasis" element={<Checklist />} />
 
             <Route path="taller/:id/:chasis" element={<Responsiva />} />
 
+            <Route path="*" element={<ErrorPage />} />
 
+            <Route path="/taller" element={
+              <UserUI>
+                <Taller />
+              </UserUI>
+            } />
+
+            <Route path="/croquis" element={
+              <UserUI>
+                <Croquis />
+              </UserUI>
+            } />
 
             <Route
               path="/login"
