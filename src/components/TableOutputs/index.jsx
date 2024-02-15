@@ -1,6 +1,8 @@
 import { supabase } from "../../supabase";
 import { FaSearch } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
+import { GrDocumentPdf } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import { FaInfoCircle } from "react-icons/fa";
 import { dataFormat } from "../../helpers/datetime";
 import { useRegister } from "../../Hooks/Registers";
@@ -12,6 +14,16 @@ export function TableOutputs() {
   const { getRegistersFinalize, data, error } = useRegister();
   const [update, setUpdate] = useState(false);
   const [page, setPage] = useState(1);
+
+  const navigate = useNavigate();
+
+  const LinkToDocument = async (id, status) => {
+    if (status === 'pendiente') {
+      toast.warning('Realiza el checklist primero')
+    } else {
+      navigate(`document-checklist/${id}`)
+    }
+  }
 
   const routerColor = (color) => {
     const routes = {
@@ -132,11 +144,11 @@ export function TableOutputs() {
                   <FaInfoCircle />
                 </span>
               </Tooltip>
-              <Tooltip color='default' content="checklist">
-                <span
+              <Tooltip color='default' content="ver documento">
+                <span onClick={() => LinkToDocument(register.id, register.status)}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
                 >
-                  <GoChecklist />
+                  <GrDocumentPdf className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
             </div>
@@ -160,7 +172,7 @@ export function TableOutputs() {
 
   return (
     <Table
-     className="min-w-[720px]"
+      className="min-w-[720px]"
       aria-label="Example table with client side pagination"
       topContent={
         <div className="flex flex-row items-center w-full justify-start gap-4 ">

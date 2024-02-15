@@ -1,16 +1,26 @@
-import { supabase } from "../../supabase";
 import { useState } from "react";
+import { supabase } from "../../supabase";
 
 function useChecklist() {
 
     const [checklist, setChecklist] = useState([])
     const [loading, setLoading] = useState(null)
- 
-    /*/AGREGAR NUEVO CHECKLIST DE REVISION DE ENTRADA /*/
-    async function createInputChecklist(dataCheck) {
+
+    /*/AGREGAR NUEVO CHECKLIST DE REVISION /*/
+    async function createInputChecklist(dataCheck, infoOutput) {
         try {
 
-            const { tracto_id } = dataCheck;
+            const { tracto_id, tipo } = dataCheck;
+
+            const newStatus = tipo != 'salida' ? 'revisado-entrada' : 'finalizado';
+
+            let updates
+
+            if (tipo === 'entrada') {
+                updates = { status: newStatus }
+            } else {
+                updates = { status: newStatus, ...infoOutput }
+            }
 
             //subir el checklist de entrada
             const { error } = await supabase
@@ -24,7 +34,7 @@ function useChecklist() {
             //actualizar el estatus del tracto
             const { error: errorUpdadeStatus } = await supabase
                 .from('registros')
-                .update({ status: 'revisado-entrada' })
+                .update({ ...updates })
                 .eq('id', tracto_id)
 
             if (errorUpdadeStatus) {
@@ -38,6 +48,7 @@ function useChecklist() {
             return { error }
         }
     }
+
 
     async function getOneInputChecklist(id) {
         try {

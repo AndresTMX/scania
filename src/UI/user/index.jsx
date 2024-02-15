@@ -4,17 +4,12 @@ import { AuthContext } from "../../Context/Auth";
 import { NavLink } from "react-router-dom";
 import { Navbar, NavbarBrand, NavbarContent, NavbarMenuItem, NavbarMenu, NavbarMenuToggle, NavbarItem, Link, Button } from "@nextui-org/react";
 
+
 function UserUI({ children }) {
 
     const { logOut } = useContext(AuthContext);
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const menuItems = [
-        "Ingreso",
-        "Patio",
-        "Croquis",
-    ];
 
     const routes = [
         {
@@ -65,7 +60,7 @@ function UserUI({ children }) {
                         ))}
                     </NavbarContent>
 
-                    <NavbarContent className="max-sm:hidden"  justify="end">
+                    <NavbarContent className="max-sm:hidden" justify="end">
                         <NavbarItem>
                             <Button
                                 onPress={async () => await logOut()}
@@ -75,6 +70,7 @@ function UserUI({ children }) {
                                 Sign Out
                             </Button>
                         </NavbarItem>
+
                     </NavbarContent>
 
                     <NavbarMenu className="gap-5">

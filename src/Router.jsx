@@ -8,6 +8,7 @@ import { Responsiva } from "./sections/Responsiva";
 import { ErrorPage } from "./pages/Error";
 import { Taller } from "./pages/Taller";
 import { Croquis } from "./pages/Croquis";
+import { UserConfig } from "./pages/UserConfig";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 //Authenticated

@@ -10,7 +10,6 @@ import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/reac
 function ChecklistPDF() {
 
     const { getOneInputChecklist, checklist, loading } = useChecklist();
-    console.log("🚀 ~ ChecklistPDF ~ checklist:", checklist)
 
     const { id } = useParams();
 

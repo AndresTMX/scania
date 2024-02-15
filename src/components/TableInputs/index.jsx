@@ -217,14 +217,6 @@ export function TableInputs({ onOpen, }) {
     }
   }
 
-  const LinkToDocument = async (id, status) => {
-    if (status === 'pendiente') {
-      toast.warning('Realiza el checklist primero')
-    } else {
-      navigate(`document-checklist/${id}`)
-    }
-  }
-
   const routerColor = (color) => {
     const routes = {
       pendiente: 'warning',
@@ -341,7 +333,7 @@ export function TableInputs({ onOpen, }) {
                 <span onClick={() => LinkToWorkshop(register.id, register.chasis, register.status)}
                   className="text-lg cursor-pointer text-default-400 active:opacity-50"
                 >
-                  <GrConfigure className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
+                  <GrConfigure className={`text-${register.status === 'pendiente' ? 'gray-400' : 'primary'}`} />
                 </span>
               </Tooltip>
               <Tooltip color='default' content="realizar checklist">
@@ -351,18 +343,11 @@ export function TableInputs({ onOpen, }) {
                   <GoChecklist className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
-              <Tooltip color='default' content="ver documento">
-                <span onClick={() => LinkToDocument(register.id, register.status)}
-                  className="text-lg cursor-pointer text-primary active:opacity-50"
-                >
-                  <GrDocumentPdf className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
-                </span>
-              </Tooltip>
               <Tooltip color='default' content="enviar salida">
                 <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'salida')}
-                  className="text-lg cursor-pointer text-primary active:opacity-50"
+                  className="text-lg cursor-pointer active:opacity-50"
                 >
-                  <FaArrowCircleUp className={`text-${register.status === 'pendiente' ? 'default' : 'danger'}`} />
+                  <FaArrowCircleUp className={`text-${register.status === 'pendiente' ? 'gray-400' : 'danger'}`} />
                 </span>
               </Tooltip>
             </div>

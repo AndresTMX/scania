@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useChecklist } from "../../Hooks/Checklist";
 import { plantillaChecklist } from "../../helpers/checklist";
 import { ItemQuestionsDinamic } from "../../components/ItemQuestionDinamic";
+import { currentDateTimeZone } from "../../helpers/datetime";
 //icons
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-
 
 function Checklist() {
 
@@ -17,6 +17,8 @@ function Checklist() {
     const [step, setStep] = useState(1)
 
     const { createInputChecklist } = useChecklist();
+
+    const dataUser = JSON.parse(sessionStorage.getItem('scania-session'))
 
     const [revisionGeneral, setRevisionGeneral] = useState(plantillaChecklist.revisionGeneral)
 
@@ -42,8 +44,7 @@ function Checklist() {
 
     const [finales, setFinales] = useState(plantillaChecklist.finales)
 
-    const [salida, setSalida] = useState()
-
+    const [salida, setSalida] = useState({ ot_salida: '', user_salida_id: dataUser.user.id, destino: '', checkOut: currentDateTimeZone._d })
 
     const navigate = useNavigate();
 
@@ -63,7 +64,7 @@ function Checklist() {
 
     const reduceRevision = async () => {
 
-        let newChecklist
+        let newChecklist;
 
         const checklistEntrada = {
             revisionGeneral: revisionGeneral,
@@ -84,9 +85,9 @@ function Checklist() {
 
         newChecklist = { tipo: tipo, document: document, tracto_id: id }
 
-        const { error, errorUpdadeStatus } = await createInputChecklist(newChecklist);
+        const { error, errorUpdadeStatus } = await createInputChecklist(newChecklist, salida);
 
-        if (error === undefined || null && errorUpdadeStatus === undefined || null) {
+        if (error === null || errorUpdadeStatus === null) {
             toast.success('Checklist guardado')
             setTimeout(() => {
                 navigate('/')
@@ -120,7 +121,8 @@ function Checklist() {
                     <FaArrowLeft />
                 </Button>
 
-                <div className="flex flex-col justify-center h-auto lg:w-[500px] md:w-5/6 sm:w-5/6">
+                <div className="flex flex-col gap-5 justify-center h-auto lg:w-[500px] md:w-5/6 sm:w-5/6">
+
                     <strong className="text-lg text-center mt-20 text-secondary">Checklist de {tipo} de chasis {chasis}</strong>
 
                     <div className="flex flex-col w-full gap-5 xl:px-5 md:px-2 sm:px-2 max-h-[700px] overflow-y-auto">
@@ -416,6 +418,20 @@ function Checklist() {
                                     updateState={setFinales}
                                 />
                             ))}
+
+                            {tipo === 'salida' &&
+                                <>
+                                    <Input
+                                        label='OT de salida'
+                                        value={salida.ot_salida}
+                                        onChange={(e) => setSalida({ ...salida, ot_salida: e.target.value })} />
+
+                                    <Input
+                                        label='destino'
+                                        value={salida.destino}
+                                        onChange={(e) => setSalida({ ...salida, destino: e.target.value })} />
+                                </>}
+
 
                             <Button
                                 className="text-white"

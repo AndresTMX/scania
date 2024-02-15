@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
-import { Input, Select, SelectItem, Textarea, Card, Image, Button, table } from "@nextui-org/react";
+import { Input, Select, SelectItem, Textarea, Image, Button } from "@nextui-org/react";
 import { DownloadResponsive, ResponsivaTaller } from "../../PDF/plantillas/responsiva";
 import { PDFViewer } from "@react-pdf/renderer";
 import { toast, Toaster } from "sonner";
+import { useUsers } from "../../Hooks/Users/index,";
+import { useTaller } from "../../Hooks/Taller";
 
 
 function Responsiva() {
 
     const { id, chasis } = useParams();
+
+    const { dataUsers } = useUsers('taller');
+
+    const { addRegister, gettAllRegisters, registers } = useTaller();
+
+    useEffect(() => {
+        gettAllRegisters();
+    }, [id])
 
     const personal = [
         {
@@ -65,13 +75,14 @@ function Responsiva() {
 
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
-        if(form.user_id === ''){
+        if (form.user_id === '') {
             toast.error('Comleta el formulario para continuar')
-        }else{
+        } else {
             toast.success('Generando documento')
+            // await addRegister({ tipo: 'entrada', register_id: id, user_id: form.user_id })
             setRenderPDF(!renderPDF)
         }
 
@@ -126,8 +137,8 @@ function Responsiva() {
                                                     value={form.user_id}
                                                     onChange={(e) => setForm({ ...form, user_id: e.target.value })}
                                                 >
-                                                    {personal.map((element) => (
-                                                        <SelectItem key={element.id}>{element.user}</SelectItem>
+                                                    {dataUsers && dataUsers.map((element) => (
+                                                        <SelectItem key={element.id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
                                                     ))}
                                                 </Select>
                                             </div>
