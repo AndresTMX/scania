@@ -10,6 +10,8 @@ import { Taller } from "./pages/Taller";
 import { Croquis } from "./pages/Croquis";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
+//Authenticated
+import { AuthProvider } from "./Context/Auth";
 
 function Router() {
 
@@ -17,44 +19,46 @@ function Router() {
     <>
       <NextUIProvider>
         <HashRouter>
-          <Routes>
+          <AuthProvider>
+            <Routes>
 
-            <Route path="/"
-              element={
+              <Route
+                path="/login"
+                element={
+                  <Login />
+                } />
+
+              <Route path="/"
+                element={
+                  <UserUI>
+                    <Ingreso />
+                  </UserUI>
+                } >
+
+                <Route path="document-checklist/:id" element={<ChecklistPDF />} />
+
+              </Route>
+
+              <Route path="checklist/:id/:chasis/:tipo" element={<Checklist />} />
+
+              <Route path="taller/:id/:chasis" element={<Responsiva />} />
+
+              <Route path="*" element={<ErrorPage />} />
+
+              <Route path="/taller" element={
                 <UserUI>
-                  <Ingreso />
+                  <Taller />
                 </UserUI>
-              } >
-
-              <Route path="document-checklist/:id" element={<ChecklistPDF />} />
-
-            </Route>
-
-            <Route path="checklist/:id/:chasis" element={<Checklist />} />
-
-            <Route path="taller/:id/:chasis" element={<Responsiva />} />
-
-            <Route path="*" element={<ErrorPage />} />
-
-            <Route path="/taller" element={
-              <UserUI>
-                <Taller />
-              </UserUI>
-            } />
-
-            <Route path="/croquis" element={
-              <UserUI>
-                <Croquis />
-              </UserUI>
-            } />
-
-            <Route
-              path="/login"
-              element={
-                <Login />
               } />
 
-          </Routes>
+              <Route path="/croquis" element={
+                <UserUI>
+                  <Croquis />
+                </UserUI>
+              } />
+
+            </Routes>
+          </AuthProvider>
         </HashRouter>
       </NextUIProvider>
     </>

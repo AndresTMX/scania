@@ -1058,5 +1058,5 @@ export const plantillaChecklist = {
             question: 'observaciones',
             value: '',
         }
-    ]
+    ],
 };

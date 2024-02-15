@@ -200,8 +200,7 @@ function Responsiva() {
                                 <DownloadResponsive />
                             </div>
                             <PDFViewer
-                                showToolbar={false}
-                                style={{ width: '500px', height: '500px' }}>
+                                style={{ width: '100%', height: '100%' }}>
                                 <ResponsivaTaller />
                             </PDFViewer>
                         </div>}

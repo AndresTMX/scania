@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
 import { GrConfigure } from "react-icons/gr";
 import { GrDocumentPdf } from "react-icons/gr";
+import { FaArrowCircleUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { dataFormat } from "../../helpers/datetime";
 import { useRegister } from "../../Hooks/Registers";
@@ -173,12 +174,39 @@ export function TableInputs({ onOpen, }) {
 
   const navigate = useNavigate();
 
-  const LinkToCheck = (id, chasis, status) => {
-    if (status != 'pendiente') {
+  const LinkToChecklistEntrada = (id, chasis, status, tipo) => {
+    if (tipo === 'entrada' && status != 'pendiente') {
       toast.warning('Ya se ha realizado la revisión')
     } else {
-      navigate(`checklist/${id}/${chasis}`)
+      navigate(`checklist/${id}/${chasis}/${tipo}`)
     }
+  }
+
+  const LinkToChecklistSalida = (id, chasis, status, tipo) => {
+    if (tipo === 'salida' && status === 'pendiente') {
+      toast.warning('Realice el checklist de entrada primero')
+    } else {
+      navigate(`checklist/${id}/${chasis}/${tipo}`)
+    }
+  }
+
+  const LinkToCheck = (id, chasis, status, tipo) => {
+    try {
+      const routes = {
+        entrada: () => LinkToChecklistEntrada(id, chasis, status, tipo),
+        salida: () => LinkToChecklistSalida(id, chasis, status, tipo)
+      }
+
+      if (routes[tipo]) {
+        routes[tipo]()
+      } else {
+        throw new Error(`Error en el enrutador de checklist`)
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error(error.message)
+    }
+
   }
 
   const LinkToWorkshop = (id, chasis, status) => {
@@ -313,21 +341,28 @@ export function TableInputs({ onOpen, }) {
                 <span onClick={() => LinkToWorkshop(register.id, register.chasis, register.status)}
                   className="text-lg cursor-pointer text-default-400 active:opacity-50"
                 >
-                  <GrConfigure />
+                  <GrConfigure className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
               <Tooltip color='default' content="realizar checklist">
-                <span onClick={() => LinkToCheck(register.id, register.chasis, register.status)}
+                <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'entrada')}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
                 >
                   <GoChecklist className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
-              <Tooltip color='default' content="realizar checklist">
+              <Tooltip color='default' content="ver documento">
                 <span onClick={() => LinkToDocument(register.id, register.status)}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
                 >
                   <GrDocumentPdf className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
+                </span>
+              </Tooltip>
+              <Tooltip color='default' content="enviar salida">
+                <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'salida')}
+                  className="text-lg cursor-pointer text-primary active:opacity-50"
+                >
+                  <FaArrowCircleUp className={`text-${register.status === 'pendiente' ? 'default' : 'danger'}`} />
                 </span>
               </Tooltip>
             </div>
@@ -373,8 +408,6 @@ export function TableInputs({ onOpen, }) {
               onPress={onOpen}>
               Nuevo registro
             </Button>
-
-
 
           </div>
         }

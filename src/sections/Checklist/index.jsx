@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 
 function Checklist() {
 
-    const { id, chasis } = useParams()
+    const { id, chasis, tipo } = useParams()
 
     const [step, setStep] = useState(1)
 
@@ -42,6 +42,9 @@ function Checklist() {
 
     const [finales, setFinales] = useState(plantillaChecklist.finales)
 
+    const [salida, setSalida] = useState()
+
+
     const navigate = useNavigate();
 
     const updateRevision = (e, state, callback) => {
@@ -63,7 +66,6 @@ function Checklist() {
         let newChecklist
 
         const checklistEntrada = {
-            revisionAccesorios: revisionAccesorios,
             revisionGeneral: revisionGeneral,
             revisionLlaves: juegoLlaves,
             revisionFrontal: revisionFrontal,
@@ -80,7 +82,7 @@ function Checklist() {
 
         const document = JSON.stringify(checklistEntrada);
 
-        newChecklist = { tipo: 'entrada', document: document, tracto_id: id }
+        newChecklist = { tipo: tipo, document: document, tracto_id: id }
 
         const { error, errorUpdadeStatus } = await createInputChecklist(newChecklist);
 
@@ -119,7 +121,7 @@ function Checklist() {
                 </Button>
 
                 <div className="flex flex-col justify-center h-auto lg:w-[500px] md:w-5/6 sm:w-5/6">
-                    <strong className="text-lg text-center mt-20 text-secondary">Checklist de entrada de chasis {chasis}</strong>
+                    <strong className="text-lg text-center mt-20 text-secondary">Checklist de {tipo} de chasis {chasis}</strong>
 
                     <div className="flex flex-col w-full gap-5 xl:px-5 md:px-2 sm:px-2 max-h-[700px] overflow-y-auto">
 
