@@ -139,6 +139,7 @@ function Checklist() {
                                     index={index}
                                     updateState={setRevisionGeneral}
                                     state={revisionGeneral}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -165,6 +166,8 @@ function Checklist() {
                                     index={index}
                                     state={juegoLlaves}
                                     updateState={setJuegoLlaves}
+                                    typeChecklist={tipo}
+
                                 />
                             ))}
 
@@ -190,6 +193,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionFrontal}
                                     updateState={setRevisionFrontal}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -215,6 +219,7 @@ function Checklist() {
                                     index={index}
                                     state={nivelFluidos}
                                     updateState={setNivelFluidos}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -240,6 +245,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionDerecho}
                                     updateState={setRevisionDerecho}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -265,6 +271,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionTrasera}
                                     updateState={setRevisionTrasera}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -290,6 +297,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionIzquierda}
                                     updateState={setRevisionIzquierda}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -315,6 +323,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionCabina}
                                     updateState={setRevisionCabina}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -340,6 +349,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionAccesorios}
                                     updateState={setRevisionesAccesorios}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -366,6 +376,7 @@ function Checklist() {
                                     index={index}
                                     state={reguardoDatos}
                                     updateState={setReguardoDatos}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -391,6 +402,7 @@ function Checklist() {
                                     index={index}
                                     state={revisionBaterias}
                                     updateState={setRevisionBaterias}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 
@@ -416,6 +428,7 @@ function Checklist() {
                                     index={index}
                                     state={finales}
                                     updateState={setFinales}
+                                    typeChecklist={tipo}
                                 />
                             ))}
 

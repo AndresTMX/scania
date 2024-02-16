@@ -3,7 +3,7 @@ export const plantillaChecklist = {
     headerDocument: [
         {
             question: 'Chasis',
-            value: '',
+            inputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -11,7 +11,7 @@ export const plantillaChecklist = {
         },
         {
             question: 'Modelo',
-            value: '',
+            inputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -19,7 +19,7 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tipo de vehiculo',
-            value: '',
+            inputvalue: '',
             correct: '',
             options: ['tipo 1', 'tipo 2', 'tipo 3'],
             preview: '',
@@ -28,7 +28,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'OT',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -36,7 +37,7 @@ export const plantillaChecklist = {
         },
         {
             question: 'Origen',
-            value: '',
+            inputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -44,7 +45,7 @@ export const plantillaChecklist = {
         },
         {
             question: 'Destino',
-            value: '',
+            inputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -54,7 +55,9 @@ export const plantillaChecklist = {
     revisionGeneral: [
         {
             question: 'La unidad presenta golpes o fugas en la parte baja',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -63,7 +66,9 @@ export const plantillaChecklist = {
         },
         {
             question: 'Daños en la carrocería y en el funcionamiento de la unidad',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -72,7 +77,9 @@ export const plantillaChecklist = {
         },
         {
             question: 'Detalles fisicos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -83,7 +90,8 @@ export const plantillaChecklist = {
     juegosLlaves: [
         {
             question: '2 juegos de llaves de encendido',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -93,7 +101,8 @@ export const plantillaChecklist = {
         },
         {
             question: '2 controles automaticos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -103,7 +112,8 @@ export const plantillaChecklist = {
         },
         {
             question: '3 llaves tanques',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -113,7 +123,8 @@ export const plantillaChecklist = {
         },
         {
             question: '2 llaves gavetas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -123,7 +134,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -131,7 +143,8 @@ export const plantillaChecklist = {
     revisionFrontal: [
         {
             question: 'Emblemas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -141,7 +154,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Perno jalón',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -151,7 +165,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Parabrisas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -161,7 +176,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Limpiadores',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -171,7 +187,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Torretas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -181,7 +198,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Cuartos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -191,7 +209,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Dirección e intermitentes',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -201,7 +220,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Luces de navegación',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -211,7 +231,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Claxon',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -221,7 +242,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Antenas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -231,7 +253,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Deflector de techo',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -241,7 +264,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Parrilla',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -251,7 +275,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Rejillas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -261,7 +286,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Prueba de luces',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -274,7 +300,8 @@ export const plantillaChecklist = {
     nivelesFluidos: [
         {
             question: 'Adblue',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -282,7 +309,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Combustible',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -290,7 +318,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Motor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -298,7 +327,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Anticongelante',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -306,7 +336,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -314,7 +345,8 @@ export const plantillaChecklist = {
     revisionDerecho: [
         {
             question: 'Retrovisor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -324,7 +356,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Puerta',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -334,7 +367,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Deflector lateral',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -344,7 +378,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Placa de chasis',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -354,7 +389,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Neumáticos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -364,7 +400,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Guardafangos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -374,7 +411,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tapones de ruedas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -386,7 +424,8 @@ export const plantillaChecklist = {
     revisionTrasera: [
         {
             question: 'Faldillas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -396,7 +435,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Faros reversos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -406,7 +446,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Soportes y guardafangos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -416,7 +457,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Alimentación de aire para remolque',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -426,7 +468,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Neumáticos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -436,7 +479,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Calaveras traseras',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -446,7 +490,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Fuelles neumáticos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -456,7 +501,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Rin de refacción',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -466,7 +512,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Llanta de refacción',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -476,7 +523,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Quinta rueda',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -486,7 +534,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Jalón',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -496,7 +545,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tanques',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -506,7 +556,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
 
@@ -515,7 +566,8 @@ export const plantillaChecklist = {
     revisionIzquierda: [
         {
             question: 'Carrocería lateral',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -525,7 +577,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Puerta',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -535,7 +588,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Deflector lateral',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -545,7 +599,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Neumáticos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -555,7 +610,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tapones de ruedas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -565,7 +621,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Guarda fangos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -575,7 +632,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Retrovisor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -585,7 +643,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Manijas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -595,7 +654,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -603,7 +663,8 @@ export const plantillaChecklist = {
     revisionCabina: [
         {
             question: 'Asientos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -613,7 +674,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Cortinas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -623,7 +685,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Cinturones de seguridad',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -633,7 +696,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Mecanismo de cama',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -643,7 +707,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tacográfo',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -653,7 +718,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Tapetes',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -663,7 +729,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Avisos activos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -673,7 +740,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Cámara ADAS',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -683,7 +751,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Aire acondicionado',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -693,7 +762,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Estéreo y equipo de audio',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -703,7 +773,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Llave L',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -713,7 +784,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Extensiones metálicas',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -723,7 +795,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Extintor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -733,7 +806,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Gancho',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -743,7 +817,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Maneral',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -753,7 +828,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Jalón',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -763,7 +839,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Encendedor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -773,7 +850,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Botoneras en general',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -783,7 +861,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Prueba de luces interiores',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -793,7 +872,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Focos de repuesto',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -803,7 +883,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Juego de desarmadores',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -813,7 +894,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Fusibles de repuesto',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -823,7 +905,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -831,7 +914,8 @@ export const plantillaChecklist = {
     revisionAccesorios: [
         {
             question: 'Manual de conductor',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -840,7 +924,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Botiquín',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -849,7 +934,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Lámpara',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -858,7 +944,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Chaleco de seguridad',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -867,7 +954,8 @@ export const plantillaChecklist = {
         },
         {
             question: '2 Mangueras de aire',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -876,7 +964,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Llave española',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -885,7 +974,8 @@ export const plantillaChecklist = {
         },
         {
             question: '2 Cables de 7 hilos',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -894,7 +984,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Cubierta de cofre',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -903,7 +994,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Reflejante',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -912,7 +1004,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Charola',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -921,7 +1014,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Gato hidráulico',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -930,7 +1024,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Triángulos de seguridad',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -939,7 +1034,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -947,7 +1043,8 @@ export const plantillaChecklist = {
     reguardoDatos: [
         {
             question: 'Guardar información inicial de producto',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -956,7 +1053,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Comprobar actualizaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -965,7 +1063,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Revisar la información de mantenimiento planificado, modificar parametros en caso de requerirlo',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -974,7 +1073,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Eliminar códigos de avería',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -983,7 +1083,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Enviar datos de funcionamiento',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -992,7 +1093,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Guardar atchivos SOPS',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -1003,7 +1105,8 @@ export const plantillaChecklist = {
     revisionBaterias: [
         {
             question: 'Baterias de consumidor 1',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -1013,7 +1116,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Bateria de consumidor 2',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -1023,7 +1127,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Baterias de arranque 3',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -1033,7 +1138,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'Baterias de arranque 4',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             correct: 'si',
             preview: '',
             image: '',
@@ -1043,7 +1149,8 @@ export const plantillaChecklist = {
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             preview: '',
             image: '',
         },
@@ -1051,12 +1158,14 @@ export const plantillaChecklist = {
     finales: [
         {
             question: 'Entrega',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
             required: true,
         },
         {
             question: 'observaciones',
-            value: '',
+            inputvalue: '',
+            outputvalue: '',
         }
     ],
 };
