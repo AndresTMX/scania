@@ -57,7 +57,6 @@ export const plantillaChecklist = {
             question: 'La unidad presenta golpes o fugas en la parte baja',
             inputvalue: '',
             outputvalue: '',
-            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -68,7 +67,6 @@ export const plantillaChecklist = {
             question: 'Daños en la carrocería y en el funcionamiento de la unidad',
             inputvalue: '',
             outputvalue: '',
-            outputvalue: '',
             correct: '',
             preview: '',
             image: '',
@@ -78,7 +76,6 @@ export const plantillaChecklist = {
         {
             question: 'Detalles fisicos',
             inputvalue: '',
-            outputvalue: '',
             outputvalue: '',
             correct: '',
             preview: '',

@@ -16,7 +16,7 @@ function Checklist() {
 
     const [step, setStep] = useState(1)
 
-    const { createInputChecklist } = useChecklist();
+    const { routerChecklist } = useChecklist();
 
     const dataUser = JSON.parse(sessionStorage.getItem('scania-session'))
 
@@ -52,7 +52,9 @@ function Checklist() {
 
         e.preventDefault()
 
-        const empytValues = state.filter((question) => question.value === '' && question.required === true);
+        const key = tipo === 'entrada' ? 'inputvalue': 'outputvalue';
+
+        const empytValues = state.filter((question) => question[key] === '' && question.required === true);
 
         if (empytValues.length > 0) {
             toast.error('Responde todas las preguntas para continuar')
@@ -81,19 +83,17 @@ function Checklist() {
             detalles: finales,
         }
 
-        const document = JSON.stringify(checklistEntrada);
+        newChecklist = { document: checklistEntrada, tracto_id: id, tipo: 'scania' }
 
-        newChecklist = { tipo: tipo, document: document, tracto_id: id }
+        const { error } = await routerChecklist( tipo, newChecklist, salida);
 
-        const { error, errorUpdadeStatus } = await createInputChecklist(newChecklist, salida);
-
-        if (error === null || errorUpdadeStatus === null) {
+        if (error === null ) {
             toast.success('Checklist guardado')
             setTimeout(() => {
                 navigate('/')
             }, 1000)
         } else {
-            toast.error(`Error al subir el checklist: ${error}, ${errorUpdadeStatus}`)
+            toast.error(`Error al subir el checklist: ${error}, ${error}`)
             setTimeout(() => {
                 navigate('/')
             }, 1000)

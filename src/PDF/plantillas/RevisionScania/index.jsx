@@ -7,6 +7,8 @@ import { Button } from "@nextui-org/react"
 //components document
 import { HeaderScania } from "../Components/HeaderScania";
 import { DataTractoScania } from "../Components/DataTractoScania";
+import { RevisionGeneral } from "../Components/RevisionGeneral";
+import { RevisionFrontal } from "../Components/RevisionFrontal";
 
 function RevisionScania({ checklist }) {
 
@@ -19,6 +21,8 @@ function RevisionScania({ checklist }) {
             <SimplePageLetter>
                 <HeaderScania />
                 <DataTractoScania chasis={chasis} tipo={tipoTracto} modelo={modelo}/>
+                <RevisionGeneral/>
+                <RevisionFrontal/>
             </SimplePageLetter>
             <SimplePageLetter>
                 <Text>Page 2</Text>

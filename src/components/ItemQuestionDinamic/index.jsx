@@ -30,13 +30,37 @@ function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }
     return (
         <>
 
-            {render === 'input' && <DinamicInput item={item} index={index} state={state} updateState={updateState} typeChecklist={typeChecklist} />}
+            {render === 'input' &&
+                <DinamicInput
+                    item={item}
+                    index={index}
+                    state={state}
+                    updateState={updateState}
+                    typeChecklist={typeChecklist} />}
 
-            {render === 'select' && <DinamicSelect item={item} index={index} state={state} updateState={updateState} typeChecklist={typeChecklist} />}
+            {render === 'select' &&
+                <DinamicSelect
+                    item={item}
+                    index={index}
+                    state={state}
+                    updateState={updateState}
+                    typeChecklist={typeChecklist} />}
 
-            {render === 'checkbox' && <DinamicCheckbox item={item} index={index} state={state} updateState={updateState} typeChecklist={typeChecklist} />}
+            {render === 'checkbox' &&
+                <DinamicCheckbox
+                    item={item}
+                    index={index}
+                    state={state}
+                    updateState={updateState}
+                    typeChecklist={typeChecklist} />}
 
-            {render === 'textarea' && <DinamicTextArea item={item} index={index} state={state} updateState={updateState} typeChecklist={typeChecklist} />}
+            {render === 'textarea' &&
+                <DinamicTextArea
+                    item={item}
+                    index={index}
+                    state={state}
+                    updateState={updateState}
+                    typeChecklist={typeChecklist} />}
 
         </>
     );
@@ -48,9 +72,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
 
     const { options, inputvalue, outputvalue, question } = item;
 
-    const keyValue = typeChecklist === 'entrada'? 'inputvalue': 'outputvalue';
-    const dinamicValue = typeChecklist === 'entrada'? inputvalue: outputvalue;
-
+    const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
 
     return (
         <div className="flex flex-col gap-1"
@@ -64,7 +86,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
                 key={options[0]}
                 onValueChange={() => OnChangeDinamic(options[0], keyValue, indexQuestion, state, updateState)}
                 color="primary"
-                value={dinamicValue === options[0] ? true : false}
+                value={typeChecklist === 'entrada' ? inputvalue : outputvalue}
             >
                 {options[0]}
             </Checkbox>
@@ -74,7 +96,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
                 key={options[1]}
                 onValueChange={() => OnChangeDinamic(options[1], keyValue, indexQuestion, state, updateState)}
                 color="primary"
-                value={dinamicValue === options[1] ? true : false}
+                value={typeChecklist === 'entrada' ? inputvalue : outputvalue}
             >
                 {options[1]}
             </Checkbox>
@@ -98,12 +120,12 @@ function DinamicInput({ item, index: indexQuestion, state, updateState, typeChec
 
     const { inputvalue, outputvalue, question } = item;
 
-    const keyValue = typeChecklist === 'entrada'? 'inputvalue': 'outputvalue';
-    const dinamicValue = typeChecklist === 'entrada'? inputvalue: outputvalue;
+    const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
+    const dinamicValue = typeChecklist === 'entrada' ? inputvalue : outputvalue;
 
     return (
         <Input
-            required
+            isRequired
             className="rounded-md shadow-md"
             id={`id_${question.trim()}`}
             name={question}
@@ -118,11 +140,12 @@ function DinamicSelect({ item, typeChecklist }) {
 
     const { options, inputvalue, outputvalue, question } = item;
 
-    const keyValue = typeChecklist === 'entrada'? 'inputvalue': 'outputvalue';
+    const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
 
     return (
 
         <Select
+            isRequired
             id={`id_${question.trim()}`}
             className="max-w-md"
             name={question}
@@ -145,8 +168,8 @@ function DinamicTextArea({ item, index: indexQuestion, state, updateState, typeC
 
     const { inputvalue, outputvalue, question } = item;
 
-    const keyValue = typeChecklist === 'entrada'? 'inputvalue': 'outputvalue';
-    const dinamicValue = typeChecklist === 'entrada'? inputvalue: outputvalue;
+    const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
+    const dinamicValue = typeChecklist === 'entrada' ? inputvalue : outputvalue;
 
     return (
         <>

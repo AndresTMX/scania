@@ -7,25 +7,15 @@ function useChecklist() {
     const [loading, setLoading] = useState(null)
 
     /*/AGREGAR NUEVO CHECKLIST DE REVISION /*/
-    async function createInputChecklist(dataCheck, infoOutput) {
+    async function createInputChecklist(checklist) {
         try {
 
-            const { tracto_id, tipo } = dataCheck;
-
-            const newStatus = tipo != 'salida' ? 'revisado-entrada' : 'finalizado';
-
-            let updates
-
-            if (tipo === 'entrada') {
-                updates = { status: newStatus }
-            } else {
-                updates = { status: newStatus, ...infoOutput }
-            }
+            const { tracto_id } = checklist;
 
             //subir el checklist de entrada
             const { error } = await supabase
                 .from('checklist')
-                .insert(dataCheck)
+                .insert(checklist)
 
             if (error) {
                 throw new Error(`Error al subir checklist de entrada, error: ${error.message}`)
@@ -34,14 +24,14 @@ function useChecklist() {
             //actualizar el estatus del tracto
             const { error: errorUpdadeStatus } = await supabase
                 .from('registros')
-                .update({ ...updates })
+                .update({ status: 'revisado-entrada' })
                 .eq('id', tracto_id)
 
             if (errorUpdadeStatus) {
                 throw new Error(`Error al actualizar status del registro de entrada, error: ${errorUpdadeStatus.message}`)
             }
 
-            return { error, errorUpdadeStatus }
+            return { error }
 
         } catch (error) {
             console.error(error)
@@ -49,6 +39,90 @@ function useChecklist() {
         }
     }
 
+    async function updateOutputChecklist(checklist, dataOutput) {
+        try {
+
+            const { tracto_id, document: outputDocument } = checklist;
+            const { ot_salida, user_salida_id, destino, checkOut } = dataOutput;
+
+            const { error, data: oldChecklist } = await supabase
+                .from(`checklist`)
+                .select(`*`)
+                .eq('tipo', 'scania')
+                .eq('tracto_id', tracto_id)
+
+            if (error) {
+                throw new Error(`Error al recuperar checklist de entrada, error: ${error.message} `)
+            }
+
+            const copyChecklist = oldChecklist[0].document;
+
+            const newChecklist = {}
+
+            for (const key of Object.keys(copyChecklist)) {
+
+                newChecklist[key] = [];
+
+                copyChecklist[key].map((element, index) => {
+
+                    newChecklist[key].push({
+                        ...element,
+                        outputvalue: outputDocument[key][index].outputvalue
+                    })
+                })
+            }
+
+            const { error: errorUpdateChecklist } = await supabase
+                .from('checklist')
+                .update({ document: newChecklist })
+                .eq('tipo', 'scania')
+                .eq('tracto_id', tracto_id)
+
+            if (errorUpdateChecklist) {
+                throw new Error(`Error al actualizar el checklist, error: ${errorUpdateChecklist.message}`)
+            }
+
+            const { error: errorUpdateRegister } = await supabase
+                .from('registros')
+                .update({
+                    destino: destino,
+                    ot_salida: ot_salida,
+                    user_salida_id: user_salida_id,
+                    checkOut: checkOut,
+                    status: 'finalizado'
+                })
+                .eq('id', tracto_id)
+
+            if (errorUpdateRegister) {
+                throw new Error(`Error al actualizar registro, error: ${errorUpdateRegister.message}`)
+            }
+
+            return { error }
+
+        } catch (error) {
+            console.error(error)
+            return { error }
+        }
+    }
+
+    async function routerChecklist(tipo, checklist, dataOutput) {
+        try {
+            const routes = {
+                entrada: async () => await createInputChecklist(checklist),
+                salida: async () => await updateOutputChecklist(checklist, dataOutput)
+            }
+
+            if (routes[tipo]) {
+                return await routes[tipo]();
+            } else {
+                throw new Error('Error en el enrutador, ruta desconocida');
+            }
+
+        } catch (error) {
+            console.error(error);
+            return { error };
+        }
+    }
 
     async function getOneInputChecklist(id) {
         try {
@@ -72,8 +146,9 @@ function useChecklist() {
         }
     }
 
-    return { createInputChecklist, getOneInputChecklist, checklist, loading }
+    return { routerChecklist, getOneInputChecklist, checklist, loading }
 
 }
 
 export { useChecklist };
+
