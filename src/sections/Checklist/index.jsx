@@ -111,21 +111,22 @@ function Checklist() {
             <Toaster richColors position="top-center" />
 
 
-            <section className="flex flex-col w-full gap-4 py-5 bg-body h-screen items-center">
+            <section className="flex flex-col w-full gap-4 py-5 bg-body items-center">
 
                 <Button
-                    className="text-white absolute left-10"
+                    size="sm"
+                    className="text-white absolute left-10sm: left-5 top-2"
                     onPress={backToInit}
                     color="primary"
                     isIconOnly>
                     <FaArrowLeft />
                 </Button>
 
-                <div className="flex flex-col gap-5 justify-center h-auto lg:w-[500px] md:w-5/6 sm:w-5/6">
+                <div className="flex flex-col gap-5 py-10 justify-center lg:w-[500px] md:w-5/6 sm:w-5/6">
 
-                    <strong className="text-lg text-center mt-20 text-secondary">Checklist de {tipo} de chasis {chasis}</strong>
+                    <strong className="text-lg text-center text-secondary">Checklist de {tipo} de chasis {chasis}</strong>
 
-                    <div className="flex flex-col w-full gap-5 xl:px-5 md:px-2 sm:px-2 max-h-[700px] overflow-y-auto">
+                    <div className="flex flex-col w-full gap-5 xl:px-5 md:px-2 sm:px-2 ">
 
                         {/* Revision general */}
                         {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => setStep(2))}

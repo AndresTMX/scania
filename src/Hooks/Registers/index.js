@@ -28,7 +28,7 @@ function useRegister() {
             setError(null)
             const { error, data } = await supabase.from('registros')
                 .select(`*`)
-                .eq('status', 'finalizado')
+                .in('status', ['pendiente', 'revisado-entrada'])
                 .order('created_at', { ascending: false })
 
             if (error) {

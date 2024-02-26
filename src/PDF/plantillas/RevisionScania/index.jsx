@@ -22,7 +22,7 @@ function RevisionScania({ checklist }) {
                 <HeaderScania />
                 <DataTractoScania chasis={chasis} tipo={tipoTracto} modelo={modelo}/>
                 <RevisionGeneral/>
-                <RevisionFrontal/>
+                {/* <RevisionFrontal/> */}
             </SimplePageLetter>
             <SimplePageLetter>
                 <Text>Page 2</Text>

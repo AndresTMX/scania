@@ -27,7 +27,7 @@ function ChecklistPDF() {
     return (
         <>
 
-            <section className="flex flex-col h-[800px] w-screen p-4 bg-body">
+            <section className="flex flex-col h-screen w-screen p-4 bg-body">
 
                 <Button
                     className="text-white absolute ml-2 left-0"
@@ -41,7 +41,7 @@ function ChecklistPDF() {
                     <Card className="flex flex-col h-full w-5/6">
                         <CardHeader className="flex flex-col items-center">
                             <div className="flex flex-row w-5/6 justify-between items-center">
-                                <strong>Revisión de tracto entrada</strong>
+                                <strong>Checklist Scania</strong>
 
                                 <DowloadScania />
                             </div>
