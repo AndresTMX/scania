@@ -10,18 +10,23 @@ import { DataTractoScania } from "../Components/DataTractoScania";
 import { RevisionGeneral } from "../Components/RevisionGeneral";
 import { RevisionFrontal } from "../Components/RevisionFrontal";
 
-function RevisionScania({ checklist }) {
+function RevisionScania({ checklist, auditorRecepcion, auditorLiberacion }) {
 
     const { document, created_at, tipo, tracto, registros } = checklist || {};
 
-    const { chasis, checkIn, destino, modelo, origen, tipo: tipoTracto } = registros || {};
+
 
     return (
         <Document>
             <SimplePageLetter>
                 <HeaderScania />
-                <DataTractoScania chasis={chasis} tipo={tipoTracto} modelo={modelo}/>
-                <RevisionGeneral/>
+                <DataTractoScania
+                    document={document}
+                    registros={registros}
+                    auditorRecepcion={auditorRecepcion}
+                    auditorLiberacion={auditorLiberacion}
+                />
+                <RevisionGeneral document={document} />
                 {/* <RevisionFrontal/> */}
             </SimplePageLetter>
             <SimplePageLetter>

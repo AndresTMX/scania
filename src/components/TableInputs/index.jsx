@@ -375,6 +375,7 @@ export function TableInputs({ onOpen, }) {
       <Toaster richColors position="top-center" />
 
       <Table
+        className="min-w-[720px]"
         aria-label="Example table with client side pagination"
         topContent={
           <div className="flex flex-row items-center w-full justify-start gap-4 ">

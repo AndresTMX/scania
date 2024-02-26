@@ -1,6 +1,16 @@
 import { View, Text, } from "@react-pdf/renderer";
 
-function RevisionGeneral() {
+function RevisionGeneral({ document }) {
+
+    const { revisionGeneral, revisionLlaves } = document || {};
+
+    const zonaBajaE = revisionGeneral ? revisionGeneral[0].inputvalue : 'ND';
+    const zonaBajaS = revisionGeneral ? revisionGeneral[0].outputvalue : 'ND';
+
+    const dañosCarroreciaE = revisionGeneral ? revisionGeneral[1].inputvalue : 'ND';
+    const dañosCarroreciaS = revisionGeneral ? revisionGeneral[1].outputvalue : 'ND';
+
+
     return (
         <>
             <View style={{ display: 'flex', flexDirection: 'column', borderTop: 1, }}>
@@ -30,8 +40,8 @@ function RevisionGeneral() {
                     </View>
 
                     <View style={{ display: 'flex', flexDirection: 'row', width: '10%', alignItems: 'center', justifyContent: 'space-around', height: '100%', borderLeft: 1 }}>
-                        <Text style={{ fontSize: '10px', fontFamily: 'Helvetica-Bold', borderRight: 1, textAlign: 'center', width: '50%', padding: '2px', color: 'white' }}>E</Text>
-                        <Text style={{ fontSize: '10px', fontFamily: 'Helvetica-Bold', textAlign: 'center', width: '50%', padding: '2px', color: 'white' }}>S</Text>
+                        <Text style={{ fontSize: '9px', fontFamily: 'Helvetica-Bold', borderRight: 1, textAlign: 'center', width: '50%', padding: '2px' }}>{zonaBajaE}</Text>
+                        <Text style={{ fontSize: '9px', fontFamily: 'Helvetica-Bold', textAlign: 'center', width: '50%', padding: '2px' }}>{zonaBajaS}</Text>
                     </View>
 
                 </View>
@@ -45,8 +55,8 @@ function RevisionGeneral() {
                     </View>
 
                     <View style={{ display: 'flex', flexDirection: 'row', width: '10%', alignItems: 'center', justifyContent: 'space-around', height: '100%', borderLeft: 1 }}>
-                        <Text style={{ fontSize: '10px', fontFamily: 'Helvetica-Bold', borderRight: 1, textAlign: 'center', width: '50%', padding: '2px', color: 'white' }}>E</Text>
-                        <Text style={{ fontSize: '10px', fontFamily: 'Helvetica-Bold', textAlign: 'center', width: '50%', padding: '2px', color: 'white' }}>S</Text>
+                        <Text style={{ fontSize: '9px', fontFamily: 'Helvetica-Bold', borderRight: 1, textAlign: 'center', width: '50%', padding: '2px' }}>{dañosCarroreciaE}</Text>
+                        <Text style={{ fontSize: '9px', fontFamily: 'Helvetica-Bold', textAlign: 'center', width: '50%', padding: '2px' }}>{dañosCarroreciaS}</Text>
                     </View>
 
                 </View>
@@ -55,7 +65,7 @@ function RevisionGeneral() {
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50%', width: '100%', borderTop: 1, borderBottom: 1, }}>
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '70%', borderRight: 1, backgroundColor: 'whitesmoke' }}>
-                        <Text style={{ fontSize: '12px', fontFamily: 'Helvetica-Bold' , paddingBottom:'5px' }} >Detalles fisicos</Text>
+                        <Text style={{ fontSize: '12px', fontFamily: 'Helvetica-Bold', paddingBottom: '5px' }} >Detalles fisicos</Text>
 
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '90%' }}>
 
@@ -82,19 +92,35 @@ function RevisionGeneral() {
                         <View style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                             <View style={{ width: '70%', height: '100%' }}>
                                 <Text style={{ fontSize: '9px', padding: '3px', fontFamily: 'Helvetica-Bold', textTransform: 'uppercase' }}>
-                                    juego de llaves
+                                    Juegos de llaves
                                 </Text>
                             </View>
                             <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', fontFamily: 'Helvetica-Bold' }} >E</Text>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', fontFamily: 'Helvetica-Bold' }} >S</Text>
+                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', fontFamily: 'Helvetica-Bold' }}>E</Text>
+                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', fontFamily: 'Helvetica-Bold' }}>S</Text>
                             </View>
                         </View>
 
-                        <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
+                        {revisionLlaves && revisionLlaves.map((item) => (
+                            item.question != "observaciones" && (
+                                <View key={item.question} style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
+                                    <View style={{ width: '70%', height: '100%' }}>
+                                        <Text style={{ fontSize: '9px', padding: '2px' }}>
+                                            {item.question}
+                                        </Text>
+                                    </View>
+                                    <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
+                                        <Text style={{ fontSize: '9px', textAlign: 'center', padding: '2px', borderLeft: 1, width: '100%', }} >{item.inputvalue}</Text>
+                                        <Text style={{ fontSize: '9px', textAlign: 'center', padding: '2px', borderLeft: 1, width: '100%', }} >{item.outputvalue}</Text>
+                                    </View>
+                                </View>
+                            )
+                        ))}
+
+                        {/* <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
                             <View style={{ width: '70%', height: '100%' }}>
                                 <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                    juego de llaves
+                                3 llaves de tanques
                                 </Text>
                             </View>
                             <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
@@ -106,26 +132,14 @@ function RevisionGeneral() {
                         <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
                             <View style={{ width: '70%', height: '100%' }}>
                                 <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                    juego de llaves
+                                    2 llaves de gavetas
                                 </Text>
                             </View>
                             <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
                                 <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >E</Text>
                                 <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >S</Text>
                             </View>
-                        </View>
-
-                        <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
-                            <View style={{ width: '70%', height: '100%' }}>
-                                <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                    juego de llaves
-                                </Text>
-                            </View>
-                            <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >E</Text>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >S</Text>
-                            </View>
-                        </View>
+                        </View> */}
 
                         <View style={{ display: 'flex', flexDirection: 'column', width: '100%', borderTop: 1, }}>
                             <View style={{ width: '100%', borderBottom: 1 }}>

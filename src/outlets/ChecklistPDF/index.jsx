@@ -1,15 +1,24 @@
 import { useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { useInfoUser } from "../../Hooks/Users";
 import { PDFViewer } from "@react-pdf/renderer";
 import { useChecklist } from "../../Hooks/Checklist";
 import { useParams, useNavigate } from "react-router-dom";
 import { RevisionScania, DowloadScania } from "../../PDF/plantillas/RevisionScania";
-import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
-
+import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
 
 function ChecklistPDF() {
 
     const { getOneInputChecklist, checklist, loading } = useChecklist();
+    console.log("🚀 ~ ChecklistPDF ~ checklist:", checklist)
+
+    const { registros } = checklist || {};
+
+    const { user_id, user_salida_id } = registros || {};
+
+    const { infoUser: auditorRecepcion } = useInfoUser(user_id);
+    const { infoUser: auditorLiberacion } = useInfoUser(user_id);
+
 
     const { id } = useParams();
 
@@ -50,7 +59,10 @@ function ChecklistPDF() {
                             <PDFViewer
                                 style={{ width: '90%', height: '90%' }}
                             >
-                                <RevisionScania checklist={checklist}/>
+                                <RevisionScania
+                                    checklist={checklist}
+                                    auditorRecepcion={auditorRecepcion}
+                                    auditorLiberacion={auditorLiberacion} />
                             </PDFViewer>
                         </CardBody>
                     </Card>

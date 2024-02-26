@@ -131,7 +131,7 @@ function useChecklist() {
                 .from('checklist')
                 .select('*, registros(*)')
                 .eq('tracto_id', id)
-                .eq('tipo', 'entrada');
+                .eq('tipo', 'scania');
 
             if (error) {
                 throw new Error(`Error al recuperar el checklist, error: ${error.message}`)

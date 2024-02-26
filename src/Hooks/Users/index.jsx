@@ -52,4 +52,43 @@ function useUsers(rol) {
 
 }
 
-export { useUsers };
+
+function useInfoUser(id) {
+
+    const [infoUser, setInforUser] = useState([])
+
+    useEffect(() => {
+        id ? getUser() : [];
+    }, [id])
+
+    async function getUser() {
+        try {
+            const { error, data } = await supabase
+                .from('users')
+                .select('*')
+                .eq('auth_id', id)
+
+            if (error) {
+                throw new Error(`Error al obtener información de usuario, ${error.message}`)
+            }
+
+            if (data.length >= 1) {
+                const nombre = data[0].nombre + data[0].apellido;
+                setInforUser(nombre)
+            } else {
+                setInforUser(' no disponible ')
+            }
+
+
+            return { error }
+        } catch (error) {
+            console.error(error)
+            return { error }
+        }
+    }
+
+    return { infoUser }
+
+}
+
+export { useUsers, useInfoUser };

@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
                 throw new Error(`Error de inicio de session: ${error.message}`)
             }
             sessionStorage.setItem('scania-session', JSON.stringify(data))
+            localStorage.setItem('scania-session', JSON.stringify(data))
             navigate('/')
         } catch (error) {
             console.error(error)
@@ -37,13 +38,14 @@ function AuthProvider({ children }) {
 
             navigate('/login')
             sessionStorage.clear('scania-session')
+            localStorage.clear('scania-session')
         } catch (error) {
             console.error(error)
             toast.error(error.message)
         }
     };
 
-    useEffect(() => {
+    useEffect(() => { 
         const { data } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (session == null) {

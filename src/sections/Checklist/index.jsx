@@ -18,7 +18,7 @@ function Checklist() {
 
     const { routerChecklist } = useChecklist();
 
-    const dataUser = JSON.parse(sessionStorage.getItem('scania-session'))
+    const dataUser = JSON.parse(localStorage.getItem('scania-session'))
 
     const [revisionGeneral, setRevisionGeneral] = useState(plantillaChecklist.revisionGeneral)
 
@@ -111,7 +111,7 @@ function Checklist() {
             <Toaster richColors position="top-center" />
 
 
-            <section className="flex flex-col w-full gap-4 py-5 bg-body items-center">
+            <section className="flex flex-col w-full gap-4 py-5 bg-body min-h-screen h-full items-center">
 
                 <Button
                     size="sm"

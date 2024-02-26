@@ -7,7 +7,7 @@ import { Input, Select, SelectItem, Textarea, Image, Button } from "@nextui-org/
 import { DownloadResponsive, ResponsivaTaller } from "../../PDF/plantillas/responsiva";
 import { PDFViewer } from "@react-pdf/renderer";
 import { toast, Toaster } from "sonner";
-import { useUsers } from "../../Hooks/Users/index,";
+import { useUsers } from "../../Hooks/Users";
 import { useTaller } from "../../Hooks/Taller";
 
 
