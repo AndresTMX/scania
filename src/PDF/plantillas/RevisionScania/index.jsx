@@ -9,11 +9,18 @@ import { HeaderScania } from "../Components/HeaderScania";
 import { DataTractoScania } from "../Components/DataTractoScania";
 import { RevisionGeneral } from "../Components/RevisionGeneral";
 import { RevisionFrontal } from "../Components/RevisionFrontal";
+import { RevisionDerecha } from "../Components/RevisionDerecha";
+import { RevisionTrasera } from "../Components/RevisionTrasera";
+import { RevisionIzquierda } from "../Components/RevisionIzquierda";
+import { RevisionCabina } from "../Components/RevisionCabina";
+import { RevisionAccesorios } from "../Components/RevisionAccesorios";
+import { RevisionDatos } from "../Components/RevisionDatos";
+import { RevisionBaterias } from "../Components/RevisionBaterias";
+import { EntregaVehiculo } from "../Components/EntrgaVehiculo";
 
 function RevisionScania({ checklist, auditorRecepcion, auditorLiberacion }) {
 
     const { document, created_at, tipo, tracto, registros } = checklist || {};
-
 
 
     return (
@@ -27,10 +34,17 @@ function RevisionScania({ checklist, auditorRecepcion, auditorLiberacion }) {
                     auditorLiberacion={auditorLiberacion}
                 />
                 <RevisionGeneral document={document} />
-                {/* <RevisionFrontal/> */}
+                <RevisionFrontal document={document} />
+                <RevisionDerecha document={document} />
+                <RevisionTrasera document={document} />
+                <RevisionIzquierda document={document} />
             </SimplePageLetter>
             <SimplePageLetter>
-                <Text>Page 2</Text>
+                <RevisionCabina document={document} />
+                <RevisionAccesorios document={document} />
+                <RevisionDatos document={document} />
+                <RevisionBaterias document={document} />
+                <EntregaVehiculo document={document} />
             </SimplePageLetter>
         </Document>
     );

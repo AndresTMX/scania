@@ -13,8 +13,7 @@ function RevisionGeneral({ document }) {
 
     return (
         <>
-            <View style={{ display: 'flex', flexDirection: 'column', borderTop: 1, }}>
-
+            <View style={{ display: 'flex', flexDirection: 'column', borderTop: 1, marginBottom: '0px', height: '30%' }}>
 
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
 
@@ -62,7 +61,7 @@ function RevisionGeneral({ document }) {
                 </View>
 
                 {/* DETALLES FISICOS */}
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50%', width: '100%', borderTop: 1, borderBottom: 1, }}>
+                <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '85%', width: '100%', borderTop: 1, borderBottom: 1, }}>
 
                     <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '70%', borderRight: 1, backgroundColor: 'whitesmoke' }}>
                         <Text style={{ fontSize: '12px', fontFamily: 'Helvetica-Bold', paddingBottom: '5px' }} >Detalles fisicos</Text>
@@ -117,46 +116,24 @@ function RevisionGeneral({ document }) {
                             )
                         ))}
 
-                        {/* <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
-                            <View style={{ width: '70%', height: '100%' }}>
-                                <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                3 llaves de tanques
-                                </Text>
-                            </View>
-                            <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >E</Text>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >S</Text>
-                            </View>
-                        </View>
-
-                        <View style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
-                            <View style={{ width: '70%', height: '100%' }}>
-                                <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                    2 llaves de gavetas
-                                </Text>
-                            </View>
-                            <View style={{ display: 'flex', width: '30%', flexDirection: 'row', justifyContent: 'space-around', height: '100%', }}>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >E</Text>
-                                <Text style={{ fontSize: '9px', textAlign: 'center', padding: '3px', borderLeft: 1, width: '100%', color: 'white' }} >S</Text>
-                            </View>
-                        </View> */}
-
-                        <View style={{ display: 'flex', flexDirection: 'column', width: '100%', borderTop: 1, }}>
-                            <View style={{ width: '100%', borderBottom: 1 }}>
-                                <Text style={{ fontSize: '9px', padding: '3px', fontFamily: 'Helvetica-Bold' }}>
-                                    comentarios
-                                </Text>
-                            </View>
-                            <View style={{ display: 'flex', width: '100%', flexDirection: 'column', }}>
-                                <Text style={{ fontSize: '9px', padding: '3px' }}>
-                                    comentarios efqwef
-                                </Text>
-                            </View>
-                        </View>
-
+                        {revisionLlaves && revisionLlaves.map((item) => (
+                            item.question === "observaciones" && (
+                                <View key={`comentarios_${item.question}`} style={{ display: 'flex', flexDirection: 'column', width: '100%', borderTop: 1, }}>
+                                    <View style={{ width: '100%', borderBottom: 1 }}>
+                                        <Text style={{ fontSize: '9px', padding: '3px', fontFamily: 'Helvetica-Bold' }}>
+                                            comentarios
+                                        </Text>
+                                    </View>
+                                    <View style={{ display: 'flex', width: '100%', flexDirection: 'column', }}>
+                                        <Text style={{ fontSize: '9px', padding: '3px' }}>
+                                            {item.coment}
+                                        </Text>
+                                    </View>
+                                </View>
+                            )
+                        ))}
 
                     </View>
-
 
                 </View>
 

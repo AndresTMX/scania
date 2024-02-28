@@ -1,17 +1,21 @@
 import { TbPhotoPlus } from "react-icons/tb";
-import { Checkbox, Input, Select, SelectItem, Textarea, Tooltip } from "@nextui-org/react";
+import { Checkbox, Input, Select, SelectItem, Textarea, Tooltip, Button } from "@nextui-org/react";
 
 function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }) {
 
     const typeItem = (item) => {
         const typeArray = Array.isArray(item?.options);
 
-        if (!typeArray && item.question != 'observaciones') {
+        if (!typeArray && item.question != 'observaciones' && item.type != 'image') {
             return 'input'
         }
 
         if (!typeArray && item.question === 'observaciones') {
             return 'textarea'
+        }
+
+        if (!typeArray && item?.type && item.type === 'image') {
+            return 'image'
         }
 
         if (typeArray && item.options.length >= 3) {
@@ -62,6 +66,18 @@ function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }
                     updateState={updateState}
                     typeChecklist={typeChecklist} />}
 
+
+            {render === 'image' &&
+                <DinamicImage
+                    item={item}
+                    index={index}
+                    state={state}
+                    updateState={updateState}
+                    typeChecklist={typeChecklist}
+                />
+            }
+
+
         </>
     );
 }
@@ -83,6 +99,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
             <p>{question}</p>
 
             <Checkbox
+                className="text-white"
                 key={options[0]}
                 onValueChange={() => OnChangeDinamic(options[0], keyValue, indexQuestion, state, updateState)}
                 color="primary"
@@ -93,6 +110,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
 
 
             <Checkbox
+                className="text-white"
                 key={options[1]}
                 onValueChange={() => OnChangeDinamic(options[1], keyValue, indexQuestion, state, updateState)}
                 color="primary"
@@ -164,6 +182,24 @@ function DinamicSelect({ item, typeChecklist }) {
     )
 }
 
+function DinamicImage({ item, typeChecklist, index, state, updateState, }) {
+
+    return (
+        <div className="flex flex-col gap-2  ">
+            <p>{item.question}</p>
+            <label label htmlFor={`image_${item.question}`}>
+                <input id={`image_${item.question}`} className="hidden" type='file' accept='image/*' name={`image_${item.question}`} />
+                <Tooltip content="agrega imagenes" className="text-white bg-danger">
+                    <span className="text-4xl cursor-pointer text-danger active:opacity-50">
+                        <TbPhotoPlus />
+                    </span>
+                </Tooltip>
+            </label>
+
+        </div>
+    )
+}
+
 function DinamicTextArea({ item, index: indexQuestion, state, updateState, typeChecklist }) {
 
     const { inputvalue, outputvalue, question } = item;
@@ -218,4 +254,15 @@ export const OnCheckDinamic = (newValue, key, key2, index, state, updateState) =
     } catch (error) {
         console.error(error)
     }
+}
+
+export const OnChangueImage = (e, key, index, state, updateState) => {
+
+    e.preventDefault();
+
+    const file = e.target.files[0];
+    const urlImage = URL.createObjectURL(file);
+
+
+
 }

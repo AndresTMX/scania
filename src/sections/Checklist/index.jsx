@@ -21,6 +21,7 @@ function Checklist() {
     const dataUser = JSON.parse(localStorage.getItem('scania-session'))
 
     const [revisionGeneral, setRevisionGeneral] = useState(plantillaChecklist.revisionGeneral)
+    console.log("🚀 ~ Checklist ~ revisionGeneral:", revisionGeneral)
 
     const [juegoLlaves, setJuegoLlaves] = useState(plantillaChecklist.juegosLlaves)
 

@@ -83,6 +83,44 @@ export const plantillaChecklist = {
             options: ['si', 'no'],
             required: true,
         },
+        {
+            question: 'Foto frontal',
+            preview: '',
+            inputvalue: '',
+            outputvalue: '',
+            required: true,
+            type:'image',
+        },
+        {
+            question: 'Foto lateral izquierdo',
+            preview: '',
+            inputvalue: '',
+            outputvalue: '',
+            required: true,
+            type:'image',
+        },
+        {
+            question: 'Foto lateral derecho',
+            preview: '',
+            inputvalue: '',
+            outputvalue: '',
+            required: true,
+            type:'image',
+        },
+        {
+            question: 'Foto trasera',
+            preview: '',
+            inputvalue: '',
+            outputvalue: '',
+            required: true,
+            type:'image',
+        },
+        {
+            question: 'observaciones',
+            inputvalue: '',
+            outputvalue: '',
+        }
+
     ],
     juegosLlaves: [
         {
@@ -128,6 +166,12 @@ export const plantillaChecklist = {
             options: ['si', 'no'],
             required: true,
 
+        },
+        {
+            question: 'llaves',
+            inputvalue: '',
+            outputvalue: '',
+            typeQuestion: 'qr'
         },
         {
             question: 'observaciones',
@@ -292,6 +336,14 @@ export const plantillaChecklist = {
             required: true
 
         },
+        {
+            question: 'observaciones',
+            inputvalue: '',
+            outputvalue: '',
+            correct: '',
+            preview: '',
+            image: '',
+        },
 
     ],
     nivelesFluidos: [
@@ -417,6 +469,11 @@ export const plantillaChecklist = {
             required: true
 
         },
+        {
+            question: 'observaciones',
+            inputvalue: '',
+            outputvalue: '',
+        }
     ],
     revisionTrasera: [
         {
@@ -1098,6 +1155,13 @@ export const plantillaChecklist = {
             options: ['si', 'no'],
             required: true,
         },
+        {
+            question: 'observaciones',
+            inputvalue: '',
+            outputvalue: '',
+            preview: '',
+            image: '',
+        }
     ],
     revisionBaterias: [
         {
