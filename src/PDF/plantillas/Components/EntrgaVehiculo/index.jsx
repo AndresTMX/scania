@@ -19,7 +19,7 @@ function EntregaVehiculo({ document }) {
                 </View>
 
                 <View style={{ display: 'flex', flexDirection: 'column', width: '40%', textAlign: 'center', }}>
-                    <Text style={{ width: '50%', padding: '5px', borderTop: 1, fontSize: '9px', width: '100%' }} >Nombre y Firma</Text>
+                    <Text style={{ width: '50%', padding: '5px', borderTop: 1, fontSize: '9px' }} >Nombre y Firma</Text>
                 </View>
             </View>
 
@@ -30,7 +30,7 @@ function EntregaVehiculo({ document }) {
                 </View>
 
                 <View style={{ display: 'flex', flexDirection: 'column', width: '40%', textAlign: 'center', }}>
-                    <Text style={{ width: '50%', padding: '5px', borderTop: 1, fontSize: '9px', width: '100%' }} >Nombre y Firma</Text>
+                    <Text style={{ width: '50%', padding: '5px', borderTop: 1, fontSize: '9px' }} >Nombre y Firma</Text>
                 </View>
             </View>
 

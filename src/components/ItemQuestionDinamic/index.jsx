@@ -1,5 +1,10 @@
+import { useDisclosure } from "@nextui-org/react";
+import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
+import { Input, Select, SelectItem, Textarea, Tooltip, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Image } from "@nextui-org/react";
+//icons
 import { TbPhotoPlus } from "react-icons/tb";
-import { Checkbox, Input, Select, SelectItem, Textarea, Tooltip, Button } from "@nextui-org/react";
+import { FaRegTrashAlt } from "react-icons/fa";
+
 
 function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }) {
 
@@ -14,7 +19,7 @@ function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }
             return 'textarea'
         }
 
-        if (!typeArray && item?.type && item.type === 'image') {
+        if (item.type && item.type === 'image') {
             return 'image'
         }
 
@@ -32,7 +37,7 @@ function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }
     const render = typeItem(item)
 
     return (
-        <>
+        <div>
 
             {render === 'input' &&
                 <DinamicInput
@@ -78,7 +83,7 @@ function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }
             }
 
 
-        </>
+        </div>
     );
 }
 
@@ -86,7 +91,9 @@ export { ItemQuestionsDinamic };
 
 function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeChecklist }) {
 
-    const { options, inputvalue, outputvalue, question } = item;
+    const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
+
+    const { options, question, } = item;
 
     const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
 
@@ -95,42 +102,92 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
             id={`id_${question.trim()}`}
 
         >
-
             <p>{question}</p>
+            <FormGroup sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} >
 
-            <Checkbox
-                className="text-white"
-                key={options[0]}
-                onValueChange={() => OnChangeDinamic(options[0], keyValue, indexQuestion, state, updateState)}
-                color="primary"
-                value={typeChecklist === 'entrada' ? inputvalue : outputvalue}
-            >
-                {options[0]}
-            </Checkbox>
+                {options.map((option, index) => (
+                    <FormControlLabel
+                        key={`checkbox_${item.question}_${option}_${index}`}
+                        label={option}
+                        control={
+                            <Checkbox
+                                className="text-white"
+                                onChange={() => OnChangeDinamic(option, keyValue, indexQuestion, state, updateState)}
+                                color="primary"
+                                value={item[keyValue]}
+                                checked={item[keyValue] === option ? true : false}
+                            >
+                                {option}
+                            </Checkbox>
+                        }
+                    />
+                ))}
 
+            </FormGroup>
 
-            <Checkbox
-                className="text-white"
-                key={options[1]}
-                onValueChange={() => OnChangeDinamic(options[1], keyValue, indexQuestion, state, updateState)}
-                color="primary"
-                value={typeChecklist === 'entrada' ? inputvalue : outputvalue}
-            >
-                {options[1]}
-            </Checkbox>
+            {item.preview === '' &&
+                <div className="flex flex-row items-center justify-end p-1">
+                    <label label htmlFor={`image_${question}`}>
+                        <input id={`image_${question}`} className="hidden"
+                            onChange={(e) => OnChangueImage(e, keyValue, indexQuestion, state, updateState)}
+                            type='file' accept='image/*' name={`image_${question}`}
+                        />
+                        <Tooltip content="agrega imagenes" className="text-white bg-danger">
+                            <span className="text-lg cursor-pointer text-danger active:opacity-50">
+                                <TbPhotoPlus />
+                            </span>
+                        </Tooltip>
+                    </label>
+                </div>}
 
-            <div className="flex flex-row items-center justify-end p-1">
-                <label label htmlFor={`image_${question}`}>
-                    <input id={`image_${question}`} className="hidden" type='file' accept='image/*' name={`image_${question}`} />
-                    <Tooltip content="agrega imagenes" className="text-white bg-danger">
-                        <span className="text-lg cursor-pointer text-danger active:opacity-50">
+            {item.preview != '' &&
+                <div className="flex flex-row justify-end">
+                    <Tooltip
+                        content="ver imagene"
+                        className="text-white bg-danger"
+                    >
+                        <Button
+                            className="text-white"
+                            color="primary"
+                            isIconOnly
+                            size="sm"
+                            onClick={onOpen}
+
+                        >
                             <TbPhotoPlus />
-                        </span>
+                        </Button>
                     </Tooltip>
-                </label>
+                </div>
+            }
 
-            </div>
-        </div>
+            <Modal className="absolute top-10" isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-2">
+                                <p className="text-sm text-primary">{item.question}</p>
+                                <span className="text-sm text-danger">{item[keyValue]} *</span>
+                            </ModalHeader>
+                            <ModalBody>
+                                <Image src={item.preview} alt={item.question} />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button
+                                    onClick={() => discardImage(keyImage, indexQuestion, state, updateState, () => onClose())}
+                                    size="md"
+                                    endContent={<FaRegTrashAlt />}
+                                    color="danger"
+                                >
+                                    descartar
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+
+
+        </div >
     )
 }
 
@@ -182,19 +239,67 @@ function DinamicSelect({ item, typeChecklist }) {
     )
 }
 
-function DinamicImage({ item, typeChecklist, index, state, updateState, }) {
+function DinamicImage({ item, typeChecklist, index: indexQuestion, state, updateState, }) {
+
+    const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
+
+    const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
     return (
         <div className="flex flex-col gap-2  ">
+
             <p>{item.question}</p>
-            <label label htmlFor={`image_${item.question}`}>
-                <input id={`image_${item.question}`} className="hidden" type='file' accept='image/*' name={`image_${item.question}`} />
-                <Tooltip content="agrega imagenes" className="text-white bg-danger">
-                    <span className="text-4xl cursor-pointer text-danger active:opacity-50">
-                        <TbPhotoPlus />
-                    </span>
-                </Tooltip>
-            </label>
+
+            {(item.preview === '') &&
+                <label label htmlFor={`image_${item.question}`}>
+                    <input id={`image_${item.question}`}
+                        onChange={(e) => OnChangueImage(e, keyValue, indexQuestion, state, updateState)}
+                        className="hidden" type='file' accept='image/*'
+                        name={`image_${item.question}`}
+                    />
+                    <Tooltip content="agrega imagenes" className="text-white bg-danger">
+                        <span className="text-4xl cursor-pointer text-danger active:opacity-50">
+                            <TbPhotoPlus />
+                        </span>
+                    </Tooltip>
+                </label>}
+
+            {(item.preview != '') &&
+                <Image
+                    className="cursor-pointer"
+                    isZoomed
+                    height='80px'
+                    width='80px'
+                    src={item.preview}
+                    alt={item.question}
+                    onClick={onOpen}
+                />
+            }
+
+            <Modal className="absolute top-10" isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent className="w-auto">
+                    {() => (
+                        <div>
+                            <ModalHeader className="flex flex-col gap-2">
+                                <p className="text-sm text-primary">{item.question}</p>
+                            </ModalHeader>
+                            <ModalBody>
+                                <Image src={item.preview} alt={item.question} />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button
+                                    onClick={() => discardImage(keyValue, indexQuestion, state, updateState, () => onClose())}
+                                    size="md"
+                                    endContent={<FaRegTrashAlt />}
+                                    color="danger"
+                                >
+                                    descartar
+                                </Button>
+                            </ModalFooter>
+                        </div>
+                    )}
+                </ModalContent>
+            </Modal>
 
         </div>
     )
@@ -209,10 +314,10 @@ function DinamicTextArea({ item, index: indexQuestion, state, updateState, typeC
 
     return (
         <>
-            <Textarea
+            <Textarea  
                 id={`id_${question.trim()}`}
                 onChange={(e) => OnChangeDinamic(e.target.value, keyValue, indexQuestion, state, updateState)}
-                className="max-w-xs rounded-md shadow-md"
+                className="rounded-md shadow-md"
                 value={dinamicValue}
                 label={question}
                 placeholder={'Escribe tus comentarios'}
@@ -256,13 +361,47 @@ export const OnCheckDinamic = (newValue, key, key2, index, state, updateState) =
     }
 }
 
-export const OnChangueImage = (e, key, index, state, updateState) => {
+export const OnChangueImage = (e, key, indexQuestion, state, updateState) => {
+    try {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const file = e.target.files[0];
-    const urlImage = URL.createObjectURL(file);
+        const file = e.target.files[0];
+        const urlImage = URL.createObjectURL(file);
+
+        const copyState = [...state];
+
+        copyState[indexQuestion] = {
+            ...copyState[indexQuestion],
+            [key]: file,
+            preview: urlImage
+        };
+
+        updateState(copyState)
+
+    } catch (error) {
+        console.error(error)
+    }
 
 
 
+}
+
+export const discardImage = (key, indexQuestion, state, updateState, callback) => {
+    try {
+        const copyState = [...state];
+
+        copyState[indexQuestion] = {
+            ...copyState[indexQuestion],
+            [key]: "",
+            preview: ""
+        };
+
+        updateState(copyState)
+
+        callback()
+
+    } catch (error) {
+        console.error(error)
+    }
 }

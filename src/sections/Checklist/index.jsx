@@ -9,6 +9,7 @@ import { currentDateTimeZone } from "../../helpers/datetime";
 //icons
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { TbClockQuestion } from "react-icons/tb";
 
 function Checklist() {
 
@@ -21,7 +22,6 @@ function Checklist() {
     const dataUser = JSON.parse(localStorage.getItem('scania-session'))
 
     const [revisionGeneral, setRevisionGeneral] = useState(plantillaChecklist.revisionGeneral)
-    console.log("🚀 ~ Checklist ~ revisionGeneral:", revisionGeneral)
 
     const [juegoLlaves, setJuegoLlaves] = useState(plantillaChecklist.juegosLlaves)
 
@@ -53,12 +53,18 @@ function Checklist() {
 
         e.preventDefault()
 
-        const key = tipo === 'entrada' ? 'inputvalue': 'outputvalue';
+        const key = tipo === 'entrada' ? 'inputvalue' : 'outputvalue';
 
         const empytValues = state.filter((question) => question[key] === '' && question.required === true);
 
+        const emptyImages = state.filter((question) => question.type && question.type === 'image' && question.preview === "");
+
+        const badResponseEmptyImage = state.filter((question) => question.correct && question[key] != question.correct && question.preview === "");
+
         if (empytValues.length > 0) {
             toast.error('Responde todas las preguntas para continuar')
+        } else if (emptyImages.length > 0 || badResponseEmptyImage.length > 0) {
+            toast.warning('Carga evidencias para continuar')
         } else {
             callback()
         }
@@ -86,18 +92,18 @@ function Checklist() {
 
         newChecklist = { document: checklistEntrada, tracto_id: id, tipo: 'scania' }
 
-        const { error } = await routerChecklist( tipo, newChecklist, salida);
+        const { error } = await routerChecklist(tipo, newChecklist, salida);
 
-        if (error === null ) {
+        if (error === null) {
             toast.success('Checklist guardado')
-            setTimeout(() => {
-                navigate('/')
-            }, 1000)
+            // setTimeout(() => {
+            //     navigate('/')
+            // }, 1000)
         } else {
-            toast.error(`Error al subir el checklist: ${error}, ${error}`)
-            setTimeout(() => {
-                navigate('/')
-            }, 1000)
+            toast.error(`Error al subir el checklist: ${error.message}`)
+            // setTimeout(() => {
+            //     navigate('/')
+            // }, 1000)
         }
 
     }
@@ -123,7 +129,7 @@ function Checklist() {
                     <FaArrowLeft />
                 </Button>
 
-                <div className="flex flex-col gap-5 py-10 justify-center lg:w-[500px] md:w-5/6 sm:w-5/6">
+                <div className="flex flex-col gap-5 py-10 justify-center lg:w-[500px] md:w-5/6 sm:w-5/6 max-sm:max-w-[90vw]">
 
                     <strong className="text-lg text-center text-secondary">Checklist de {tipo} de chasis {chasis}</strong>
 

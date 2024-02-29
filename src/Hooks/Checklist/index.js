@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../../supabase";
+import { sendImageCloudinary, folderChecklist, presetName } from "../../cloudinary";
 
 function useChecklist() {
 
@@ -7,29 +8,31 @@ function useChecklist() {
     const [loading, setLoading] = useState(null)
 
     /*/AGREGAR NUEVO CHECKLIST DE REVISION /*/
-    async function createInputChecklist(checklist) {
+    async function createInputChecklist(checklist, keyImage) {
         try {
 
-            const { tracto_id } = checklist;
+            const { tracto_id, tipo, document } = checklist;
 
-            //subir el checklist de entrada
-            const { error } = await supabase
-                .from('checklist')
-                .insert(checklist)
+            const checklistWhitImages = await uploadImagesChecklist(document, keyImage);
+            console.log("🚀 ~ createInputChecklist ~ checklistWhitImages:", checklistWhitImages)
+            // subir el checklist de entrada
+            // const { error } = await supabase
+            //     .from('checklist')
+            //     .insert({document:checklistWhitImages, tracto_id, tipo})
 
-            if (error) {
-                throw new Error(`Error al subir checklist de entrada, error: ${error.message}`)
-            }
+            // if (error) {
+            //     throw new Error(`Error al subir checklist de entrada, error: ${error.message}`)
+            // }
 
-            //actualizar el estatus del tracto
-            const { error: errorUpdadeStatus } = await supabase
-                .from('registros')
-                .update({ status: 'revisado-entrada' })
-                .eq('id', tracto_id)
+            // //actualizar el estatus del tracto
+            // const { error: errorUpdadeStatus } = await supabase
+            //     .from('registros')
+            //     .update({ status: 'revisado-entrada' })
+            //     .eq('id', tracto_id)
 
-            if (errorUpdadeStatus) {
-                throw new Error(`Error al actualizar status del registro de entrada, error: ${errorUpdadeStatus.message}`)
-            }
+            // if (errorUpdadeStatus) {
+            //     throw new Error(`Error al actualizar status del registro de entrada, error: ${errorUpdadeStatus.message}`)
+            // }
 
             return { error }
 
@@ -39,7 +42,7 @@ function useChecklist() {
         }
     }
 
-    async function updateOutputChecklist(checklist, dataOutput) {
+    async function updateOutputChecklist(checklist, dataOutput, keyImage) {
         try {
 
             const { tracto_id, document: outputDocument } = checklist;
@@ -107,9 +110,12 @@ function useChecklist() {
 
     async function routerChecklist(tipo, checklist, dataOutput) {
         try {
+
+            const keyValue = tipo === 'entrada' ? 'inputvalue' : 'outputvalue';
+
             const routes = {
-                entrada: async () => await createInputChecklist(checklist),
-                salida: async () => await updateOutputChecklist(checklist, dataOutput)
+                entrada: async () => await createInputChecklist(checklist, keyValue),
+                salida: async () => await updateOutputChecklist(checklist, dataOutput, keyValue)
             }
 
             if (routes[tipo]) {
@@ -143,6 +149,90 @@ function useChecklist() {
         } catch (error) {
             console.error(error)
             return { error }
+        }
+    }
+
+    async function uploadImagesChecklist(checklist, keyValue) {
+        try {
+
+            const keysDocument = Object.keys(checklist);
+
+            const newDocument = {};
+
+            for (const keySection of keysDocument) {
+
+                const section = checklist[keySection]
+
+                const sectionWhitImages = section.filter((question) => question.preview && question.preview != '')
+                console.log("🚀 ~ uploadImagesChecklist ~ sectionWhitImages:", sectionWhitImages)
+
+                if (sectionWhitImages.length >= 1) {
+                    const arrayWhitUrls = await sendCloundinary(sectionWhitImages, keyValue);
+                    newDocument[keySection] = arrayWhitUrls;
+                } else {
+                    newDocument[keySection] = section;
+                }
+            }
+
+            return newDocument
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const sendCloundinary = async (arrayQuestions, keyValue) => {
+        try {
+            
+            //extraer las imagenes y cambiarles el nombre
+            const imagesWhitName = arrayQuestions.map((question) => {
+                const oldFile = question[keyValue];
+                return new File([oldFile], question.question, { type: oldFile.type });
+            });
+
+            //extraer los objetos para mapearlos
+            const arrayFiles = Object.values(imagesWhitName)
+            const links = [];
+
+            //crear el array de promesas
+            const sendImages = arrayFiles.map(async (file) => {
+                const formData = new FormData();
+                formData.append('folder', folderChecklist);
+                formData.append('upload_preset', `${presetName}`)
+                formData.append('file', file);
+                const request = await sendImageCloudinary(formData);
+                links.push({ url: request.url, question: request.original_filename })
+            });
+
+            //resolver promesas
+            try {
+                await Promise.all(sendImages);
+            } catch (error) {
+                console.error(error)
+                throw new Error(`Error al resolver promesa de imagenes`)
+            }
+
+            console.log(links)
+
+            //copia profunda del array original 
+            const copyFlatInString = JSON.stringify(arrayQuestions);
+            const copyFlatInJson = JSON.parse(copyFlatInString);
+
+            //copia del array original con los cambios listos para enviar la data
+            const arrayWhitUrls = copyFlatInJson.map((item) => {
+                const newItem = item
+                if (newItem.preview && newItem.preview != '') {
+                    const indexImage = links.findIndex((link) => link.question === item.question)
+                    newItem[keyValue] = links[indexImage].url
+                    newItem['preview'] = ""
+                }
+                return newItem
+            })
+
+            return arrayWhitUrls;
+
+        } catch (error) {
+            console.error(error)
         }
     }
 
