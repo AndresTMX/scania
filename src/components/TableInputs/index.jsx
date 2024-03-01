@@ -213,7 +213,7 @@ export function TableInputs({ onOpen, }) {
     if (status === 'pendiente') {
       toast.warning('Realiza el checklist de revision primero')
     } else {
-      navigate(`taller/${id}/${chasis}`)
+      navigate(`taller/nueva_responsiva/${id}/${chasis}`)
     }
   }
 

@@ -3,12 +3,13 @@ import { NextUIProvider } from '@nextui-org/react'
 import { Ingreso } from "./pages/ingreso";
 import { Login } from "./pages/Login";
 import { UserUI } from "./UI/user";
-import { Checklist } from "./sections/Checklist";
-import { Responsiva } from "./sections/Responsiva";
+import { Checklist } from "./pages/Checklist";
+import { FormNewResponsive } from "./pages/FormNewResponsive";
 import { ErrorPage } from "./pages/Error";
 import { Taller } from "./pages/Taller";
 import { Croquis } from "./pages/Croquis";
 import { UserConfig } from "./pages/UserConfig";
+import { ViewResponsive } from "./pages/ViewResponsive";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 //Authenticated
@@ -42,8 +43,6 @@ function Router() {
 
               <Route path="checklist/:id/:chasis/:tipo" element={<Checklist />} />
 
-              <Route path="taller/:id/:chasis" element={<Responsiva />} />
-
               <Route path="*" element={<ErrorPage />} />
 
               <Route path="/taller" element={
@@ -51,6 +50,10 @@ function Router() {
                   <Taller />
                 </UserUI>
               } />
+
+              <Route path="taller/nueva_responsiva/:id/:chasis" element={<FormNewResponsive />} />
+
+              <Route path="taller/nueva_responsiva/descargar/:idResponsiva" element={<ViewResponsive />} />
 
               <Route path="/croquis" element={
                 <UserUI>

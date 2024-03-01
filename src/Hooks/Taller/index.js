@@ -7,7 +7,7 @@ function useTaller() {
     const [registers, setRegisters] = useState([]);
     const [error, setError] = useState(null);
 
-    async function addRegister({ newRegister }) {
+    async function addRegister(newRegister) {
         try {
             const { error } = await supabase.from('movimientos_taller')
                 .insert({ ...newRegister })

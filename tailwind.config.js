@@ -17,11 +17,10 @@ module.exports = {
           primary: '#005BC4',
           secondary: '#004493',
           white: '#f8fafc',
-          border:'#E4E4E7',
           body: '#ECEDEE',
           border:'#E4E4E7',
-          link: '#D4D4D8'
-
+          link: '#D4D4D8',
+          input:'#f4f4f5'
         },
         
       },

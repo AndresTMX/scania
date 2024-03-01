@@ -82,7 +82,7 @@ function RevisionTrasera({ document }) {
                     {revisionTrasera && revisionTraseraColumFor.map((element, index) => (
                         <View key={`column_for_${element.question}_${index}`}
                             style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', borderBottom: index != revisionTraseraColumFor.length - 1 ? 1 : 'none', height: '33.3%' }}>
-                            <View style={{ width: '60%', height: '100%', height: '100%' }}>
+                            <View style={{ width: '60%', height: '100%', }}>
                                 <Text style={{ fontSize: '9px', padding: '3px', textTransform: 'capitalize', color: element.question === 'empty' ? 'white' : 'black', height: '100%' }}>
                                     {element.question}
                                 </Text>
