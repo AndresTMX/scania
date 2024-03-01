@@ -8,33 +8,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 function ItemQuestionsDinamic({ item, index, state, updateState, typeChecklist }) {
 
-    const typeItem = (item) => {
-        const typeArray = Array.isArray(item?.options);
-
-        if (!typeArray && item.question != 'observaciones' && item.type != 'image') {
-            return 'input'
-        }
-
-        if (!typeArray && item.question === 'observaciones') {
-            return 'textarea'
-        }
-
-        if (item.type && item.type === 'image') {
-            return 'image'
-        }
-
-        if (typeArray && item.options.length >= 3) {
-            return 'select'
-        }
-
-        if (typeArray && item.options.length === 2) {
-            return 'checkbox'
-        }
-
-        return 'empty'
-    }
-
-    const render = typeItem(item)
+    const render = item.type
 
     return (
         <div>
@@ -93,9 +67,12 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
 
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure()
 
-    const { options, question, } = item;
+    const { options, question, type } = item;
+
+    const questionsWhitImage = ['input', 'checkbox']
 
     const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
+    const keyImage = questionsWhitImage.includes(type) ? 'file' : keyValue;
 
     return (
         <div className="flex flex-col gap-1"
@@ -129,7 +106,7 @@ function DinamicCheckbox({ item, index: indexQuestion, state, updateState, typeC
                 <div className="flex flex-row items-center justify-end p-1">
                     <label label htmlFor={`image_${question}`}>
                         <input id={`image_${question}`} className="hidden"
-                            onChange={(e) => OnChangueImage(e, keyValue, indexQuestion, state, updateState)}
+                            onChange={(e) => OnChangueImage(e, keyImage, indexQuestion, state, updateState)}
                             type='file' accept='image/*' name={`image_${question}`}
                         />
                         <Tooltip content="agrega imagenes" className="text-white bg-danger">
@@ -241,7 +218,13 @@ function DinamicSelect({ item, typeChecklist }) {
 
 function DinamicImage({ item, typeChecklist, index: indexQuestion, state, updateState, }) {
 
+    const { type } = item
+
+    const questionsWhitImage = ['input', 'checkbox']
     const keyValue = typeChecklist === 'entrada' ? 'inputvalue' : 'outputvalue';
+    const keyImage = questionsWhitImage.includes(type) ? 'file' : keyValue;
+    
+
 
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
@@ -253,7 +236,7 @@ function DinamicImage({ item, typeChecklist, index: indexQuestion, state, update
             {(item.preview === '') &&
                 <label label htmlFor={`image_${item.question}`}>
                     <input id={`image_${item.question}`}
-                        onChange={(e) => OnChangueImage(e, keyValue, indexQuestion, state, updateState)}
+                        onChange={(e) => OnChangueImage(e, keyImage, indexQuestion, state, updateState)}
                         className="hidden" type='file' accept='image/*'
                         name={`image_${item.question}`}
                     />
@@ -314,7 +297,7 @@ function DinamicTextArea({ item, index: indexQuestion, state, updateState, typeC
 
     return (
         <>
-            <Textarea  
+            <Textarea
                 id={`id_${question.trim()}`}
                 onChange={(e) => OnChangeDinamic(e.target.value, keyValue, indexQuestion, state, updateState)}
                 className="rounded-md shadow-md"

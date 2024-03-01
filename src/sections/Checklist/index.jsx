@@ -96,14 +96,14 @@ function Checklist() {
 
         if (error === null) {
             toast.success('Checklist guardado')
-            // setTimeout(() => {
-            //     navigate('/')
-            // }, 1000)
+            setTimeout(() => {
+                navigate('/')
+            }, 1000)
         } else {
             toast.error(`Error al subir el checklist: ${error.message}`)
-            // setTimeout(() => {
-            //     navigate('/')
-            // }, 1000)
+            setTimeout(() => {
+                navigate('/')
+            }, 1000)
         }
 
     }

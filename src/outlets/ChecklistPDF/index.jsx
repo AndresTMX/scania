@@ -11,12 +11,13 @@ function ChecklistPDF() {
 
     const { getOneInputChecklist, checklist, loading } = useChecklist();
 
-    const { registros } = checklist || {};
+    const { registros, document } = checklist || {};
 
     const { user_id, user_salida_id } = registros || {};
 
     const { infoUser: auditorRecepcion } = useInfoUser(user_id);
     const { infoUser: auditorLiberacion } = useInfoUser(user_id);
+
 
 
     const { id } = useParams();

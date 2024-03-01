@@ -424,7 +424,7 @@ export function TableInputs({ onOpen, }) {
           <TableColumn key="actions">ACTIONS</TableColumn>
         </TableHeader>
         <TableBody
-          emptyContent={"Sin salidas registradas"}
+          emptyContent={"Sin entradas registradas"}
           items={items}>
           {(item) => (
             <TableRow key={item.name}>

@@ -8,31 +8,31 @@ function useChecklist() {
     const [loading, setLoading] = useState(null)
 
     /*/AGREGAR NUEVO CHECKLIST DE REVISION /*/
-    async function createInputChecklist(checklist, keyImage) {
+    async function createInputChecklist(checklist, tipoRegistro) {
         try {
 
             const { tracto_id, tipo, document } = checklist;
 
-            const checklistWhitImages = await uploadImagesChecklist(document, keyImage);
-            console.log("🚀 ~ createInputChecklist ~ checklistWhitImages:", checklistWhitImages)
+            const checklistWhitImages = await uploadImagesChecklist(document, tipoRegistro);
+
             // subir el checklist de entrada
-            // const { error } = await supabase
-            //     .from('checklist')
-            //     .insert({document:checklistWhitImages, tracto_id, tipo})
+            const { error } = await supabase
+                .from('checklist')
+                .insert({ document: checklistWhitImages, tracto_id, tipo })
 
-            // if (error) {
-            //     throw new Error(`Error al subir checklist de entrada, error: ${error.message}`)
-            // }
+            if (error) {
+                throw new Error(`Error al subir checklist de entrada, error: ${error.message}`)
+            }
 
-            // //actualizar el estatus del tracto
-            // const { error: errorUpdadeStatus } = await supabase
-            //     .from('registros')
-            //     .update({ status: 'revisado-entrada' })
-            //     .eq('id', tracto_id)
+            //actualizar el estatus del tracto
+            const { error: errorUpdadeStatus } = await supabase
+                .from('registros')
+                .update({ status: 'revisado-entrada' })
+                .eq('id', tracto_id)
 
-            // if (errorUpdadeStatus) {
-            //     throw new Error(`Error al actualizar status del registro de entrada, error: ${errorUpdadeStatus.message}`)
-            // }
+            if (errorUpdadeStatus) {
+                throw new Error(`Error al actualizar status del registro de entrada, error: ${errorUpdadeStatus.message}`)
+            }
 
             return { error }
 
@@ -42,7 +42,7 @@ function useChecklist() {
         }
     }
 
-    async function updateOutputChecklist(checklist, dataOutput, keyImage) {
+    async function updateOutputChecklist(checklist, dataOutput) {
         try {
 
             const { tracto_id, document: outputDocument } = checklist;
@@ -111,11 +111,9 @@ function useChecklist() {
     async function routerChecklist(tipo, checklist, dataOutput) {
         try {
 
-            const keyValue = tipo === 'entrada' ? 'inputvalue' : 'outputvalue';
-
             const routes = {
-                entrada: async () => await createInputChecklist(checklist, keyValue),
-                salida: async () => await updateOutputChecklist(checklist, dataOutput, keyValue)
+                entrada: async () => await createInputChecklist(checklist, tipo),
+                salida: async () => await updateOutputChecklist(checklist, dataOutput)
             }
 
             if (routes[tipo]) {
@@ -152,7 +150,7 @@ function useChecklist() {
         }
     }
 
-    async function uploadImagesChecklist(checklist, keyValue) {
+    async function uploadImagesChecklist(checklist, tipoRegistro) {
         try {
 
             const keysDocument = Object.keys(checklist);
@@ -164,11 +162,11 @@ function useChecklist() {
                 const section = checklist[keySection]
 
                 const sectionWhitImages = section.filter((question) => question.preview && question.preview != '')
-                console.log("🚀 ~ uploadImagesChecklist ~ sectionWhitImages:", sectionWhitImages)
 
                 if (sectionWhitImages.length >= 1) {
-                    const arrayWhitUrls = await sendCloundinary(sectionWhitImages, keyValue);
-                    newDocument[keySection] = arrayWhitUrls;
+                    const arrayWhitUrls = await sendCloundinary(sectionWhitImages, tipoRegistro);
+                    const newSection = sincronizarArraysPorPregunta(section, arrayWhitUrls)
+                    newDocument[keySection] = newSection;
                 } else {
                     newDocument[keySection] = section;
                 }
@@ -181,12 +179,17 @@ function useChecklist() {
         }
     }
 
-    const sendCloundinary = async (arrayQuestions, keyValue) => {
+    const sendCloundinary = async (arrayQuestions, tipoRegistro) => {
         try {
-            
+
+            const questionsWhitImage = ['input', 'checkbox']
+            const keyValue = tipoRegistro === 'entrada' ? 'inputvalue' : 'outputvalue';
+            const keyImage = tipoRegistro === 'entrada' ? 'inputImage' : 'outputImage';
+
             //extraer las imagenes y cambiarles el nombre
             const imagesWhitName = arrayQuestions.map((question) => {
-                const oldFile = question[keyValue];
+                let keyQuestion = questionsWhitImage.includes(question.type) ? 'file' : keyValue;
+                const oldFile = question[keyQuestion];
                 return new File([oldFile], question.question, { type: oldFile.type });
             });
 
@@ -204,6 +207,7 @@ function useChecklist() {
                 links.push({ url: request.url, question: request.original_filename })
             });
 
+
             //resolver promesas
             try {
                 await Promise.all(sendImages);
@@ -212,20 +216,24 @@ function useChecklist() {
                 throw new Error(`Error al resolver promesa de imagenes`)
             }
 
-            console.log(links)
-
             //copia profunda del array original 
             const copyFlatInString = JSON.stringify(arrayQuestions);
             const copyFlatInJson = JSON.parse(copyFlatInString);
 
             //copia del array original con los cambios listos para enviar la data
             const arrayWhitUrls = copyFlatInJson.map((item) => {
-                const newItem = item
-                if (newItem.preview && newItem.preview != '') {
-                    const indexImage = links.findIndex((link) => link.question === item.question)
-                    newItem[keyValue] = links[indexImage].url
+                const newItem = { ...item }
+                const keyQuestion = questionsWhitImage.includes(newItem.type) ? keyImage : keyValue;
+                const indexImage = links.findIndex((link) => link.question === item.question);
+                if (questionsWhitImage.includes(newItem.type)) {
+                    newItem[keyQuestion] = links[indexImage].url
+                    newItem['preview'] = ""
+                } else if (!questionsWhitImage.includes(newItem.type)) {
+                    newItem[keyQuestion] = links[indexImage].url
+                    newItem['file'] = ""
                     newItem['preview'] = ""
                 }
+
                 return newItem
             })
 
@@ -234,6 +242,41 @@ function useChecklist() {
         } catch (error) {
             console.error(error)
         }
+    }
+
+    function sincronizarArraysPorPregunta(array1, array2) {
+        // Creamos un mapa para almacenar los objetos del segundo array por pregunta
+        const mapa2 = new Map();
+
+        // Llenamos el mapa para el segundo array
+        array2.forEach(objeto => {
+            mapa2.set(objeto.question, objeto);
+        });
+
+        // Creamos un nuevo array para almacenar los objetos sincronizados
+        const arraySincronizado = [];
+
+        // Iteramos sobre el primer array
+        array1.forEach(objeto => {
+            const pregunta = objeto.question;
+
+            // Verificamos si la pregunta existe en el segundo array y si el objeto del primer array tiene claves vacías
+            if (mapa2.has(pregunta) && Object.values(objeto).some(value => value === "" || value === null || typeof value === "undefined")) {
+                // Si existe y el objeto del primer array tiene claves vacías, obtenemos el objeto correspondiente del segundo array
+                const objeto2 = mapa2.get(pregunta);
+
+                // Creamos un nuevo objeto sincronizado copiando las claves llenadas del segundo objeto
+                const objetoSincronizado = { ...objeto, ...objeto2 };
+
+                // Agregamos el objeto sincronizado al nuevo array
+                arraySincronizado.push(objetoSincronizado);
+            } else {
+                // Si la pregunta no existe en el segundo array o el objeto del primer array no tiene claves vacías, agregamos el objeto del primer array tal cual
+                arraySincronizado.push(objeto);
+            }
+        });
+
+        return arraySincronizado;
     }
 
     return { routerChecklist, getOneInputChecklist, checklist, loading }

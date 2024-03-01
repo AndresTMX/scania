@@ -90,7 +90,7 @@ function Responsiva() {
 
     return (
         <>
-            <div className="flex flex-col h-screen p-4 bg-body">
+            <div className="flex flex-col min-h-screen p-4 bg-body">
 
                 <Button
                     className="text-white"
@@ -102,7 +102,7 @@ function Responsiva() {
 
                 <Toaster richColors position="top-center" />
 
-                <div className="flex flex-col items-center py-10 h-full overflow-x-auto">
+                <div className="flex flex-col items-center py-1 h-full overflow-x-auto">
 
                     {!renderPDF &&
                         <form onSubmit={onSubmit}
@@ -141,6 +141,23 @@ function Responsiva() {
                                                         <SelectItem key={element.id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
                                                     ))}
                                                 </Select>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-span-full">
+                                            <label htmlFor="comentarios" className="block text-sm font-medium leading-6 text-gray-900">
+                                               Selecciona las llaves a prestar
+                                            </label>
+                                            <div className="mt-2">
+                                                <Textarea
+                                                    rows={3}
+                                                    id="comentarios"
+                                                    name="comentarios"
+                                                    aria-label="comentarios"
+                                                    value={form.coment}
+                                                    onChange={(e) => setForm({ ...form, coment: e.target.value })}
+                                                    className="input-light-base"
+                                                />
                                             </div>
                                         </div>
 

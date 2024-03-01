@@ -1,4 +1,4 @@
-import { View, Text, } from "@react-pdf/renderer";
+import { View, Text, Image } from "@react-pdf/renderer";
 
 function RevisionGeneral({ document }) {
 
@@ -7,9 +7,17 @@ function RevisionGeneral({ document }) {
     const zonaBajaE = revisionGeneral ? revisionGeneral[0].inputvalue : 'ND';
     const zonaBajaS = revisionGeneral ? revisionGeneral[0].outputvalue : 'ND';
 
+    const revisionSinComentarios = revisionLlaves ? revisionLlaves.slice(0, 4) : [];
+
     const dañosCarroreciaE = revisionGeneral ? revisionGeneral[1].inputvalue : 'ND';
     const dañosCarroreciaS = revisionGeneral ? revisionGeneral[1].outputvalue : 'ND';
 
+    const images = revisionGeneral ? revisionGeneral.filter((item) => item.question.includes('Foto')) : []
+
+    const imageFrontal = revisionGeneral ? images[0].inputvalue : '';
+    const imageIzquierda = revisionGeneral ? images[1].inputvalue : '';
+    const imageDerecha = revisionGeneral ? images[2].inputvalue : '';
+    const imageTrasera = revisionGeneral ? images[3].inputvalue : '';
 
     return (
         <>
@@ -63,26 +71,35 @@ function RevisionGeneral({ document }) {
                 {/* DETALLES FISICOS */}
                 <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '85%', width: '100%', borderTop: 1, borderBottom: 1, }}>
 
-                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '70%', borderRight: 1, backgroundColor: 'whitesmoke' }}>
+                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '65%', borderRight: 1, }}>
                         <Text style={{ fontSize: '12px', fontFamily: 'Helvetica-Bold', paddingBottom: '5px' }} >Detalles fisicos</Text>
 
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '90%' }}>
 
                             <View style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%', gap: '5px' }}>
-                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}></View>
-                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}></View>
+                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}>
+                                    <Image style={{ objectFit: 'contain' }} src={imageFrontal} alt={'frontal'} />
+                                </View>
+                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}>
+                                    <Image style={{ objectFit: 'contain' }} src={imageTrasera} alt={'trasera'} />
+                                </View>
                             </View>
 
                             <View style={{ display: 'flex', flexDirection: 'row', width: '100%', height: '50%', gap: '5px' }}>
-                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}></View>
-                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}></View>
+                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}>
+                                    <Image style={{ objectFit: 'contain' }} src={imageIzquierda} alt={'izquierda'} />
+                                </View>
+                                <View style={{ display: 'flex', flexDirection: 'column', height: '95%', width: '40%', backgroundColor: 'gray' }}>
+                                    <Image style={{ objectFit: 'contain' }} src={imageDerecha} alt={'derecha'} />
+
+                                </View>
                             </View>
 
                         </View>
 
                     </View>
 
-                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '30%' }}>
+                    <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: '35%' }}>
 
                         <View style={{ borderBottom: 1, padding: '5px', width: '100%' }}>
                             <Text style={{ fontSize: '9px' }} >KM</Text>
@@ -100,7 +117,7 @@ function RevisionGeneral({ document }) {
                             </View>
                         </View>
 
-                        {revisionLlaves && revisionLlaves.map((item) => (
+                        {revisionLlaves && revisionSinComentarios.map((item) => (
                             item.question != "observaciones" && (
                                 <View key={item.question} style={{ display: 'flex', flexDirection: 'row', width: '100%', borderTop: 1 }}>
                                     <View style={{ width: '70%', height: '100%' }}>
