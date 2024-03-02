@@ -63,7 +63,28 @@ function useRegister() {
         }
     }
 
-    return { addRegister, getAllRegister, getRegistersFinalize, data, error }
+    async function gerRegistersTaller() {
+        try {
+            setError(null)
+            const { error, data } = await supabase.from('registros')
+                .select(`*, responsivas(*)`)
+                .eq('status', 'taller')
+                .order('created_at', { ascending: false })
+
+            if (error) {
+                throw new Error(`Error al obtener registros de salida, error: ${error.message}`)
+            }
+
+            setData(data)
+        } catch (error) {
+            console.error(error)
+            setError(error)
+            return { error }
+        }
+    }
+
+
+    return { addRegister, getAllRegister, getRegistersFinalize, gerRegistersTaller, data, error }
 
 }
 

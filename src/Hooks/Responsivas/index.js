@@ -7,7 +7,7 @@ function useResponsives() {
     async function createResponsive(dataResponsive) {
 
         try {
-            const { metadata } = dataResponsive;
+            const { metadata, registro_id } = dataResponsive;
             let imageData = metadata.length >= 1 ? await sendImagesWhitMetadata(metadata) : null;
 
             const { error, data } = await supabase
@@ -17,6 +17,15 @@ function useResponsives() {
 
             if (error) {
                 throw new Error(`Error al subir nueva responsiva, error: ${error.message}`);
+            }
+
+            const { error: errorUpdate } = supabase
+                .from('registros')
+                .update({ status: 'taller' })
+                .eq('id', registro_id)
+
+            if (errorUpdate) {
+                throw new Error(`Error actualizar estatus de tractocamión, error: ${errorUpdate.message}`);
             }
 
             return { error, data };

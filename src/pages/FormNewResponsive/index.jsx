@@ -89,16 +89,11 @@ function FormNewResponsive() {
 
         if (form.user_id === '') {
             toast.error('Comleta el formulario para continuar')
-        }
-
-        if (listKeys.length === 0) {
+        } else if (listKeys.length === 0) {
             toast.warning("Selecciona llaves para continuar")
-        }
-
-        if (form.user_id != '' && listKeys.length > 0) {
+        } else if (form.user_id != '' && listKeys.length > 0) {
             const { error: errorRegister } = await addRegister({ tipo: 'entrada', registro_id: id })
-            const { error: errorResponsive, data: dataResponsive } =
-                await createResponsive({
+            const { error: errorResponsive, data: dataResponsive } = await createResponsive({
                     registro_id: id,
                     llaves: listKeys,
                     responsable: form.user_id,
@@ -106,16 +101,18 @@ function FormNewResponsive() {
                     metadata: images
                 })
 
+                console.log(errorResponsive)
+
             if (errorRegister || errorResponsive) {
                 toast.error('Error al crear registro')
-            }
-
-            if (errorResponsive === undefined) {
+            } else if (errorResponsive === null) {
                 toast.success('documento creado')
                 const idResponsive = dataResponsive[0]['id'];
-                navigate(`taller/nueva_responsiva/descargar/${idResponsive}`)
+                navigate(`/responsivas/${idResponsive}`)
             }
 
+        }else{
+            toast.error('error al crear registro')
         }
 
     }
@@ -169,7 +166,7 @@ function FormNewResponsive() {
                                                 onChange={(e) => setForm({ ...form, user_id: e.target.value })}
                                             >
                                                 {dataUsers && dataUsers.map((element) => (
-                                                    <SelectItem key={element.id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
+                                                    <SelectItem key={element.auth_id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
                                                 ))}
                                             </Select>
                                         </div>

@@ -6,11 +6,10 @@ import { DocLetter } from "../DocLetter"
 import { Button } from "@nextui-org/react"
 
 
-function ResponsivaTaller() {
+function ResponsivaTaller({ dataResponsive }) {
 
-    const llaves = ['llave 1', 'llave 2', 'llave 3', 'llave 4']
+    const { created_at, llaves, nombreResponsable, nombreEntrega } = dataResponsive || {};
 
-    const fecha = new Date()
 
     return (
         <DocLetter>
@@ -28,7 +27,7 @@ function ResponsivaTaller() {
                 <View style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%', alignItems: 'center' }}>
 
                     <Text style={{ fontSize: '12px' }}>
-                        Entrega hoy {dateCalendar(fecha)} llaves de tractos SCANNIA a taller que se mencionan a continuación:
+                        Entrega hoy {dateCalendar(created_at)} llaves de tractos SCANNIA a taller que se mencionan a continuación:
                     </Text>
 
                     <View
@@ -42,7 +41,7 @@ function ResponsivaTaller() {
                             alignItems: 'flex-start',
                             width: '80%'
                         }}>
-                        {llaves.map((llave) => (
+                        {llaves && llaves.map((llave) => (
                             <Text key={llave} style={{ fontSize: '11px', borderBottom: '1' }} >{llave}</Text>
                         ))}
                     </View>
@@ -52,7 +51,7 @@ function ResponsivaTaller() {
                     </Text>
 
                     <View style={{ width: '90%', justifyContent: 'flex-start' }}>
-                        <Text style={{ fontSize: '11px' }} >RECIBI RESPONSABLE DE TALLER SCANIA :</Text>
+                        <Text style={{ fontSize: '11px', textTransform: 'uppercase' }} >RECIBI RESPONSABLE DE TALLER SCANIA</Text>
                     </View>
 
                     <View style={{
@@ -63,12 +62,12 @@ function ResponsivaTaller() {
                         height: '100px',
                         justifyContent: 'flex-end'
                     }}>
-                        <Text style={{ fontSize: '10px' }}></Text>
-                        <Text style={{ fontSize: '10px', borderTop: '1' }}>NOMBRE Y FIRMA</Text>
+                        <Text style={{ fontSize: '10px', textTransform: 'uppercase', borderBottom: 1 }}>{nombreResponsable}</Text>
+                        <Text style={{ fontSize: '10px', }}>NOMBRE Y FIRMA</Text>
                     </View>
 
                     <View style={{ width: '90%', justifyContent: 'flex-start' }}>
-                        <Text style={{ fontSize: '11px' }} >ENTREGA :</Text>
+                        <Text style={{ fontSize: '11px', textTransform: 'uppercase' }}>ENTREGA</Text>
                     </View>
 
                     <View
@@ -80,8 +79,8 @@ function ResponsivaTaller() {
                             height: '100px',
                             justifyContent: 'flex-end'
                         }}>
-                        <Text style={{ fontSize: '10px' }} ></Text>
-                        <Text style={{ fontSize: '10px', borderTop: '1' }} >NOMBRE Y FIRMA</Text>
+                        <Text style={{ fontSize: '10px', textTransform: 'uppercase', borderBottom: 1 }} >{nombreEntrega}</Text>
+                        <Text style={{ fontSize: '10px' }} >NOMBRE Y FIRMA</Text>
                     </View>
 
 
@@ -91,16 +90,16 @@ function ResponsivaTaller() {
     )
 }
 
-export { ResponsivaTaller }
+function DownloadResponsive({ dataResponsive }) {
 
-export function DownloadResponsive() {
+    const { created_at } = dataResponsive || {};
 
-    const folio = '1'
+    const fecha = dateCalendar(created_at)
 
     return (
         <PDFDownloadLink
-            document={<ResponsivaTaller />}
-            fileName={`Responsiva_${folio} `}
+            document={<ResponsivaTaller dataResponsive={dataResponsive} />}
+            fileName={`Responsiva_${fecha} `}
 
         >
             {({ blob, url, loading, error }) =>
@@ -126,3 +125,6 @@ export function DownloadResponsive() {
         </PDFDownloadLink>
     );
 }
+
+
+export { ResponsivaTaller, DownloadResponsive }

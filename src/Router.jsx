@@ -49,11 +49,13 @@ function Router() {
                 <UserUI>
                   <Taller />
                 </UserUI>
-              } />
+              }>
+              </Route>
+
+              <Route path="responsivas/:idResponsiva" element={<ViewResponsive />} />
 
               <Route path="taller/nueva_responsiva/:id/:chasis" element={<FormNewResponsive />} />
 
-              <Route path="taller/nueva_responsiva/descargar/:idResponsiva" element={<ViewResponsive />} />
 
               <Route path="/croquis" element={
                 <UserUI>
