@@ -1,8 +1,8 @@
-import { Tab, Tabs,  } from "@nextui-org/react";
-import { FaArrowCircleUp } from "react-icons/fa";
+import { Tab, Tabs, } from "@nextui-org/react";
 import { GrConfigure } from "react-icons/gr";
 import { BsGridFill } from "react-icons/bs";
-
+import { Bahia } from "../../sections/Bahia";
+import { BahiaA, BahiaB } from "../../bahias";
 
 function Croquis() {
 
@@ -11,7 +11,7 @@ function Croquis() {
 
             <section className="flex flex-col h-screen justify-start" >
 
-                <div  className="flex flex-col items-start gap-1 w-full px-0 py-4 max-md:items-center">
+                <div className="flex flex-col items-start gap-1 w-full px-0 py-4 max-md:items-center">
                     <Tabs size="md" aria-label="Options" color="primary" variant="bordered" className="text-white">
 
                         <Tab
@@ -23,7 +23,7 @@ function Croquis() {
                                 </div>
                             }
                         >
-
+                            <Bahia bahia={'a'} stateDefault={BahiaA} />
                         </Tab>
 
                         <Tab
@@ -35,7 +35,7 @@ function Croquis() {
                                 </div>
                             }
                         >
-
+                            <Bahia bahia={'b'} stateDefault={BahiaB} />
                         </Tab>
 
                         <Tab
@@ -86,7 +86,7 @@ function Croquis() {
                             }
                         >
                             <div className="max-w-[750px]">
-                                
+
                             </div>
 
                         </Tab>

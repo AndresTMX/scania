@@ -25,13 +25,12 @@ function useResponsives() {
                 .eq('id', registro_id)
 
             if (errorUpdate) {
-                throw new Error(`Error actualizar estatus de tractocamión, error: ${errorUpdate.message}`);
+                throw new Error(`Error actualizar estatus de tractocamión, error: ${errorUpdate?.message}`);
             }
 
             return { error, data };
         } catch (error) {
-            console.error(error);
-            return { error };
+            console.error(error)
         }
     }
 
@@ -54,13 +53,12 @@ function useGetOneResponsive(idResponsive) {
                 .eq('id', idResponsive)
 
             if (error) {
-                throw new Error(`error al obtener responsiva, error: ${error}`)
+                throw new Error(`error al obtener responsiva, error: ${error.message}`)
             }
             setData(data)
             setLoading(false)
         } catch (error) {
             setLoading(false)
-            console.error(error)
         }
     }
 
