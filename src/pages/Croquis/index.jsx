@@ -1,10 +1,21 @@
-import { Tab, Tabs, } from "@nextui-org/react";
-import { GrConfigure } from "react-icons/gr";
+import { useState } from "react";
 import { BsGridFill } from "react-icons/bs";
-import { Bahia } from "../../sections/Bahia";
-import { BahiaA, BahiaB } from "../../bahias";
+import { Tab, Tabs, } from "@nextui-org/react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function Croquis() {
+
+    const navigate = useNavigate();
+
+    const { pathname } = useLocation();
+
+    const [selected, setSelected] = useState("BahiaA");
+
+    const changueSelected = (key) => {
+        navigate(key)
+        setSelected(key)
+    }
+
 
     return (
         <>
@@ -12,10 +23,17 @@ function Croquis() {
             <section className="flex flex-col h-screen justify-start" >
 
                 <div className="flex flex-col items-start gap-1 w-full px-0 py-4 max-md:items-center">
-                    <Tabs size="md" aria-label="Options" color="primary" variant="bordered" className="text-white">
+                    <Tabs
+                        size="md"
+                        aria-label="Options"
+                        color="primary"
+                        variant="bordered"
+                        selectedKey={selected}
+                        onSelectionChange={changueSelected}
+                        className="text-white">
 
                         <Tab
-                            key="A"
+                            key="BahiaA"
                             title={
                                 <div className="flex items-center space-x-2">
                                     <BsGridFill />
@@ -23,11 +41,12 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            <Bahia bahia={'a'} stateDefault={BahiaA} />
+                            {/* <Bahia bahia={'a'} stateDefault={BahiaA} /> */}
+                            <Outlet />
                         </Tab>
 
                         <Tab
-                            key="B"
+                            key="BahiaB"
                             title={
                                 <div className="flex items-center space-x-2">
                                     <BsGridFill />
@@ -35,9 +54,10 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            <Bahia bahia={'b'} stateDefault={BahiaB} />
+                            {/* <Bahia bahia={'b'} stateDefault={BahiaB} /> */}
+                            <Outlet />
                         </Tab>
-
+                        {/* 
                         <Tab
                             key="C"
                             title={
@@ -47,7 +67,7 @@ function Croquis() {
                                 </div>
                             }
                         >
-
+                            <Bahia bahia={'c'} stateDefault={BahiaC} />
                         </Tab>
 
                         <Tab
@@ -59,7 +79,7 @@ function Croquis() {
                                 </div>
                             }
                         >
-
+                            <Bahia bahia={'d'} stateDefault={BahiaD} />
                         </Tab>
 
                         <Tab
@@ -71,13 +91,13 @@ function Croquis() {
                                 </div>
                             }
                         >
-
+                            <Bahia bahia={'e'} stateDefault={BahiaE} />
                         </Tab>
 
 
 
                         <Tab
-                            key="salidas"
+                            key="taller"
                             title={
                                 <div className="flex items-center space-x-2">
                                     <GrConfigure />
@@ -85,11 +105,8 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            <div className="max-w-[750px]">
-
-                            </div>
-
-                        </Tab>
+                            <Bahia bahia={'b'} stateDefault={BahiaB} />
+                        </Tab> */}
 
                     </Tabs>
 

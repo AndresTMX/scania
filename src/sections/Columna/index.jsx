@@ -1,9 +1,12 @@
-import { Card } from "@nextui-org/react"
+import { Card, } from "@nextui-org/react"
 import { Tracto } from "../Tracto"
+import { useMemo } from "react"
 
 export function Columna({ stateLayout, column, bloque }) {
 
-    const filterColumn = stateLayout.filter((element) => element.bloque === bloque && element.columna === column)
+    const filterColumn = useMemo(() => {
+        return stateLayout.filter((element) => element.bloque === bloque && element.columna === column)
+    }, [stateLayout])
 
     return (
 

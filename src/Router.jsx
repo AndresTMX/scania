@@ -14,6 +14,9 @@ import { ViewResponsive } from "./pages/ViewResponsive";
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 //Authenticated
 import { AuthProvider } from "./Context/Auth";
+//outlets bahias
+import { Bahia } from "./sections/Bahia";
+import { BahiaA, BahiaB } from "./bahias";
 
 function Router() {
 
@@ -61,7 +64,11 @@ function Router() {
                 <UserUI>
                   <Croquis />
                 </UserUI>
-              } />
+              } >
+                <Route path="/croquis/BahiaA" element={<Bahia bahia={'a'} stateDefault={BahiaA} />} />
+                <Route path="/croquis/BahiaB" element={<Bahia bahia={'b'} stateDefault={BahiaB} />} />
+
+              </Route>
 
             </Routes>
           </AuthProvider>

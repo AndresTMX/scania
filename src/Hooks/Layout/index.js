@@ -1,5 +1,5 @@
 import { supabase } from "../../supabase";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 
 export function useLayout(stateDetault, bahia) {
@@ -9,6 +9,7 @@ export function useLayout(stateDetault, bahia) {
 
     async function getForBahia() {
         try {
+            setStateLayout([])
             const { error, data } = await supabase
                 .from('registros')
                 .select('*', { count: 'exact' })
@@ -27,28 +28,8 @@ export function useLayout(stateDetault, bahia) {
         }
     }
 
-    // function actualizarEstadoPorDefecto(estadoPorDefecto, datosAPI) {
-    //     // Copiar el estado por defecto para evitar modificarlo directamente
-    //     const nuevoEstado = [...estadoPorDefecto];
-
-    //     // Iterar sobre los datos de la API
-    //     datosAPI.forEach((objetoAPI) => {
-    //         // Buscar objetos en el estado por defecto con las mismas fila y columna
-    //         const objetoExistente = nuevoEstado.find((objeto) => {
-    //             return objeto.bahia === objetoAPI.bahia && objeto.fila === objetoAPI.fila && objeto.columna === objetoAPI.columna;
-    //         });
-
-    //         // Si se encuentra un objeto coincidente, actualizarlo con los datos de la API
-    //         if (objetoExistente) {
-    //             // Reemplazar el objeto existente con los datos de la API
-    //             Object.assign(objetoExistente, objetoAPI);
-    //         }
-    //     });
-
-    //     return nuevoEstado;
-    // }
-
     function actualizarEstadoPorDefecto(estadoPorDefecto, datosAPI) {
+        // Crear un objeto Map para indexar los objetos del estado por su clave única
         const estadoPorDefectoMap = new Map(
             estadoPorDefecto.map((objetoEstado) => [
                 `${objetoEstado.bahia}-${objetoEstado.fila}-${objetoEstado.columna}`,
@@ -56,14 +37,17 @@ export function useLayout(stateDetault, bahia) {
             ])
         );
 
+        // Iterar sobre los datos de la API y actualizar los objetos del estado si es necesario
         datosAPI.forEach((objetoAPI) => {
             const clave = `${objetoAPI.bahia}-${objetoAPI.fila}-${objetoAPI.columna}`;
             if (estadoPorDefectoMap.has(clave)) {
                 const objetoEstado = estadoPorDefectoMap.get(clave);
+                // Actualizar el objeto existente con los datos de la API
                 estadoPorDefectoMap.set(clave, { ...objetoEstado, ...objetoAPI });
             }
         });
 
+        // Devolver los valores del Map como un array para obtener el nuevo estado
         return [...estadoPorDefectoMap.values()];
     }
 
@@ -128,7 +112,7 @@ export function useLayout(stateDetault, bahia) {
     }, [update]);
 
 
-    return { stateLayout, assignPosition, clearPosition }
+    return { stateLayout, assignPosition, clearPosition , }
 
 
 }
