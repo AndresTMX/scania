@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { BsGridFill } from "react-icons/bs";
 import { Tab, Tabs, } from "@nextui-org/react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Bahia } from "../../sections/Bahia"
+import { GrConfigure } from "react-icons/gr";
+import { BahiaA, BahiaB, BahiaC, BahiaD, BahiaE, BahiaTaller } from "../../bahias";
 
 function Croquis() {
 
@@ -41,8 +44,7 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            {/* <Bahia bahia={'a'} stateDefault={BahiaA} /> */}
-                            <Outlet />
+                            <Bahia bahia={'a'} stateDefault={BahiaA} />
                         </Tab>
 
                         <Tab
@@ -54,10 +56,9 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            {/* <Bahia bahia={'b'} stateDefault={BahiaB} /> */}
-                            <Outlet />
+                            <Bahia bahia={'b'} stateDefault={BahiaB} />
                         </Tab>
-                        {/* 
+
                         <Tab
                             key="C"
                             title={
@@ -105,8 +106,8 @@ function Croquis() {
                                 </div>
                             }
                         >
-                            <Bahia bahia={'b'} stateDefault={BahiaB} />
-                        </Tab> */}
+                            <Bahia bahia={'taller'} stateDefault={BahiaTaller} />
+                        </Tab>
 
                     </Tabs>
 

@@ -140,63 +140,51 @@ export const plantillaChecklist = {
     ],
     juegosLlaves: [
         {
-            question: '2 juegos de llaves de encendido',
+            question: 'Llaves de encendido',
             inputvalue: '',
             outputvalue: '',
             preview: '',
             inputImage: '',
             outputImage: '',
-            options: ['si', 'no'],
             required: true,
-            type: 'checkbox',
+            type: 'input',
             file: ''
         },
         {
-            question: '2 controles automaticos',
+            question: 'Controles automaticos',
             inputvalue: '',
             outputvalue: '',
             preview: '',
             inputImage: '',
             outputImage: '',
-            options: ['si', 'no'],
             required: true,
-            type: 'checkbox',
+            type: 'input',
             file: ''
 
         },
         {
-            question: '3 llaves tanques',
+            question: 'Llaves de tanques',
             inputvalue: '',
             outputvalue: '',
             preview: '',
             inputImage: '',
             outputImage: '',
-            options: ['si', 'no'],
             required: true,
-            type: 'checkbox',
+            type: 'input',
             file: ''
 
         },
         {
-            question: '2 llaves gavetas',
+            question: 'Llaves gavetas',
             inputvalue: '',
             outputvalue: '',
             preview: '',
             inputImage: '',
             outputImage: '',
-            options: ['si', 'no'],
             required: true,
-            type: 'checkbox',
+            type: 'input',
             file: ''
 
-        },
-        {
-            question: 'numeros de cada llave, separados por comas',
-            inputvalue: '',
-            outputvalue: '',
-            typeQuestion: 'qr',
-            required: true,
-            type: 'input'
         },
         {
             question: 'observaciones',

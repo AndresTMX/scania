@@ -7,19 +7,17 @@ import { FaArrowLeft } from "react-icons/fa";
 //hooks
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOneResponsive } from "../../Hooks/Responsivas";
-import { useInfoUser } from "../../Hooks/Users";
 
 function ViewResponsive() {
 
-    const { idResponsiva } = useParams()
+    const { idResponsiva, route } = useParams()
     const { loading, data } = useGetOneResponsive(idResponsiva)
 
-    const { created_at, llaves, metadata, users, responsable } = data[0] || {};
+    const { created_at, llaves, metadata, users, responsable:nombreResponsable } = data[0] || {};
     const { nombre, apellido } = users || {};
 
     const navigate = useNavigate();
 
-    const { infoUser: nombreResponsable } = useInfoUser(responsable)
     const nombreEntrega = users ? `${nombre} ${apellido}` : 'no disponible';
 
     const dataResponsive = { created_at, llaves, nombreResponsable, nombreEntrega }

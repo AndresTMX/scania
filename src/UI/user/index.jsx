@@ -22,7 +22,7 @@ function UserUI({ children }) {
         },
         {
             title: 'Croquis',
-            route: '/croquis/BahiaA',
+            route: '/croquis',
         },
 
     ]

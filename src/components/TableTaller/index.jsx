@@ -65,7 +65,7 @@ export function TableTaller() {
     (register, columnKey) => {
 
       const cellValue = register[columnKey];
-      const { comentarios, created_at, llaves, id } = register['responsivas'][0] || {};
+      const { comentarios, created_at, id } = register['responsivas'][0] || {};
 
       switch (columnKey) {
         case "chasis":
@@ -100,17 +100,6 @@ export function TableTaller() {
             >
               {dataFormat(created_at)}
             </Chip>
-          );
-
-        case "llaves":
-          return (
-            <div className="flex flex-row gap-1 flex-wrap">
-              {llaves.map((key) => (
-                <Chip size="sm" variant='faded' color="primary" className="text-xs ">
-                  {key}
-                </Chip>
-              ))}
-            </div>
           );
 
         case "status":
@@ -219,7 +208,6 @@ export function TableTaller() {
           <TableColumn key="tipo">TIPO</TableColumn>
           <TableColumn key="modelo">MODELO</TableColumn>
           <TableColumn key="created_at">INGRESO</TableColumn>
-          <TableColumn key="llaves">LLAVES</TableColumn>
           <TableColumn key="status">STATUS</TableColumn>
           <TableColumn key="actions">ACTIONS</TableColumn>
         </TableHeader>

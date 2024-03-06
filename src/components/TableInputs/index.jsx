@@ -209,14 +209,6 @@ export function TableInputs({ onOpen, }) {
 
   }
 
-  const LinkToWorkshop = (id, chasis, status) => {
-    if (status === 'pendiente') {
-      toast.warning('Realiza el checklist de revision primero')
-    } else {
-      navigate(`taller/nueva_responsiva/${id}/${chasis}`)
-    }
-  }
-
   const routerColor = (color) => {
     const routes = {
       pendiente: 'warning',
@@ -284,18 +276,7 @@ export function TableInputs({ onOpen, }) {
               </p>
             </div>
           );
-        case "ot":
-          return (
-            <Chip
-              className="capitalize"
-              color="primary"
-              variant="flat"
-              size="sm"
-            >
-              {register.ot}
-            </Chip>
-          );
-
+       
         case "status":
           return (
             <Chip
@@ -329,13 +310,6 @@ export function TableInputs({ onOpen, }) {
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
-              <Tooltip content="enviar a taller">
-                <span onClick={() => LinkToWorkshop(register.id, register.chasis, register.status)}
-                  className="text-lg cursor-pointer text-default-400 active:opacity-50"
-                >
-                  <GrConfigure className={`text-${register.status === 'pendiente' ? 'gray-400' : 'primary'}`} />
-                </span>
-              </Tooltip>
               <Tooltip color='default' content="realizar checklist">
                 <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'entrada')}
                   className="text-lg cursor-pointer text-primary active:opacity-50"
@@ -417,7 +391,6 @@ export function TableInputs({ onOpen, }) {
           <TableColumn key="chasis">CHASIS</TableColumn>
           <TableColumn key="tipo">TIPO</TableColumn>
           <TableColumn key="modelo">MODELO</TableColumn>
-          <TableColumn key="ot">OT</TableColumn>
           <TableColumn key="origen">ORIGEN</TableColumn>
           <TableColumn key="status">STATUS</TableColumn>
           <TableColumn key="created_at">ENTRADA</TableColumn>

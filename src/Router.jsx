@@ -8,15 +8,11 @@ import { FormNewResponsive } from "./pages/FormNewResponsive";
 import { ErrorPage } from "./pages/Error";
 import { Taller } from "./pages/Taller";
 import { Croquis } from "./pages/Croquis";
-import { UserConfig } from "./pages/UserConfig";
 import { ViewResponsive } from "./pages/ViewResponsive";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 //Authenticated
 import { AuthProvider } from "./Context/Auth";
-//outlets bahias
-import { Bahia } from "./sections/Bahia";
-import { BahiaA, BahiaB } from "./bahias";
 
 function Router() {
 
@@ -65,9 +61,7 @@ function Router() {
                   <Croquis />
                 </UserUI>
               } >
-                <Route path="/croquis/BahiaA" element={<Bahia bahia={'a'} stateDefault={BahiaA} />} />
-                <Route path="/croquis/BahiaB" element={<Bahia bahia={'b'} stateDefault={BahiaB} />} />
-
+      
               </Route>
 
             </Routes>

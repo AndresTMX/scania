@@ -15,7 +15,7 @@ function Checklist() {
 
     const { id, chasis, tipo } = useParams()
 
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(2)
 
     const { routerChecklist } = useChecklist();
 
@@ -45,7 +45,7 @@ function Checklist() {
 
     const [finales, setFinales] = useState(plantillaChecklist.finales)
 
-    const [salida, setSalida] = useState({ ot_salida: '', user_salida_id: dataUser.user.id, destino: '', checkOut: currentDateTimeZone._d })
+    const [salida, setSalida] = useState({ user_salida_id: dataUser.user.id, destino: '', checkOut: currentDateTimeZone._d })
 
     const navigate = useNavigate();
 
@@ -443,15 +443,11 @@ function Checklist() {
                             {tipo === 'salida' &&
                                 <>
                                     <Input
-                                        label='OT de salida'
-                                        value={salida.ot_salida}
-                                        onChange={(e) => setSalida({ ...salida, ot_salida: e.target.value })} />
-
-                                    <Input
                                         label='destino'
                                         value={salida.destino}
                                         onChange={(e) => setSalida({ ...salida, destino: e.target.value })} />
-                                </>}
+                                </>
+                            }
 
 
                             <Button

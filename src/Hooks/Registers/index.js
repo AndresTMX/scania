@@ -36,6 +36,7 @@ function useRegister() {
             }
 
             setData(data)
+            localStorage.setItem('registros', JSON.stringify(data))
         } catch (error) {
             console.error(error)
             setError(error)

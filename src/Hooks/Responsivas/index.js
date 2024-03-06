@@ -70,4 +70,34 @@ function useGetOneResponsive(idResponsive) {
 
 }
 
-export { useResponsives, useGetOneResponsive };
+function useGetAllResponsives() {
+
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(null)
+
+    async function getAllResponsives() {
+        try {
+            const { error, data } = await supabase
+                .from('responsivas')
+                .select(`*, users(*)`)
+
+            if (error) {
+                throw new Error(`Error al obtener responsivas, error: ${error.message}`)
+            }
+
+            setData(data)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getAllResponsives()
+    },[])
+
+    return { data, loading }
+
+}
+
+export { useResponsives, useGetOneResponsive, useGetAllResponsives };

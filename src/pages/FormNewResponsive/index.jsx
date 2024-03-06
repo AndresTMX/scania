@@ -27,33 +27,17 @@ function FormNewResponsive() {
 
     const { revisionLlaves } = document || {};
 
-    const llaves = revisionLlaves ? revisionLlaves[4]['inputvalue'] : [];
-
     useEffect(() => {
         getOneInputChecklist(id)
     }, [id]);
 
     const [images, setImages] = useState([]);
 
-    const [listKeys, setListKeys] = useState([])
-
     const [form, setForm] = useState({ user_id: '', coment: '' })
 
     const navigate = useNavigate();
 
-    const toggleKey = (key) => {
-        const copyState = listKeys.length >= 1 ? [...listKeys] : [];
-        let existKey = listKeys.find((element) => element === key);
 
-        if (existKey === undefined) {
-            copyState.push(key)
-            setListKeys(copyState)
-        } else {
-            const index = copyState.findIndex((element) => element === key);
-            copyState.splice(index, 1)
-            setListKeys(copyState)
-        }
-    }
 
     const backToInit = () => {
         navigate('/')
@@ -169,27 +153,6 @@ function FormNewResponsive() {
                                                     <SelectItem key={element.auth_id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
                                                 ))}
                                             </Select>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-span-full">
-                                        <label htmlFor="comentarios" className="block text-sm font-medium leading-6 text-gray-900">
-                                            Selecciona las llaves a prestar
-                                        </label>
-                                        <div className="mt-2 h-[100px] input-light-base bg-input">
-                                            <div className="flex flex-row flex-wrap gap-2 p-2 ">
-                                                {llaves.length >= 1 && llaves.split(',').map((llave) => (
-                                                    <Chip
-                                                        className={listKeys.includes(llave) ? 'text-white' : 'text-gray-700'}
-                                                        key={llave}
-                                                        color={listKeys.includes(llave) ? 'primary' : 'default'}
-                                                        endContent={<IoAddOutline />}
-                                                        onClose={() => toggleKey(llave)}
-                                                        variant="shadow" >
-                                                        {llave}
-                                                    </Chip>
-                                                ))}
-                                            </div>
                                         </div>
                                     </div>
 
