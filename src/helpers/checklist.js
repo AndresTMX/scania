@@ -1479,8 +1479,12 @@ export const plantillaChecklist = {
             question: 'Entrega',
             inputvalue: '',
             outputvalue: '',
+            preview: '',
+            inputImage: '',
+            outputImage: '',
             required: true,
-            type: 'input'
+            type: 'input',
+            file:''
         },
         {
             question: 'observaciones',

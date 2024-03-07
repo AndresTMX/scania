@@ -8,7 +8,11 @@ import { Button } from "@nextui-org/react"
 
 function ResponsivaTaller({ dataResponsive }) {
 
-    const { created_at, llaves, nombreResponsable, nombreEntrega } = dataResponsive || {};
+    const { created_at, llaves, responsable, users } = dataResponsive || {};
+
+    const { nombre, apellido } = users || {};
+
+    const nombreEntrega = users ? `${nombre} ${apellido}` : 'no disponible';
 
 
     return (
@@ -42,7 +46,11 @@ function ResponsivaTaller({ dataResponsive }) {
                             width: '80%'
                         }}>
                         {llaves && llaves.map((llave) => (
-                            <Text key={llave} style={{ fontSize: '11px', borderBottom: '1' }} >{llave}</Text>
+                            <Text
+                                key={llave.chasis}
+                                style={{ fontSize: '11px', borderBottom: '1' }} >
+                                {llave.chasis} <Text style={{ fontSize: '10px' }}>(x{llave.llaves})</Text>
+                            </Text>
                         ))}
                     </View>
 
@@ -62,7 +70,7 @@ function ResponsivaTaller({ dataResponsive }) {
                         height: '100px',
                         justifyContent: 'flex-end'
                     }}>
-                        <Text style={{ fontSize: '10px', textTransform: 'uppercase', borderBottom: 1 }}>{nombreResponsable}</Text>
+                        <Text style={{ fontSize: '10px', textTransform: 'uppercase', borderBottom: 1 }}>{responsable}</Text>
                         <Text style={{ fontSize: '10px', }}>NOMBRE Y FIRMA</Text>
                     </View>
 

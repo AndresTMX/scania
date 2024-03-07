@@ -1,13 +1,14 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Button, Input, Tooltip, Chip } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Pagination, Button, Input, Tooltip, Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 //hooks
 import { useNavigate } from "react-router-dom";
 import { useState, useMemo, useEffect, useCallback } from "react";
 //libreries
-import { toast, Toaster } from "sonner";
+import { Toaster } from "sonner";
 //icons
 import { FaSearch } from "react-icons/fa";
 import { supabase } from "../../supabase";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { FaRegImages } from "react-icons/fa6";
 //helpers
 import { dataFormat } from "../../helpers/datetime";
 
@@ -21,30 +22,17 @@ function TableResponsives({ onOpen }) {
 
     const navigate = useNavigate()
 
-    const LinkToResponsive = (id) => {
-        navigate(`responsivas/${id}`)
-    }
 
-    const routerColor = (color) => {
-        const routes = {
-            pendiente: 'warning',
-            revisado: 'primary',
-            taller: 'danger',
-            finalizado: 'default'
-        }
-
-        if (routes[color]) {
-            return routes[color]
-        } else {
-            return 'default'
-        }
+    const LinkToResponsive = (register) => {
+        const registerString = JSON.stringify(register);
+        navigate(`responsivas/${encodeURIComponent(registerString)}`)
     }
 
     async function getAllResponsives() {
         try {
             const { error, data } = await supabase
                 .from('responsivas')
-                .select(`*, registros(*), users(*)`)
+                .select(`*, users(*)`)
 
             if (error) {
                 throw new Error(`Error al obtener responsivas, error: ${error.message}`)
@@ -88,6 +76,8 @@ function TableResponsives({ onOpen }) {
 
             const creador = register.users.nombre + register.users?.apellido;
 
+            const metadata = encodeURIComponent(JSON.stringify(register.metadata? register.metadata: []))
+
             switch (columnKey) {
                 case "fecha":
                     return (
@@ -112,26 +102,50 @@ function TableResponsives({ onOpen }) {
                         </div>
                     );
 
-                case "status":
+                case "comentarios":
                     return (
-                        <Chip
-                            className="capitalize"
-                            color={routerColor(register.status)}
-                            variant="flat"
-                            size="sm"
-                        >
-                            {register.registros.status}
-                        </Chip>
+                        <div className="flex flex-col">
+                            <Popover placement='right-start'>
+                                <PopoverTrigger>
+                                    <Button
+                                        size='sm'
+                                        color="transparent"
+                                    >
+                                        <p className="text-sm truncate max-w-[80px] text-default-400">{register.comentarios}</p>
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent>
+                                    <div className="px-1 py-2 max-w-[200px]">
+                                        {<p>{register.comentarios}</p>}
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
+                        </div>
                     );
+
+                case "imagenes":
+                    return (
+                        <div className="flex flex-col">
+                            <Button
+                                isIconOnly
+                                color="transparent"
+                                className="text-primary"
+                                onClick={() => navigate(`/responsiva/${metadata}`)}
+                            >
+                                <FaRegImages />
+                            </Button>
+                        </div>
+                    );
+
 
                 case "actions":
                     return (
                         <div className="relative flex items-center gap-2">
                             <Tooltip color='default' content="ver">
-                                <span onClick={() => LinkToResponsive(register.id)}
+                                <span onClick={() => LinkToResponsive(register)}
                                     className="text-lg cursor-pointer text-primary active:opacity-50"
                                 >
-                                    <HiOutlineClipboardDocumentList/>
+                                    <HiOutlineClipboardDocumentList />
                                 </span>
                             </Tooltip>
 
@@ -201,11 +215,12 @@ function TableResponsives({ onOpen }) {
                     <TableColumn key="fecha">FECHA</TableColumn>
                     <TableColumn key="entrego">ENTREGO</TableColumn>
                     <TableColumn key="responsable">RESPONSABLE</TableColumn>
-                    <TableColumn key="status">STATUS</TableColumn>
+                    <TableColumn key="comentarios">COMENTARIOS</TableColumn>
+                    <TableColumn key="imagenes">IMAGENES</TableColumn>
                     <TableColumn key="actions">ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody
-                    emptyContent={"Sin entradas registradas"}
+                    emptyContent={"Sin responsivas registradas"}
                     items={items}>
                     {(item) => (
                         <TableRow key={item.name}>

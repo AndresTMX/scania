@@ -16,10 +16,10 @@ function UserUI({ children }) {
             title: 'Ingreso',
             route: '/',
         },
-        {
-            title: 'Taller',
-            route: '/taller',
-        },
+        // {
+        //     title: 'Taller',
+        //     route: '/taller',
+        // },
         {
             title: 'Croquis',
             route: '/croquis',

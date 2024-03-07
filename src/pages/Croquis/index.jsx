@@ -15,7 +15,6 @@ function Croquis() {
     const [selected, setSelected] = useState("BahiaA");
 
     const changueSelected = (key) => {
-        navigate(key)
         setSelected(key)
     }
 

@@ -3,7 +3,7 @@ import { TableOutputs } from "../../components/TableOutputs";
 import { TableResponsives } from "../../components/TableResponsivas";
 import { Input, Select, SelectItem, useDisclosure, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Tabs, Tab, Chip, Textarea, Image } from "@nextui-org/react";
 //hooks
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useUsers } from "../../Hooks/Users";
 import { useRegister } from "../../Hooks/Registers";
 //libreries
@@ -15,6 +15,8 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { IoAddOutline } from "react-icons/io5";
 import { CiImageOn } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+//services
+import { createNewResponsive } from "../../services/responsivas";
 
 function Ingreso() {
 
@@ -123,7 +125,7 @@ export function FormNewRegister({ isOpen, onOpenChange, onClose }) {
             if (error === null) {
                 toast.success('Registro guardado')
             } else {
-                toast.success('error: ' + error?.message)
+                toast.error('error: ' + error?.message)
             }
         }
     }
@@ -158,7 +160,7 @@ export function FormNewRegister({ isOpen, onOpenChange, onClose }) {
                                     aria-label="llaves_label"
                                     placeholder="5"
                                     description="cantidad de llaves"
-                                    name="laves"
+                                    name="llaves"
                                 />
 
                                 <Select
@@ -216,21 +218,32 @@ export function FormNewResponsive({ isOpen, onOpenChange, onClose, }) {
 
     const [images, setImages] = useState([]);
 
-    const [form, setForm] = useState({ user_id: '', coment: '' })
+    const responsable = useRef();
+    const comentarios = useRef();
 
     const tractos = JSON.parse(localStorage.getItem('registros') || '[]');
 
     const [listKeys, setListKeys] = useState([])
 
-    const toggleKey = (key) => {
+    function existKey(key) {
+        let exist
+        if (listKeys.length >= 1) {
+            exist = listKeys.find((tracto) => tracto.chasis === key)
+        } else {
+            exist = false
+        }
+        return exist
+    }
+
+    const toggleKey = (item) => {
         const copyState = listKeys.length >= 1 ? [...listKeys] : [];
-        let existKey = listKeys.find((element) => element === key);
+        let existKey = listKeys.find((element) => element.chasis === item.chasis);
 
         if (existKey === undefined) {
-            copyState.push(key)
+            copyState.push(item)
             setListKeys(copyState)
         } else {
-            const index = copyState.findIndex((element) => element === key);
+            const index = copyState.findIndex((element) => element === item.chasis);
             copyState.splice(index, 1)
             setListKeys(copyState)
         }
@@ -261,7 +274,35 @@ export function FormNewResponsive({ isOpen, onOpenChange, onClose, }) {
 
     }
 
-    const tractosForResponsive = tractos.length > 1 ? tractos.filter((tracto) => tracto.status === 'revisado-entrada') : []
+    const tractosForResponsive = tractos.length >= 1 ? tractos.filter((tracto) => tracto.status === 'revisado-entrada') : []
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        if (responsable.current.value === '') {
+            toast.error('Comleta el formulario para continuar')
+
+        } else if (listKeys.length === 0) {
+            toast.warning("Selecciona llaves para continuar")
+
+        } else if (responsable.current.value != '' && listKeys.length > 0) {
+
+            const { error } = await createNewResponsive({
+                responsable: responsable.current.value,
+                comentarios: comentarios.current.value,
+                llaves: listKeys,
+                metadata: images
+            })
+
+            if (error) {
+                toast.error(`Error al crear registro, error: ${error?.message}`)
+            } else {
+                toast.success('documento creado')
+                onClose()
+            }
+
+        }
+    }
 
     return (
         <>
@@ -276,46 +317,44 @@ export function FormNewResponsive({ isOpen, onOpenChange, onClose, }) {
                 <Toaster richColors position="top-center" />
                 <ModalContent >
                     {(onClose) => (
-                        <form onSubmit={() => console.log('form action')} className="flex flex-col p-2 max-h-full overflow-y-auto" >
+                        <form onSubmit={onSubmit} className="flex flex-col p-2 max-h-full overflow-y-auto" >
                             <ModalHeader className="flex flex-col gap-1">Nueva responsiva</ModalHeader>
                             <ModalBody className="h-full">
 
                                 <section className="flex flex-col gap-4">
 
                                     <div className="sm:col-span-4">
-                                        <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="responsable" className="block text-sm font-medium leading-6 text-gray-900">
                                             Personal que recibe
                                         </label>
                                         <div className="mt-2">
                                             <Select
                                                 required
                                                 size="sm"
-                                                id="user_id"
-                                                name="user_id"
-                                                aria-label="user_id"
+                                                id="responsable"
+                                                name="responsable"
+                                                aria-label="responsable"
                                                 className="input-light-base"
-                                                value={form.user_id}
-                                                onChange={(e) => setForm({ ...form, user_id: e.target.value })}
+                                                ref={responsable}
                                             >
                                                 {dataUsers && dataUsers.map((element) => (
-                                                    <SelectItem key={element.auth_id}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
+                                                    <SelectItem key={`${element.nombre}  ${element.apellido}`}>{`${element.nombre}  ${element.apellido}`}</SelectItem>
                                                 ))}
                                             </Select>
                                         </div>
                                     </div>
 
                                     <div className="col-span-full">
-                                        <label htmlFor="comentarios" className="block text-sm font-medium leading-6 text-gray-900">
-                                            Comentarios adicionales
+                                        <label htmlFor="comentariosarios" className="block text-sm font-medium leading-6 text-gray-900">
+                                            comentariosarios adicionales
                                         </label>
                                         <div className="mt-2">
                                             <Textarea
                                                 rows={3}
-                                                id="comentarios"
-                                                name="comentarios"
-                                                aria-label="comentarios"
-                                                value={form.coment}
-                                                onChange={(e) => setForm({ ...form, coment: e.target.value })}
+                                                id="comentariosarios"
+                                                name="comentariosarios"
+                                                aria-label="comentariosarios"
+                                                ref={comentarios}
                                                 className="input-light-base"
                                             />
                                         </div>
@@ -350,20 +389,24 @@ export function FormNewResponsive({ isOpen, onOpenChange, onClose, }) {
                                     </div>
 
                                     <div className="col-span-full">
-                                        <label htmlFor="comentarios" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="comentariosarios" className="block text-sm font-medium leading-6 text-gray-900">
                                             Selecciona las llaves a prestar
                                         </label>
                                         <div className="mt-2 h-[100px] input-light-base bg-input">
                                             <div className="flex flex-row flex-wrap gap-2 p-2 ">
                                                 {tractosForResponsive.length >= 1 && tractosForResponsive.map((tracto) => (
                                                     <Chip
-                                                        className={listKeys.includes(tracto.chasis) ? 'text-white' : 'text-gray-700'}
                                                         key={tracto.chasis}
-                                                        color={listKeys.includes(tracto.chasis) ? 'primary' : 'default'}
+                                                        size="lg"
+                                                        className={existKey(tracto.chasis) ? 'text-white' : 'text-gray-700'}
+                                                        color={existKey(tracto.chasis) ? 'primary' : 'default'}
                                                         endContent={<IoAddOutline />}
-                                                        onClose={() => toggleKey(tracto.chasis)}
+                                                        onClose={() => toggleKey(tracto)}
                                                         variant="shadow" >
                                                         {tracto.chasis}
+                                                        <span className="relative text-xs bottom-1 ml-2">
+                                                            ( x{tracto.llaves})
+                                                        </span>
                                                     </Chip>
                                                 ))}
                                             </div>
@@ -390,7 +433,6 @@ export function FormNewResponsive({ isOpen, onOpenChange, onClose, }) {
                     )}
                 </ModalContent>
             </Modal>
-
 
         </>
     )

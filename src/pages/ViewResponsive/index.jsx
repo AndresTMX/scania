@@ -1,26 +1,18 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { Button, Spinner } from "@nextui-org/react";
 import { DownloadResponsive, ResponsivaTaller } from "../../PDF/plantillas/responsiva";
-import { dateCalendar } from "../../helpers/datetime";
 //icons
 import { FaArrowLeft } from "react-icons/fa";
 //hooks
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetOneResponsive } from "../../Hooks/Responsivas";
 
 function ViewResponsive() {
 
-    const { idResponsiva, route } = useParams()
-    const { loading, data } = useGetOneResponsive(idResponsiva)
+    const navigate = useNavigate()
 
-    const { created_at, llaves, metadata, users, responsable:nombreResponsable } = data[0] || {};
-    const { nombre, apellido } = users || {};
+    const { register } = useParams()
 
-    const navigate = useNavigate();
-
-    const nombreEntrega = users ? `${nombre} ${apellido}` : 'no disponible';
-
-    const dataResponsive = { created_at, llaves, nombreResponsable, nombreEntrega }
+    const registerInJson = register ? JSON.parse(decodeURIComponent(register)) : {};
 
     const backToInit = () => {
         navigate('/')
@@ -40,18 +32,14 @@ function ViewResponsive() {
 
                 <div className="flex flex-col p-2 h-[90vh] w-5/6 items-center input-light-base shadow-lg gap-2">
                     <div className=" flex flex-row justify-end w-5/6 ">
-                        <DownloadResponsive dataResponsive={dataResponsive} />
+                        <DownloadResponsive dataResponsive={registerInJson} />
                     </div>
 
-                    {loading &&
-                        <div className="flex flex-col items-center justify-center  h-full w-full bg-gray-200 ">
-                            <Spinner size='lg' label="cargando responsiva..." color="primary" />
-                        </div>}
 
-                    {!loading &&
+                    {registerInJson &&
                         <PDFViewer
                             style={{ width: '100%', height: '100%' }}>
-                            <ResponsivaTaller dataResponsive={dataResponsive} />
+                            <ResponsivaTaller dataResponsive={registerInJson} />
                         </PDFViewer>}
                 </div>
             </div>

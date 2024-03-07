@@ -11,11 +11,12 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { TbClockQuestion } from "react-icons/tb";
 
+
 function Checklist() {
 
     const { id, chasis, tipo } = useParams()
 
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(1)
 
     const { routerChecklist } = useChecklist();
 
@@ -179,13 +180,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -205,13 +217,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -231,13 +254,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -257,13 +291,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -283,13 +328,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -309,13 +365,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -335,13 +402,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -361,16 +439,26 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
-
 
                         {/* Revision  accesorios */}
                         {step === 10 && <form onSubmit={(e) => updateRevision(e, reguardoDatos, () => setStep(11))}
@@ -388,13 +476,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -414,13 +513,24 @@ function Checklist() {
                                 />
                             ))}
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 
@@ -450,13 +560,24 @@ function Checklist() {
                             }
 
 
-                            <Button
-                                className="text-white"
-                                color="primary"
-                                type="submit"
-                            >
-                                Siguiente
-                            </Button>
+                            <div className="flex flex-row items-center justify-between">
+                                <Button
+                                    onPress={() => setStep(step - 1)}
+                                    className="text-white"
+                                    color="warning"
+                                    type="submit"
+                                    isIconOnly
+                                >
+                                    <FaArrowLeft />
+                                </Button>
+                                <Button
+                                    className="text-white"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
 
                         </form>}
 

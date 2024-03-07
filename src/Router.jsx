@@ -11,6 +11,7 @@ import { Croquis } from "./pages/Croquis";
 import { ViewResponsive } from "./pages/ViewResponsive";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
+import { ImagesResponsive } from "./outlets/ImagesResponsive";
 //Authenticated
 import { AuthProvider } from "./Context/Auth";
 
@@ -38,6 +39,8 @@ function Router() {
 
                 <Route path="document-checklist/:id" element={<ChecklistPDF />} />
 
+                <Route path="responsiva/:metadata" element={<ImagesResponsive />} />
+
               </Route>
 
               <Route path="checklist/:id/:chasis/:tipo" element={<Checklist />} />
@@ -51,7 +54,7 @@ function Router() {
               }>
               </Route>
 
-              <Route path="responsivas/:idResponsiva" element={<ViewResponsive />} />
+              <Route path="responsivas/:register" element={<ViewResponsive />} />
 
               <Route path="taller/nueva_responsiva/:id/:chasis" element={<FormNewResponsive />} />
 
@@ -61,7 +64,7 @@ function Router() {
                   <Croquis />
                 </UserUI>
               } >
-      
+
               </Route>
 
             </Routes>
