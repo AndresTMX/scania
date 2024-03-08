@@ -4,7 +4,7 @@ import { Tab, Tabs, } from "@nextui-org/react";
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { Bahia } from "../../sections/Bahia"
 import { GrConfigure } from "react-icons/gr";
-import { BahiaA, BahiaB, BahiaC, BahiaD, BahiaE, BahiaTaller } from "../../bahias";
+import { BahiaA, BahiaB, BahiaC, BahiaD, BahiaE, BahiaG, BahiaTaller } from "../../bahias";
 import { Toaster } from "sonner";
 
 function Croquis() {
@@ -95,6 +95,18 @@ function Croquis() {
                             }
                         >
                             <Bahia bahia={'e'} stateDefault={BahiaE} />
+                        </Tab>
+
+                        <Tab
+                            key="G"
+                            title={
+                                <div className="flex items-center space-x-2">
+                                    <BsGridFill />
+                                    <span>Bahía G</span>
+                                </div>
+                            }
+                        >
+                            <Bahia bahia={'g'} stateDefault={BahiaG} />
                         </Tab>
 
 

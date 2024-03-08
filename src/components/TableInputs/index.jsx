@@ -211,7 +211,7 @@ export function TableInputs({ onOpen, }) {
 
   const LinkToDocument = (id, status) => {
     if (status != 'pendiente') {
-      navigate(`/document-checklist/${id}${'/#'}`)
+      navigate(`/document-checklist/${id}`)
     } else {
       toast.warning('No se ha realizado el checklist')
     }

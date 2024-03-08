@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Spinner } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useChecklist } from "../../Hooks/Checklist";
 import { plantillaChecklist } from "../../helpers/checklist";
 import { ItemQuestionsDinamic } from "../../components/ItemQuestionDinamic";
-import { currentDateTimeZone } from "../../helpers/datetime";
 //icons
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { TbClockQuestion } from "react-icons/tb";
+import { MdChecklistRtl } from "react-icons/md";
+
 
 
 function Checklist() {
@@ -46,7 +47,9 @@ function Checklist() {
 
     const [finales, setFinales] = useState(plantillaChecklist.finales)
 
-    const [salida, setSalida] = useState({ user_salida_id: dataUser.user.id, destino: '', checkOut: currentDateTimeZone._d })
+    const [salida, setSalida] = useState({ user_salida_id: dataUser.user.id, destino: '', })
+
+    const [loading, setLoading] = useState(null)
 
     const navigate = useNavigate();
 
@@ -93,14 +96,17 @@ function Checklist() {
 
         newChecklist = { document: checklistEntrada, tracto_id: id, tipo: 'scania' }
 
+        setLoading(true)
         const { error } = await routerChecklist(tipo, newChecklist, salida);
 
         if (error === null) {
+            setLoading(false)
             toast.success('Checklist guardado')
             setTimeout(() => {
                 navigate('/')
             }, 1000)
         } else {
+            setLoading(false)
             toast.error(`Error al subir el checklist: ${error.message}`)
             setTimeout(() => {
                 navigate('/')
@@ -113,11 +119,39 @@ function Checklist() {
         navigate('/')
     }
 
+    const checkAll = (state, updater) => {
+
+        try {
+            const copyState = [...state];
+
+            const keyUpdate = tipo === 'entrada' ? 'inputvalue' : 'outputvalue';
+
+            const newState = copyState.map((question) => {
+
+                const copyQuestion = { ...question }
+
+                if (copyQuestion?.correct) {
+                    copyQuestion[keyUpdate] = copyQuestion.correct
+                }
+
+                return { ...copyQuestion }
+            })
+
+            updater(newState)
+        } catch (error) {
+            toast.error(`error : ${error?.message}`)
+        }
+
+    }
+
     return (
         <>
 
             <Toaster richColors position="top-center" />
 
+            {loading && <div className="fixed z-10 bg-black bg-opacity-[40%] flex flex-col justify-center items-center h-screen w-screen">
+                <Spinner size="lg" />
+            </div>}
 
             <section className="flex flex-col w-full gap-4 py-5 bg-body min-h-screen h-full items-center">
 
@@ -140,7 +174,19 @@ function Checklist() {
                         {step === 1 && <form onSubmit={(e) => updateRevision(e, revisionGeneral, () => setStep(2))}
                             className="flex flex-col gap-5 w-full shadow-md bg-white p-5">
 
-                            <strong>Revision general</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision general</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionGeneral, setRevisionGeneral)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionGeneral.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -167,7 +213,11 @@ function Checklist() {
                         {step === 2 && <form onSubmit={(e) => updateRevision(e, juegoLlaves, () => setStep(3))}
                             className="flex flex-col gap-5 w-full bg-white p-5  shadow-md">
 
-                            <strong>Revision de juego de llaves</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de llaves</strong>
+
+
+                            </div>
 
                             {juegoLlaves.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -205,7 +255,19 @@ function Checklist() {
                         {step === 3 && <form onSubmit={(e) => updateRevision(e, revisionFrontal, () => setStep(4))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision frontal</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision frontal</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionFrontal, setRevisionFrontal)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionFrontal.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -242,7 +304,11 @@ function Checklist() {
                         {step === 4 && <form onSubmit={(e) => updateRevision(e, nivelFluidos, () => setStep(5))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision de fluidos</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de fluidos</strong>
+
+
+                            </div>
 
                             {nivelFluidos.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -279,7 +345,19 @@ function Checklist() {
                         {step === 5 && <form onSubmit={(e) => updateRevision(e, revisionDerecho, () => setStep(6))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision del costado derecho</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision del costado derecho</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionDerecho, setRevisionDerecho)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionDerecho.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -316,7 +394,19 @@ function Checklist() {
                         {step === 6 && <form onSubmit={(e) => updateRevision(e, revisionTrasera, () => setStep(7))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision de parte trasera</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de parte trasera</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionTrasera, setRevisionTrasera)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionTrasera.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -353,7 +443,19 @@ function Checklist() {
                         {step === 7 && <form onSubmit={(e) => updateRevision(e, revisionIzquierda, () => setStep(8))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md ">
 
-                            <strong>Revision de parte izquierda</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revisión de la parte izquierda</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionIzquierda, setRevisionIzquierda)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionIzquierda.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -390,7 +492,19 @@ function Checklist() {
                         {step === 8 && <form onSubmit={(e) => updateRevision(e, revisionCabina, () => setStep(9))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision de cabina</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de cabina</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionCabina, setRevisionCabina)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionCabina.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -427,7 +541,19 @@ function Checklist() {
                         {step === 9 && <form onSubmit={(e) => updateRevision(e, revisionAccesorios, () => setStep(10))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision de accesorios</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de accesorios</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(revisionAccesorios, setRevisionesAccesorios)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {revisionAccesorios.map((element, index) => (
                                 <ItemQuestionsDinamic
@@ -460,11 +586,23 @@ function Checklist() {
 
                         </form>}
 
-                        {/* Revision  accesorios */}
+                        {/* Revision  datos */}
                         {step === 10 && <form onSubmit={(e) => updateRevision(e, reguardoDatos, () => setStep(11))}
                             className="flex flex-col gap-5 w-full bg-white p-5 shadow-md">
 
-                            <strong>Revision de accesorios</strong>
+                            <div className="flex flex-row justify-between ">
+                                <strong>Revision de datos</strong>
+
+                                <Button
+                                    isIconOnly
+                                    size="sm"
+                                    color="primary"
+                                    className="text-white text-lg"
+                                    onPress={() => checkAll(reguardoDatos, setReguardoDatos)}
+                                >
+                                    <MdChecklistRtl />
+                                </Button>
+                            </div>
 
                             {reguardoDatos.map((element, index) => (
                                 <ItemQuestionsDinamic

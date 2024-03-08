@@ -41,7 +41,7 @@ function Router() {
 
               </Route>
 
-              <Route path="document-checklist/:id/:route" element={<ChecklistPDF />} />
+              <Route path="document-checklist/:id" element={<ChecklistPDF />} />
 
               <Route path="checklist/:id/:chasis/:tipo" element={<Checklist />} />
 

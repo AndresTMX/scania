@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../../supabase";
 import { sendImageCloudinary, folderChecklist, presetName } from "../../cloudinary";
+//helpers
+import { currentDateTimeZone } from "../../helpers/datetime";
 
 function useChecklist() {
 
@@ -42,11 +44,12 @@ function useChecklist() {
         }
     }
 
-    async function updateOutputChecklist(checklist, dataOutput) {
-        try {
+    async function updateOutputChecklist(checklist, dataOutput, tipoRegistro) {
 
+        try {
+            const checkOut = currentDateTimeZone._d;
             const { tracto_id, document: outputDocument } = checklist;
-            const { ot_salida, user_salida_id, destino, checkOut } = dataOutput;
+            const { ot_salida, user_salida_id, destino } = dataOutput;
 
             const { error, data: oldChecklist } = await supabase
                 .from(`checklist`)
@@ -58,26 +61,48 @@ function useChecklist() {
                 throw new Error(`Error al recuperar checklist de entrada, error: ${error.message} `)
             }
 
-            const copyChecklist = oldChecklist[0].document;
+            const oldDocument = oldChecklist[0]['document'];
 
-            const newChecklist = {}
+            const checklistWhitImages = await uploadImagesChecklist(outputDocument, tipoRegistro);
 
-            for (const key of Object.keys(copyChecklist)) {
+            const keysDocument = Object.keys(checklistWhitImages);
 
-                newChecklist[key] = [];
+            const newDocument = {};
 
-                copyChecklist[key].map((element, index) => {
+            for (const keySection of keysDocument) {
 
-                    newChecklist[key].push({
-                        ...element,
-                        outputvalue: outputDocument[key][index].outputvalue
-                    })
+                const inputSection = oldDocument[keySection]
+
+                const outputSection = checklistWhitImages[keySection]
+
+                const newSection = inputSection.map((question, index) => {
+
+                    const copyQuestion = { ...question }
+
+                    if (copyQuestion.type === 'checkbox' || copyQuestion.type === 'input') {
+                        copyQuestion.outputvalue = outputSection[index].outputvalue
+                        copyQuestion.outputImage = outputSection[index].outputImage
+                    }
+
+                    if (copyQuestion.type === 'textarea') {
+                        copyQuestion.outputvalue = outputSection[index].outputvalue
+                    }
+
+                    if (copyQuestion.type === 'image') {
+                        copyQuestion.outputvalue = outputSection[index].outputvalue
+                    }
+
+                    return { ...copyQuestion }
+
                 })
+
+                newDocument[keySection] = newSection;
+
             }
 
             const { error: errorUpdateChecklist } = await supabase
                 .from('checklist')
-                .update({ document: newChecklist })
+                .update({ document: newDocument })
                 .eq('tipo', 'scania')
                 .eq('tracto_id', tracto_id)
 
@@ -92,7 +117,8 @@ function useChecklist() {
                     ot_salida: ot_salida,
                     user_salida_id: user_salida_id,
                     checkOut: checkOut,
-                    status: 'finalizado'
+                    status: 'finalizado',
+                    status_llaves:'entregadas'
                 })
                 .eq('id', tracto_id)
 
@@ -113,7 +139,7 @@ function useChecklist() {
 
             const routes = {
                 entrada: async () => await createInputChecklist(checklist, tipo),
-                salida: async () => await updateOutputChecklist(checklist, dataOutput)
+                salida: async () => await updateOutputChecklist(checklist, dataOutput, tipo)
             }
 
             if (routes[tipo]) {
@@ -206,7 +232,6 @@ function useChecklist() {
                 const request = await sendImageCloudinary(formData);
                 links.push({ url: request.url, question: request.original_filename })
             });
-
 
             //resolver promesas
             try {

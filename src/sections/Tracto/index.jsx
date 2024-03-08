@@ -239,7 +239,7 @@ export function Tracto({ item, index }) {
                                             color="primary"
                                             variant='solid'
                                             className="text-white"
-                                            onPress={() => navigate(`/document-checklist/${item.id}${'/croquis'}`)}>
+                                            onPress={() => navigate(`/document-checklist/${item.id}`)}>
                                             checklist
                                         </Button>}
 

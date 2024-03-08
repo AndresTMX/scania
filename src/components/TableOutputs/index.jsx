@@ -92,17 +92,6 @@ export function TableOutputs() {
               </p>
             </div>
           );
-        case "ot":
-          return (
-            <Chip
-              className="capitalize"
-              color="primary"
-              variant="flat"
-              size="sm"
-            >
-              {register.ot}
-            </Chip>
-          );
 
         case "status":
           return (
@@ -215,7 +204,6 @@ export function TableOutputs() {
         <TableColumn key="chasis">CHASIS</TableColumn>
         <TableColumn key="tipo">TIPO</TableColumn>
         <TableColumn key="modelo">MODELO</TableColumn>
-        <TableColumn key="ot">OT</TableColumn>
         <TableColumn key="destino">DESTINO</TableColumn>
         <TableColumn key="status">STATUS</TableColumn>
         <TableColumn key="checkOut">SALIDA</TableColumn>
