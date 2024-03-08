@@ -209,6 +209,14 @@ export function TableInputs({ onOpen, }) {
 
   }
 
+  const LinkToDocument = (id, status) => {
+    if (status != 'pendiente') {
+      navigate(`/document-checklist/${id}${'/#'}`)
+    } else {
+      toast.warning('No se ha realizado el checklist')
+    }
+  }
+
   const routerColor = (color) => {
     const routes = {
       pendiente: 'warning',
@@ -276,7 +284,7 @@ export function TableInputs({ onOpen, }) {
               </p>
             </div>
           );
-       
+
         case "status":
           return (
             <Chip
@@ -310,6 +318,13 @@ export function TableInputs({ onOpen, }) {
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
+              <Tooltip color='default' content="ver checklist">
+                <span onClick={() => LinkToDocument(register.id, register.status)}
+                  className="text-lg cursor-pointer text-primary active:opacity-50"
+                >
+                  <GrDocumentPdf className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
+                </span>
+              </Tooltip>
               <Tooltip color='default' content="realizar checklist">
                 <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'entrada')}
                   className="text-lg cursor-pointer text-primary active:opacity-50"

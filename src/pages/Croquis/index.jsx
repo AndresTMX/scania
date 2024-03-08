@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { BsGridFill } from "react-icons/bs";
 import { Tab, Tabs, } from "@nextui-org/react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { Bahia } from "../../sections/Bahia"
 import { GrConfigure } from "react-icons/gr";
 import { BahiaA, BahiaB, BahiaC, BahiaD, BahiaE, BahiaTaller } from "../../bahias";
+import { Toaster } from "sonner";
 
 function Croquis() {
 
@@ -23,6 +24,8 @@ function Croquis() {
         <>
 
             <section className="flex flex-col h-screen justify-start" >
+
+                <Toaster richColors position='top-center' />
 
                 <div className="flex flex-col items-start gap-1 w-full px-0 py-4 max-md:items-center">
                     <Tabs
@@ -111,6 +114,8 @@ function Croquis() {
                     </Tabs>
 
                 </div>
+
+                <Outlet/>
 
             </section>
 

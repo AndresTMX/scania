@@ -37,11 +37,11 @@ function Router() {
                   </UserUI>
                 } >
 
-                <Route path="document-checklist/:id" element={<ChecklistPDF />} />
-
                 <Route path="responsiva/:metadata" element={<ImagesResponsive />} />
 
               </Route>
+
+              <Route path="document-checklist/:id/:route" element={<ChecklistPDF />} />
 
               <Route path="checklist/:id/:chasis/:tipo" element={<Checklist />} />
 
@@ -57,7 +57,6 @@ function Router() {
               <Route path="responsivas/:register" element={<ViewResponsive />} />
 
               <Route path="taller/nueva_responsiva/:id/:chasis" element={<FormNewResponsive />} />
-
 
               <Route path="/croquis" element={
                 <UserUI>

@@ -12,11 +12,11 @@ export function Columna({ stateLayout, column, bloque }) {
 
         <div className="flex flex-col gap-2 bg-gray-200 p-1 w-fit">
             {filterColumn.map((item, index) => (
-                <div className='flex flex-row gap-2 items-end'>
+                <div className='flex flex-row gap-2 items-end' key={index}>
                     {item.columna === '1' &&
                         <Chip size="sm" radius="sm" color="primary" className="fixed left-[3vw] text-white z-10 ">{index + 1}</Chip>
                     }
-                    <Tracto key={index} item={item} index={index} />
+                    <Tracto item={item} index={index} />
                 </div>
             ))}
         </div>

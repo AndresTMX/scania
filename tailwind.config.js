@@ -20,7 +20,13 @@ module.exports = {
           body: '#ECEDEE',
           border:'#E4E4E7',
           link: '#D4D4D8',
-          input:'#f4f4f5'
+          input:'#f4f4f5',
+          llavesResguardo:'#66AAF9',
+          llavesTaller:'#f5a524',
+          llavesEntrega: '#C20E4D',
+          llavesFaltantes: '#6020A0',
+          llavesMovimiento:'#17C964',
+          llavesEspecial:'#FF6600'
         },
         
       },

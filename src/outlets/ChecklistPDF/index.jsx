@@ -18,9 +18,7 @@ function ChecklistPDF() {
     const { infoUser: auditorRecepcion } = useInfoUser(user_id);
     const { infoUser: auditorLiberacion } = useInfoUser(user_id);
 
-
-
-    const { id } = useParams();
+    const { id, route } = useParams();
 
     useEffect(() => {
         getOneInputChecklist(id)
@@ -29,7 +27,7 @@ function ChecklistPDF() {
     const navigate = useNavigate()
 
     const backToInit = () => {
-        navigate('/')
+        navigate(`/${route}`)
     }
 
 
