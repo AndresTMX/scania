@@ -21,10 +21,13 @@ import {
 import { getAllRegistersActive } from "../../services/registros";
 //icons
 import { FaInfoCircle, FaSearch } from "react-icons/fa";
+import { SiMicrosoftexcel } from "react-icons/si";
 //helpers
 import { dataFormat, tiempoTranscurrido, transformDateFilter } from "../../helpers/datetime";
 //libraries
 import * as XLSX from 'xlsx';
+//hooks
+import { useSearcher } from "../../Hooks/useSearcher";
 
 
 export function TableReports() {
@@ -34,9 +37,14 @@ export function TableReports() {
     const [error, setError] = useState(null);
     const [update, setUpdate] = useState(false);
     const [page, setPage] = useState(1);
+    const [filter, setFilter] = useState({ filterInit: '', filterEnd: '' })
 
     const initRef = useRef();
     const endRef = useRef();
+
+    const { searchValue, handleKeyPress, dataFiltered, onChangeClear, mode } = useSearcher(registers, 'chasis');
+
+    const dataDinamic = mode ? dataFiltered : registers;
 
     const filterRegisters = () => {
         try {
@@ -46,15 +54,10 @@ export function TableReports() {
             if (!init || !end) {
                 toast.warning('inserta una fecha de inicio y de fin')
             } else {
-
                 const dateInit = transformDateFilter(init)
-                console.log("🚀 ~ filterRegisters ~ dateInit:", dateInit)
-                
                 const dateEnd = transformDateFilter(end)
-                console.log("🚀 ~ filterRegisters ~ dateEnd:", dateEnd)
-
+                setFilter({ filterInit: dateInit, filterEnd: dateEnd })
             }
-
 
         } catch (error) {
             console.error(error)
@@ -108,15 +111,30 @@ export function TableReports() {
 
     //export xls
     const generateExcel = () => {
-        const data = [
-            ['Name', 'Age'],
-            ['John', 30],
-            ['Jane', 25],
-            ['Doe', 40]
-        ];
 
-        const ws = XLSX.utils.aoa_to_sheet(data);
+        const report = registers.map((register) => {
+            return {
+                chasis: register.chasis,
+                checkIn: dataFormat(register),
+                checkOut: register.checkOut != null ? dataFormat(register.checkOut) : 'En patio',
+                estancia: tiempoTranscurrido(register.checkIn, register.checkOut),
+                deuda: tiempoTranscurrido(register.checkIn, register.checkOut) * 40,
+            }
+        });
+
+        const ws = XLSX.utils.json_to_sheet(report);
         const wb = XLSX.utils.book_new();
+
+        const columnWidths = [
+            { wpx: 70 }, // Ancho de la primera columna en píxeles
+            { wpx: 150 }, // Ancho de la segunda columna en píxeles
+            { wpx: 150 }, // Ancho de la tercera columna en píxeles
+            { wpx: 70 }, // Ancho de la tercera columna en píxeles
+            { wpx: 70 }, // Ancho de la tercera columna en píxeles
+
+        ];
+        ws['!cols'] = columnWidths;
+
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
         XLSX.writeFile(wb, 'example.xlsx');
     };
@@ -198,14 +216,14 @@ export function TableReports() {
     );
 
     const rowsPerPage = 20;
-    const pages = Math.ceil(registers.length / rowsPerPage);
+    const pages = Math.ceil(dataDinamic.length / rowsPerPage);
 
     const items = useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
-        return registers.slice(start, end);
-    }, [page, registers]);
+        return dataDinamic.slice(start, end);
+    }, [page, dataDinamic]);
 
     return (
         <>
@@ -213,17 +231,20 @@ export function TableReports() {
             <Toaster richColors position="top-center" />
 
             <Table
-                className="w-[90vw]"
+                className="w-[90vw] max-w-[1035px]"
                 aria-label="Example table with client side pagination"
                 topContent={
                     <div className="flex flex-row items-center justify-between w-full gap-4 ">
 
                         <div className="flex flex-row items-center">
                             <Input
-                                className="w-52 h-full"
                                 size="sm"
                                 type="text"
+                                ref={searchValue}
+                                className="w-52 h-full"
                                 placeholder="Buscar registros"
+                                onKeyDown={handleKeyPress}
+                                onChange={onChangeClear}
                                 endContent={<FaSearch />}
                             />
                         </div>
@@ -260,8 +281,8 @@ export function TableReports() {
 
                             <Button
                                 size="sm"
-                                color="success"
-                                className="text-white font-semibold "
+                                className="text-white bg-excel font-semibold"
+                                endContent={<SiMicrosoftexcel />}
                                 onPress={() => generateExcel()}>
                                 Exportar Excel
                             </Button>

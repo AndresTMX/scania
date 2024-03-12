@@ -26,7 +26,8 @@ module.exports = {
           llavesEntrega: '#C20E4D',
           llavesFaltantes: '#6020A0',
           llavesMovimiento:'#17C964',
-          llavesEspecial:'#FF6600'
+          llavesEspecial:'#FF6600',
+          excel:'#207245'
         },
         
       },

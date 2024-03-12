@@ -23,9 +23,9 @@ export function tiempoTranscurrido(inicio, fin) {
         }
 
         const newInit = moment(inicio)
-        const diferenciaEnDias = finDefault.diff(newInit, 'days');
+        const diferenciaEnDias = finDefault.diff(newInit, 'days', true);
 
-        return diferenciaEnDias
+        return Math.round(diferenciaEnDias);
 
     } catch (error) {
         console.error(error)
@@ -45,3 +45,6 @@ export function transformDateFilter(fecha) {
         console.error(error)
     }
 }
+
+export const dateFilterInitDefault = moment().startOf('month').format('YYYY-MM-DDTHH:mm:ss[Z]');
+export const dateFilterEndDefault = moment().endOf('month').format('YYYY-MM-DDTHH:mm:ss[Z]');

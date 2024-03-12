@@ -1,4 +1,5 @@
 import { supabase } from "../../supabase"
+import { dateFilterInitDefault, dateFilterEndDefault } from "../../helpers/datetime"
 
 export async function getRegistersForAssigned() {
     try {
@@ -69,17 +70,17 @@ export async function clearPositionTracto(idTracto) {
     }
 }
 
-export async function getAllRegistersActive() {
+export async function getAllRegistersActive(startDate, endDate) {
     try {
 
-        const startDate = '2024-03-06T00:00:00Z';
-        const endDate = '2024-03-07T00:00:00Z';
+        const start = startDate ? startDate : dateFilterInitDefault;
+        const end = endDate ? endDate : dateFilterEndDefault;
 
         const { error, data } = await supabase
             .from('registros')
             .select('*')
-            .filter('checkIn', 'gte', startDate)
-            .filter('checkIn', 'lt', endDate);
+            .filter('checkIn', 'gte', start)
+            .filter('checkIn', 'lt', end);
 
         if (error) {
             throw new Error(`Error al obtener registros, error: ${error.message}`)
