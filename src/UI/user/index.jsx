@@ -24,6 +24,10 @@ function UserUI({ children }) {
             title: 'Croquis',
             route: '/croquis',
         },
+        {
+            title: 'Reportes',
+            route: '/reportes',
+        },
 
     ]
 

@@ -68,3 +68,27 @@ export async function clearPositionTracto(idTracto) {
         console.error(error)
     }
 }
+
+export async function getAllRegistersActive() {
+    try {
+
+        const startDate = '2024-03-06T00:00:00Z';
+        const endDate = '2024-03-07T00:00:00Z';
+
+        const { error, data } = await supabase
+            .from('registros')
+            .select('*')
+            .filter('checkIn', 'gte', startDate)
+            .filter('checkIn', 'lt', endDate);
+
+        if (error) {
+            throw new Error(`Error al obtener registros, error: ${error.message}`)
+        }
+
+        console.log(data)
+        return { error, data }
+
+    } catch (error) {
+        console.error(error)
+    }
+}

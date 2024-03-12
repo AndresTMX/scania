@@ -9,6 +9,7 @@ import { ErrorPage } from "./pages/Error";
 import { Taller } from "./pages/Taller";
 import { Croquis } from "./pages/Croquis";
 import { ViewResponsive } from "./pages/ViewResponsive";
+import { Reportes } from "./pages/Reportes";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 import { ImagesResponsive } from "./outlets/ImagesResponsive";
@@ -65,6 +66,16 @@ function Router() {
               } >
 
               </Route>
+
+              <Route path="/reportes"
+                element={
+                  <UserUI>
+                    <Reportes />
+                  </UserUI>
+                }>
+
+              </Route>
+
 
             </Routes>
           </AuthProvider>
