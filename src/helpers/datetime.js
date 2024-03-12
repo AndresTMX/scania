@@ -4,6 +4,8 @@ moment.locale('moment-es')
 
 export const currentDateFormat = moment().format('ll');
 
+export const currentDateCalendar = moment().format('DD-MM-YYYY');
+
 export const currentDateTimeZone = moment().utc();
 
 export const transformTimeZone = (date) => moment.utc(date).tz('America/Mexico_City');
@@ -35,7 +37,7 @@ export function tiempoTranscurrido(inicio, fin) {
 export function transformDateFilter(fecha) {
     try {
 
-        const fechaParsed = moment(fecha, 'YYYY-MM-DD');
+        const fechaParsed = moment(fecha, 'YYYY-MM-DD').startOf('day');;
 
         const fechaDestino = fechaParsed.format('YYYY-MM-DDTHH:mm:ss[Z]');
 
@@ -45,6 +47,21 @@ export function transformDateFilter(fecha) {
         console.error(error)
     }
 }
+
+export function transformDateFilterEnd(fecha) {
+    try {
+
+        const fechaParsed = moment(fecha, 'YYYY-MM-DD').endOf('day');
+
+        const fechaDestino = fechaParsed.format('YYYY-MM-DDTHH:mm:ss[Z]');
+
+        return fechaDestino
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 
 export const dateFilterInitDefault = moment().startOf('month').format('YYYY-MM-DDTHH:mm:ss[Z]');
 export const dateFilterEndDefault = moment().endOf('month').format('YYYY-MM-DDTHH:mm:ss[Z]');

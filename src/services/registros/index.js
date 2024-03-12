@@ -86,7 +86,6 @@ export async function getAllRegistersActive(startDate, endDate) {
             throw new Error(`Error al obtener registros, error: ${error.message}`)
         }
 
-        console.log(data)
         return { error, data }
 
     } catch (error) {

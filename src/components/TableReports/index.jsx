@@ -23,7 +23,7 @@ import { getAllRegistersActive } from "../../services/registros";
 import { FaInfoCircle, FaSearch } from "react-icons/fa";
 import { SiMicrosoftexcel } from "react-icons/si";
 //helpers
-import { dataFormat, tiempoTranscurrido, transformDateFilter } from "../../helpers/datetime";
+import { currentDateCalendar, dataFormat, tiempoTranscurrido, transformDateFilter, transformDateFilterEnd } from "../../helpers/datetime";
 //libraries
 import * as XLSX from 'xlsx';
 //hooks
@@ -55,7 +55,7 @@ export function TableReports() {
                 toast.warning('inserta una fecha de inicio y de fin')
             } else {
                 const dateInit = transformDateFilter(init)
-                const dateEnd = transformDateFilter(end)
+                const dateEnd = transformDateFilterEnd(end)
                 setFilter({ filterInit: dateInit, filterEnd: dateEnd })
             }
 
@@ -67,7 +67,7 @@ export function TableReports() {
     async function getRegisters() {
         try {
             setLoading(true)
-            const { data } = await getAllRegistersActive();
+            const { data } = await getAllRegistersActive(filter.filterInit, filter.filterEnd);
 
             if (error) {
                 const cache = localStorage.getItem('registros_reportes')
@@ -107,12 +107,12 @@ export function TableReports() {
             changes.unsubscribe();
         };
 
-    }, [update]);
+    }, [update, filter]);
 
     //export xls
     const generateExcel = () => {
 
-        const report = registers.map((register) => {
+        const report = dataDinamic.map((register) => {
             return {
                 chasis: register.chasis,
                 checkIn: dataFormat(register),
@@ -135,8 +135,8 @@ export function TableReports() {
         ];
         ws['!cols'] = columnWidths;
 
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.writeFile(wb, 'example.xlsx');
+        XLSX.utils.book_append_sheet(wb, ws, `resporte_${currentDateCalendar}`);
+        XLSX.writeFile(wb, `reporte_patio_${currentDateCalendar}.xlsx`);
     };
 
     //RENDER COLUMNS
@@ -234,7 +234,7 @@ export function TableReports() {
                 className="w-[90vw] max-w-[1035px]"
                 aria-label="Example table with client side pagination"
                 topContent={
-                    <div className="flex flex-row items-center justify-between w-full gap-4 ">
+                    <div className="flex flex-row items-center justify-between w-full gap-4 flex-wrap ">
 
                         <div className="flex flex-row items-center">
                             <Input
