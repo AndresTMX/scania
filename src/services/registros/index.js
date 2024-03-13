@@ -6,6 +6,7 @@ export async function getRegistersForAssigned() {
         const { error, data } = await supabase
             .from('registros')
             .select('*')
+            .in('status', ['revisado-entrada', 'taller', 'patio'])
             .is('bahia', null)
 
         if (error) {
@@ -54,11 +55,23 @@ export async function changueStatusTracto(idTracto, newStatus) {
     }
 }
 
-export async function clearPositionTracto(idTracto) {
+export async function clearPositionTracto(idTracto, status) {
     try {
+
+        if (status === 'taller') {
+
+            const { error: errorRegister } = await supabase
+                .from('movimientos_taller')
+                .insert({ tipo: 'salida', registro_id: idTracto })
+
+            if (errorRegister) {
+                throw new Error(`Error al registrar salida de taller, error: ${errorRegister.message}`)
+            }
+        }
+
         const { error } = await supabase
             .from('registros')
-            .update({ bahia: null, fila: null, columna: null })
+            .update({ bahia: null, fila: null, columna: null, status: 'patio' })
             .eq('id', idTracto)
 
         if (error) {

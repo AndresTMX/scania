@@ -258,7 +258,7 @@ export function Tracto({ item, index }) {
                                             size="sm"
                                             color="danger"
                                             variant='solid'
-                                            onPress={async () => await clearPositionTracto(item.id)}>
+                                            onPress={async () => await clearPositionTracto(item.id, item.status)}>
                                             retirar tractocamión
                                         </Button>}
 

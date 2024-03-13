@@ -3,6 +3,7 @@ import { supabase } from "../../supabase";
 import { FaSearch } from "react-icons/fa";
 import { GoChecklist } from "react-icons/go";
 import { GrConfigure } from "react-icons/gr";
+import { LuArrowDownUp } from "react-icons/lu";
 import { GrDocumentPdf } from "react-icons/gr";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -217,6 +218,14 @@ export function TableInputs({ onOpen, }) {
     }
   }
 
+  const LinkToRegisters = (id, status) => {
+    if (status != 'pendiente' && status != 'revisado-entrada') {
+      navigate(`movimientos-taller/${id}`)
+    } else {
+      toast.warning('este tracto aún no ha ingresado a taller')
+    }
+  }
+
   const routerColor = (color) => {
     const routes = {
       pendiente: 'warning',
@@ -332,6 +341,13 @@ export function TableInputs({ onOpen, }) {
                   <GoChecklist className={`text-${register.status === 'pendiente' ? 'warning' : 'primary'}`} />
                 </span>
               </Tooltip>
+              <Tooltip color='default' content="movimientos taller">
+                <span onClick={() => LinkToRegisters(register.id, register.status)}
+                  className="text-lg cursor-pointer text-warning active:opacity-50"
+                >
+                  <LuArrowDownUp />
+                </span>
+              </Tooltip>
               <Tooltip color='default' content="enviar salida">
                 <span onClick={() => LinkToCheck(register.id, register.chasis, register.status, 'salida')}
                   className="text-lg cursor-pointer active:opacity-50"
@@ -364,7 +380,7 @@ export function TableInputs({ onOpen, }) {
       <Toaster richColors position="top-center" />
 
       <Table
-        className="min-w-[720px]"
+        className="w-[90vw]  max-w-[900px]"
         aria-label="Example table with client side pagination"
         topContent={
           <div className="flex flex-row items-center w-full justify-start gap-4 ">

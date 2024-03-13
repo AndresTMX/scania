@@ -33,7 +33,7 @@ function UserUI({ children }) {
 
     return (
         <>
-            <section className="flex flex-col h-screen ">
+            <section className="flex flex-col h-screen">
                 <Navbar className="bg-secondary" onMenuOpenChange={setIsMenuOpen}>
 
                     <NavbarMenuToggle

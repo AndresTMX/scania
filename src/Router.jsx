@@ -13,6 +13,7 @@ import { Reportes } from "./pages/Reportes";
 //outlets
 import { ChecklistPDF } from "./outlets/ChecklistPDF";
 import { ImagesResponsive } from "./outlets/ImagesResponsive";
+import { MovimientosTaller } from "./outlets/MovimientosTaller";
 //Authenticated
 import { AuthProvider } from "./Context/Auth";
 
@@ -39,6 +40,9 @@ function Router() {
                 } >
 
                 <Route path="responsiva/:metadata" element={<ImagesResponsive />} />
+
+                <Route path="movimientos-taller/:id" element={<MovimientosTaller />} />
+
 
               </Route>
 
